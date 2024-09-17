@@ -117,7 +117,63 @@
     </style>
     <script>
         const servicosPorSetor = {
-            // Dados do seu sistema (mantido igual)
+            "NOC-SO": {
+                "REMOVER FILTRO": "Realizar remoção de filtro\n\n*IP:\n*LOGIN:\n*PORTA A SER REMOVIDA:",
+
+                "ALTERAR PLANO":"Realizar alteração de Plano do Cliente\n\n*VLAN:",
+
+                "REDE DE GERENCIA": "Realizar configuração de rede de gerencia para o cliente.\n\n*VLAN: A DEFINIR",
+
+                "LIBERAR PREFIXOS": "Peço que sejam liberados os prefixos descritos abaixo:\n\n*ASN:\n*PREFIX V4:\n*PREFIX V6:\n*RADB:\n\nLiberar na policy do cliente a seguir\n\n*CLIENTE:\n*ASN:\n*VLAN:",
+
+                "ALTERAR CONFIGURAÇÃO":"Por favor realizar alteração de configuração\n\nMotivo:\n\n*DEVICE\n*INTERFACE:\n*VLAN:",
+
+                "IP DEDICADO DIRETO":"Peço que seja configurado circuito ip dedicado com base nas informações descritas\n\nVlan: A definir\nPeer Valido: A definir\nMascara:",
+
+                "IP DEDICADO ROTEADO":"Peço que seja configurado circuito ip dedicado com base nas informações descritas\n\nVlan: A definir\nPeer Valido: A definir\nMascara:\n\nPeer Privado",
+
+                "CONFIGURAR IPT":"Peço que seja configurado o circuito BGP de acordo com os dados descritos\n\n*VLAN: A Definir\n*Cap. de Tráfego:\n*ASN:\n*CIDR v4:\n*CIDR v6:\n*Routing Table:\n*Radb:",
+
+                "CONFIGURAR L2VPN":"Peço que seja configurado o L2VPN com base nas informações descritas.\n\n*Vlan: A definir\n\nPonta A:\n*Cód Contrato:\n*Device:\nInterface:\n\nPonta B:",
+
+                "CONFIGURAR L3VPN":"Peço que seja configurado o L3VPN com base nas informações descritas.\n\n*Vlan: A Definir\n*Rede lan:",
+
+                "CONFIGURAR L3VPN VRF":"Peço que seja configurado o L3VPN com base nas informações descritas.\n\n\n*VRF:\n*Vlan: A Definir\n*Rede lan:",
+
+                "CANCELAMENTO DE CLIENTE":"Peço que seja removida a configuração do cliente mediante os dados informados\n\n*VLAN:",
+                
+                "CONFIGURAR IPT SENCINET":"Peço para que seja realizado configuração do IPT do cliente Sencient\n\n*VLAN: A DEFINIR\n\n*LOCAL-PEER: \n*LOCAL-AS: 64999\n*REMOTE PEER:\n*REMOTE: A.S: 64765\n\n*LIMITE PREFIXO: 10",
+            },
+            "NOC-O&M":{
+                "RESERVA DE INTERFACE":"Por gentiliza realizar resderva de interface para ativação do cliente.",
+                "ATIVAÇÃO DE INTERFACE":"Por gentileza realizar configuração da interface, segue dados a baixo.\n\NSWITCH:\nINTERFACE:"
+            },
+            "GPON": {
+                "CONFIGURAR VLAN": "Realizar configuração de VLAN\n\nLAN:\nVLAN:\nOLT:",
+
+                "TESTE DE P2P": "Configurar Rede na ONU e realizar teste de conexao entre o HOST e GW\n\nREDE:\n\nHOST:\nGATEWAY:\nVLAN:",
+
+                "TESTE P2P L2L": "Realizar configuração de uma rede nas ONUs e realizar teste de ICMP entre as mesmas para testarmos a comunicação.\n\nREDE:\n\nPONTA A\nONU:\nVLAN:\nHOST:\n\nPONTA B\nONU:\nVLAN:\nHOST:",
+            },
+            "ESTOQUE":{
+                "SEPARAR MATERIAL":"Realizar separação de material para atender Projeto",
+            },
+            "SAP":{
+                "SUPLEMENTAÇÃO":"Realizar suplementação de mateiral Mediante anexo da copia da Planilha de Orçamento de material",
+
+                "RETIFICAÇÃO":"Realizar retificação de mateiral mediante anexo da copia da Planilha de Orçamento de material",
+
+                "CRIAÇÃO DE PROJETO":"Realizar Criação do Projeto Mediante anexo da copia da Planilha de Orçamento de material"
+            },
+            "TELEFONIA":{
+                "ATIVAÇÃO DE CLIENTE": "Solicito que seja realizado a configuração do serviço do cliente de acordo com a nova solicitação do mesmo repassado em projeto\n\nDADOS DE CONTATO:\n\nBREVE RESUMO DO QUE DEVE SER FEITO:\n\nSERVIÇO:\nLINHAS:\nEQUIPAMENTO:",
+
+            "SUPORTE":"Realizar verificação de Serviço\n\nReclamação do cliente:",
+
+            },
+            "MONITORAMENTO SUPORTE":{
+                "CADASTRO DE CIRCUITO NO LIBRE":"Por Gentileza cadastrar novo circuito no monitoramento.",
+            }
         };
 
         function atualizarServicos() {
