@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon/pato.png" type="image/x-icon">
+    <title>Gerador de Títulos e Descrições</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .menu {
+            background-color: #4cafaa;
+            width: 100%;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: inline-block;
+        }
+
+        .menu ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        .menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .menu ul li a:hover {
+            text-decoration: underline;
+            background-color: #419793;
+            padding: 6px;
+            border-radius: 5px;
+            transition: 0.5s;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            color: #444;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4cafaa;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #419793;
+            transition: 1s;
+            scale: 1.01;
+            box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.3);
+        }
+
+        #resultadoTitulo, #resultadoDescricao {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+
+    </style>
+    <script>
+        const servicosPorSetor = {
+            // Dados do seu sistema (mantido igual)
+        };
+
+        function atualizarServicos() {
+            const setor = document.getElementById("setorSelect").value;
+            const servicoSelect = document.getElementById("servicoSelect");
+
+            // Limpa as opções existentes
+            servicoSelect.innerHTML = "";
+
+            // Atualiza as opções de serviços baseado no setor selecionado
+            for (const servico in servicosPorSetor[setor]) {
+                const option = document.createElement("option");
+                option.value = servico;
+                option.text = servico;
+                servicoSelect.appendChild(option);
+            }
+        }
+
+        function gerarTituloEDescricao() {
+            const setor = document.getElementById("setorSelect").value;
+            const servico = document.getElementById("servicoSelect").value;
+            const cliente = document.getElementById("clienteInput").value;
+            const contrato = document.getElementById("contratoInput").value;
+
+            const titulo = `[${setor}] - ${servico} - ${cliente.toUpperCase()} - ${contrato}`;
+            const descricao = servicosPorSetor[setor][servico] || "Descrição não disponível.";
+
+            document.getElementById("resultadoTitulo").innerText = `TITULO:\n\n ${titulo}`;
+            document.getElementById("resultadoDescricao").innerText = `DESCRIÇÃO\n\n${descricao}`;
+        }
+    </script>
+</head>
+<body>
+    <!-- Menu -->
+    <div class="menu">
+        <ul>
+            <li><a href="https://novorevan.brisanet.net.br/#/" target="_blank">Revan</a></li>
+            <li><a href="https://revan-atendimento.brisanet.net.br/" target="_blank">Yoda</a></li>
+            <li><a href="https://saski.brisanet.net.br/" target="_blank">Saski</a></li>
+            <li><a href="https://librenms.brisanet.net.br/" target="_blank">LibreNMS</a></li>
+            <li><a href="https://libre-portalcorp-01.brisanet.net.br/" target="_blank">Libre Corp</a></li>
+            <li><a href="https://netboxcop.brisanet.net.br/" target="_blank">NetBox</a></li>
+            <li><a href="https://www.wrike.com/workspace.htm?acc=394412#/dashboard-app/13214410?spaceId=1221281649" target="_blank">Painel Wrike</a></li>
+        </ul>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="container">
+        <h1>Gerador de Títulos e Descrições</h1>
+        
+        <label for="setorSelect">Setor:</label>
+        <select id="setorSelect" onchange="atualizarServicos()">
+            <option value="NOC-SO">NOC-SO</option>
+            <option value="NOC-O&M">NOC-O&M</option>
+            <option value="GPON">GPON</option>
+            <option value="ESTOQUE">ESTOQUE</option>
+            <option value="SAP">SAP</option>
+            <option value="TELEFONIA">TELEFONIA</option>
+            <option value="MONITORAMENTO SUPORTE">MONITORAMENTO SUPORTE</option>
+        </select>
+        
+        <label for="servicoSelect">Serviço:</label>
+        <select id="servicoSelect">
+            <!-- Opções serão preenchidas com JavaScript -->
+        </select>
+        
+        <label for="clienteInput">Cliente:</label>
+        <input type="text" id="clienteInput" required>
+        
+        <label for="contratoInput">Designação:</label>
+        <input type="text" id="contratoInput" required>
+        
+        <button onclick="gerarTituloEDescricao()">Gerar Título e Descrição</button>
+        
+        <div id="resultadoTitulo"></div>
+        <div id="resultadoDescricao"></div>
+    </div>
+
+    <script>
+        // Carrega os serviços iniciais para o primeiro setor
+        atualizarServicos();
+    </script>
+</body>
+</html>
