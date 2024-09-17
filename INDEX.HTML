@@ -104,6 +104,10 @@
                 
                 "CONFIGURAR IPT SENCINET":"Peço para que seja realizado configuração do IPT do cliente Sencient\n\n*VLAN: A DEFINIR\n\n*LOCAL-PEER: \n*LOCAL-AS: 64999\n*REMOTE PEER:\n*REMOTE: A.S: 64765\n\n*LIMITE PREFIXO: 10",
             },
+            "NOC-O&M":{
+                "RESERVA DE INTERFACE":"Por gentiliza realizar resderva de interface para ativação do cliente.",
+                "ATIVAÇÃO DE INTERFACE":"Por gentileza realizar configuração da interface, segue dados a baixo.\n\NSWITCH:\nINTERFACE:"
+            },
             "GPON": {
                 "CONFIGURAR VLAN": "Realizar configuração de VLAN\n\nLAN:\nVLAN:\nOLT:",
 
@@ -121,14 +125,17 @@
 
                 "CRIAÇÃO DE PROJETO":"Realizar Criação do Projeto Mediante anexo da copia da Planilha de Orçamento de material"
             },
-		"TELEFONIA":{
-			"ATIVAÇÃO DE CLIENTE": "Solicito que seja realizado a configuração do serviço do cliente de acordo com a nova solicitação do mesmo repassado em projeto\n\nDADOS DE CONTATO:\n\nBREVE RESUMO DO QUE DEVE SER FEITO:\n\nSERVIÇO:\nLINHAS:\nEQUIPAMENTO:",
+            "TELEFONIA":{
+                "ATIVAÇÃO DE CLIENTE": "Solicito que seja realizado a configuração do serviço do cliente de acordo com a nova solicitação do mesmo repassado em projeto\n\nDADOS DE CONTATO:\n\nBREVE RESUMO DO QUE DEVE SER FEITO:\n\nSERVIÇO:\nLINHAS:\nEQUIPAMENTO:",
 
-	"SUPORTE":"Realizar verificação de Serviço\n\nReclamação do cliente:",
+            "SUPORTE":"Realizar verificação de Serviço\n\nReclamação do cliente:",
 
-}
+            },
+            "MONITORAMENTO SUPORTE":{
+                "CADASTRO DE CIRCUITO NO LIBRE":"Por Gentileza cadastrar novo circuito no monitoramento.",
+            }
 
-        };
+    };
 
         function atualizarServicos() {
             const setor = document.getElementById("setorSelect").value;
@@ -170,7 +177,8 @@
             <option value="GPON">GPON</option>
             <option value="ESTOQUE">ESTOQUE</option>
             <option value="SAP">SAP</option>
-	    <option value="TELEFONIA">TELEFONIA</option>
+	        <option value="TELEFONIA">TELEFONIA</option>
+	        <option value="MONITORAMENTO SUPORTE">MONITORAMENTO SUPORTE</option>
         </select>
         
         <label for="servicoSelect">Serviço:</label>
