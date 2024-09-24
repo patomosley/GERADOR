@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon/pato.png" type="image/x-icon">
+    <title>Gerador de Títulos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #34495e;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        select:focus, input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+        .back-button{
+            width: 100%;
+            padding: 12px;
+            background: #db3434;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .back-button:hover {
+            background: #a52828;
+            transform: scale(1.02);
+        }
+        button:hover {
+            background: #2980b9;
+            transform: scale(1.02);
+        }
+        .result-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .result-content {
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .result-item {
+        margin: 10px 0;
+        padding: 10px;
+        background: #f7f9fc;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .copy-btn {
+        background: #3498db;
+        border: none;
+        border-radius: 3px;
+        padding: 5px 10px;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .copy-btn:hover {
+        background: #2980b9;
+    }
+
+    .close-btn {
+        margin-top: 10px;
+        padding: 10px;
+        background: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+        width: 100%;
+    }
+
+    .close-btn:hover {
+        background: #c0392b;
+        transform: scale(1.02);
+    }
+        .menu {
+        display: flex;
+        align-items: center; /* Alinha verticalmente */
+        padding: 10px; /* Adiciona espaço ao redor */
+        flex-wrap: wrap; /* Permite que os itens se movam para a linha seguinte em telas menores */
+    }
+
+    .menu img {
+        max-width: 100%; /* Torna a imagem responsiva */
+        height: auto; /* Mantém a proporção da imagem */
+        margin-right: 10px; /* Espaço entre a imagem e o título */
+    }
+
+    .menu h1 {
+        margin: 0; /* Remove margens do título */
+        font-size: 24px; /* Tamanho da fonte padrão */
+    }
+
+    /* Ajuste de tamanho de fonte em telas menores */
+    @media (max-width: 600px) {
+        .menu h1 {
+            font-size: 20px; /* Reduz o tamanho da fonte em telas menores */
+        }
+
+        .menu img {
+            width: 40px; /* Ajusta o tamanho da imagem em telas menores */
+        }
+    }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <a href="index.HTML"><img src="../favicon/pato.png" width="50px"></a>
+            <h1>Nomenclaturas SAP</h1>
+            <button type="button" class="back-button" onclick="location.href='../index.html'">Voltar</button>
+        </div>
+        <form id="formulario">
+            <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" required>
+                    <option value="">Selecione um setor</option>
+                    <option value="B2G">B2G</option>
+                    <option value="B2B">B2B</option>
+                    <option value="ISP">ISP</option>
+                    <option value="AGL">AGL</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="servico">Serviço:</label>
+                <select id="servico" required>
+                    <option value="MRT">REDE METRO ETHERNET</option>
+                    <option value="DWDM">REDE DWDM</option>
+                    <option value="WL-RADIO">REDES RADIO</option>
+                    <option value="GPON">INSTALAÇÃO PADRÃO</option>
+                    <option value="GPONAS">INSTALAÇÃO PADRÃO COM AS</option>
+                    <option value="WIFI">WIFI DE ALTA PERFORMANCE</option>
+                    <option value="LINK">LINK DEDICADO</option>
+                    <option value="CFTV">VIDEO MONITORAMENTO</option>
+                    <option value="TEL">TELEFONIA</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cnpj">Nº CNPJ:</label>
+                <input type="text" id="cnpj" pattern="\d*" maxlength="14" placeholder="Digite o CNPJ" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contrato">Nº Contrato:</label>
+                <input type="text" id="contrato" placeholder="Digite o número do contrato" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ponto">Nº Ponto:</label>
+                <input type="text" id="ponto" placeholder="Digite o número do ponto" required>
+            </div>
+
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select id="estado" required onchange="filtrarCidades()">
+                    <option value="">Selecionar Estado</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="SE">Sergipe</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cidade">Cidade:</label>
+                <select id="cidade" required>
+                    <option value="">Selecione uma cidade</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="empresa">Empresa:</label>
+                <select id="empresa" required>
+                    <option value="">Selecionar Empresa</option>
+                    <option value="BRIT">Brisanet</option>
+                    <option value="AMT">American Tower Company</option>
+                    <option value="BTC">Brasil Tower Company</option>
+                    <option value="SBA">SBA</option>
+                    <option value="AGIL">Agility</option>
+                    <option value="AGILP">Agility Propria</option>
+                    <option value="HGH">Highline</option>
+                    <option value="MOBW">MobWire</option>
+                    <option value="GNTW">Globenet</option>
+                    <option value="TLX">Telxius</option>
+                </select>
+            </div>
+
+            <button type="button" onclick="gerarTitulos()">Gerar Títulos</button>
+        </form>
+
+        <div class="result-modal" id="resultModal">
+            <div class="result-content">
+                <h2>Resultados</h2>
+                <label>PROJETO PAI</label>
+                <div id="resultadoPai" class="result-item">
+                    <span id="projetoPai"></span>
+                    <button class="copy-btn" onclick="copiarTexto('projetoPai')">Copiar</button>
+                </div>
+                <label>PROJETO FILHO</label>
+                <div id="resultadoFilho" class="result-item">
+                    <span id="projetoFilho"></span>
+                    <button class="copy-btn" onclick="copiarTexto('projetoFilho')">Copiar</button>
+                </div>
+                <button class="close-btn" onclick="fecharModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+const cidadesPorEstado = {
+            'CE': [
+                { sigla: 'AQZ', nome: 'Aquiraz' },
+                { sigla: 'BBB', nome: 'Beberibe' },
+                { sigla: 'CVL', nome: 'Cascavel' },
+                { sigla: 'CUC', nome: 'Caucaia' },
+                { sigla: 'CZH', nome: 'Chorozinho' },
+                { sigla: 'ESB', nome: 'Eusébio' },
+                { sigla: 'FLA', nome: 'Fortaleza' },
+                { sigla: 'GBA', nome: 'Guaiúba' },
+                { sigla: 'HZT', nome: 'Horizonte' },
+                { sigla: 'IAGA', nome: 'Itaitinga' },
+                { sigla: 'MCW', nome: 'Maracanaú' },
+                { sigla: 'MUE', nome: 'Maranguape' },
+                { sigla: 'PJS', nome: 'Pacajus' },
+                { sigla: 'PUB', nome: 'Pacatuba' },
+                { sigla: 'PDJ', nome: 'Pindoretama' },
+                { sigla: 'SGA', nome: 'São Gonçalo do Amarante' },
+                { sigla: 'ACP', nome: 'Acarape' },
+                { sigla: 'AUS', nome: 'Apuiarés' },
+                { sigla: 'AAB', nome: 'Aracoiaba' },
+                { sigla: 'ATU', nome: 'Aratuba' },
+                { sigla: 'BRK', nome: 'Barreira' },
+                { sigla: 'BTT', nome: 'Baturité' },
+                { sigla: 'CIE', nome: 'Canindé' },
+                { sigla: 'CSR', nome: 'Capistrano' },
+                { sigla: 'CID', nome: 'Caridade' },
+                { sigla: 'GNL', nome: 'General Sampaio' },
+                { sigla: 'GAG', nome: 'Guaramiranga' },
+                { sigla: 'MUN', nome: 'Mulungu' },
+                { sigla: 'OCR', nome: 'Ocara' },
+                { sigla: 'PTY', nome: 'Pacoti' },
+                { sigla: 'PMC', nome: 'Palmácia' },
+                { sigla: 'POY', nome: 'Paramoti' },
+                { sigla: 'RDC', nome: 'Redenção' },
+                { sigla: 'IGE', nome: 'Itapajé' },
+                { sigla: 'PUU', nome: 'Paracuru' },
+                { sigla: 'PWB', nome: 'Paraipaba' },
+                { sigla: 'POE', nome: 'Pentecoste' },
+                { sigla: 'SRU', nome: 'São Luís do Curu' },
+                { sigla: 'TJU', nome: 'Tejuçuoca' },
+                { sigla: 'TRY', nome: 'Trairi' },
+                { sigla: 'TUK', nome: 'Tururu' },
+                { sigla: 'URM', nome: 'Umirim' },
+                { sigla: 'UUA', nome: 'Uruburetama' },
+                { sigla: 'ATO', nome: 'Alto Santo' },
+                { sigla: 'ACA', nome: 'Aracati' },
+                { sigla: 'FORT', nome: 'Fortim' },
+                { sigla: 'ICN', nome: 'Ibicuitinga' },
+                { sigla: 'ICP', nome: 'Icapuí' },
+                { sigla: 'ICA', nome: 'Iracema' },
+                { sigla: 'IAX', nome: 'Itaicaba' },
+                { sigla: 'JGN', nome: 'Jaguaruana' },
+                { sigla: 'LNT', nome: 'Limoeiro do Norte' },
+                { sigla: 'MVA', nome: 'Morada Nova' },
+                { sigla: 'PHN', nome: 'Palhano' },
+                { sigla: 'PTZ', nome: 'Potiretama' },
+                { sigla: 'QXE', nome: 'Quixeré' },
+                { sigla: 'RUS', nome: 'Russas' },
+                { sigla: 'SUB', nome: 'São João do Jaguaribe' },
+                { sigla: 'TNT', nome: 'Tabuleiro do Norte' },
+                { sigla: 'ABY', nome: 'Abaiara' },
+                { sigla: 'AUR', nome: 'Aurora' },
+                { sigla: 'BBH', nome: 'Barbalha' },
+                { sigla: 'BAO', nome: 'Barro' },
+                { sigla: 'BJS', nome: 'Brejo Santo' },
+                { sigla: 'CAC', nome: 'Caririaçu' },
+                { sigla: 'CTO', nome: 'Crato' },
+                { sigla: 'GJO', nome: 'Granjeiro' },
+                { sigla: 'JDM', nome: 'Jardim' },
+                { sigla: 'JAT', nome: 'Jati' },
+                { sigla: 'JNE', nome: 'Juazeiro do Norte' },
+                { sigla: 'MRT', nome: 'Mauriti' },
+                { sigla: 'MGS', nome: 'Milagres' },
+                { sigla: 'MAH', nome: 'Missão Velha' },
+                { sigla: 'PFT', nome: 'Penaforte' },
+                { sigla: 'PTX', nome: 'Porteiras' },
+                { sigla: 'VZG', nome: 'Várzea Alegre' },
+                { sigla: 'AIB', nome: 'Aiuaba' },
+                { sigla: 'ANY', nome: 'Altaneira' },
+                { sigla: 'ANE', nome: 'Antonina do Norte' },
+                { sigla: 'ARP', nome: 'Araripe' },
+                { sigla: 'ASE', nome: 'Assaré' },
+                { sigla: 'CMS', nome: 'Campos Sales' },
+                { sigla: 'FBO', nome: 'Farias Brito' },
+                { sigla: 'NID', nome: 'Nova Olinda' },
+                { sigla: 'PGY', nome: 'Potengi' },
+                { sigla: 'SIQ', nome: 'Salitre' },
+                { sigla: 'SCI', nome: 'Santana do Cariri' },
+                { sigla: 'TRR', nome: 'Tarrafas' },
+                { sigla: 'ACX', nome: 'Alcântaras' },
+                { sigla: 'AOW', nome: 'Amontada' },
+                { sigla: 'CIW', nome: 'Cariré' },
+                { sigla: 'CATN', nome: 'Catunda' },
+                { sigla: 'CEA', nome: 'Coreaú' },
+                { sigla: 'FRQ', nome: 'Forquilha' },
+                { sigla: 'GRO', nome: 'Groaíras' },
+                { sigla: 'HDA', nome: 'Hidrolândia' },
+                { sigla: 'ICB', nome: 'Irauçuba' },
+                { sigla: 'IOP', nome: 'Itapipoca' },
+                { sigla: 'MSS', nome: 'Massapê' },
+                { sigla: 'MEU', nome: 'Meruoca' },
+                { sigla: 'MIK', nome: 'Miraíma' },
+                { sigla: 'MUJ', nome: 'Moraújo' },
+                { sigla: 'RRB', nome: 'Reriutaba' },
+                { sigla: 'SNQ', nome: 'Santa Quitéria' },
+                { sigla: 'SAU', nome: 'Santana do Acaraú' },
+                { sigla: 'SOL', nome: 'Sobral' },
+                { sigla: 'VJT', nome: 'Varjota' },
+                { sigla: 'CUB', nome: 'Carnaubal' },
+                { sigla: 'COZ', nome: 'Croatá' },
+                { sigla: 'FHH', nome: 'Frecheirinha' },
+                { sigla: 'GCA', nome: 'Graça' },
+                { sigla: 'GRN', nome: 'Guaraciaba do Norte' },
+                { sigla: 'INX', nome: 'Ibiapina' },
+                { sigla: 'MUM', nome: 'Mucambo' },
+                { sigla: 'PUJ', nome: 'Pacuja' },
+                { sigla: 'SBN', nome: 'São Benedito' },
+                { sigla: 'TIG', nome: 'Tianguá' },
+                { sigla: 'UBJ', nome: 'Ubajara' },
+                { sigla: 'VCC', nome: 'Viçosa do Ceará' }
+            ],
+            'RN': [
+                { sigla: 'ARE', nome: 'ARES' },
+                { sigla: 'BFA', nome: 'BAIA FORMOSA' },
+                { sigla: 'BRC', nome: 'BARCELONA' },
+                { sigla: 'BFN', nome: 'BENTO FERNANDES' },
+                { sigla: 'BOU', nome: 'BOM JESUS' },
+                { sigla: 'BJN', nome: 'BREJINHO' },
+                { sigla: 'CGM', nome: 'CANGUARETAMA' },
+                { sigla: 'CAY', nome: 'CEARA-MIRIM' },
+                { sigla: 'ESO', nome: 'ESPIRITO SANTO' },
+                { sigla: 'EXZ', nome: 'EXTREMOZ' },
+                { sigla: 'GOH', nome: 'GOIANINHA' },
+                { sigla: 'IEL', nome: 'IELMO MARINHO' },
+                { sigla: 'BASD', nome: 'JANUARIO CICCO' },
+                { sigla: 'JAP', nome: 'JAPI' },
+                { sigla: 'JOA', nome: 'JOAO CAMARA' },
+                { sigla: 'JUCI', nome: 'JUNDIÁ' },
+                { sigla: 'LGD', nome: 'LAGOA D\'ANTA' },
+                { sigla: 'LGE', nome: 'LAGOA DE PEDRAS' },
+                { sigla: 'LEL', nome: 'LAGOA DE VELHOS' },
+                { sigla: 'LLG', nome: 'LAGOA SALGADA' },
+                { sigla: 'LES', nome: 'LAJES PINTADAS' },
+                { sigla: 'MCI', nome: 'MACAIBA' },
+                { sigla: 'MXE', nome: 'MAXARANGUAPE' },
+                { sigla: 'MTH', nome: 'MONTANHAS' },
+                { sigla: 'MOG', nome: 'MONTE ALEGRE' },
+                { sigla: 'MMS', nome: 'MONTE DAS GAMELEIRAS' },
+                { sigla: 'NTL', nome: 'NATAL' },
+                { sigla: 'NSF', nome: 'NISIA FLORESTA' },
+                { sigla: 'NCZ', nome: 'NOVA CRUZ' },
+                { sigla: 'PWM', nome: 'PARNAMIRIM' },
+                { sigla: 'PEF', nome: 'PASSA E FICA' },
+                { sigla: 'PGM', nome: 'PASSAGEM' },
+                { sigla: 'PDH', nome: 'PEDRO VELHO' },
+                { sigla: 'POC', nome: 'POCO BRANCO' },
+                { sigla: 'SECD', nome: 'PRESIDENTE JUSCELINO' },
+                { sigla: 'PZA', nome: 'PUREZA' },
+                { sigla: 'RHE', nome: 'RIACHUELO' },
+                { sigla: 'ROFG', nome: 'RIO DO FOGO' },
+                { sigla: 'RYA', nome: 'RUY BARBOSA' },
+                { sigla: 'SNZ', nome: 'SANTA CRUZ' },
+                { sigla: 'SAAI', nome: 'SANTA MARIA' },
+                { sigla: 'SOT', nome: 'SANTO ANTONIO' },
+                { sigla: 'SWB', nome: 'SAO BENTO DO TRAIRI' },
+                { sigla: 'SGM', nome: 'SAO GONCALO DO AMARANTE' },
+                { sigla: 'SII', nome: 'SAO JOSE DE MIPIBU' },
+                { sigla: 'SAC', nome: 'SAO JOSE DO CAMPESTRE' },
+                { sigla: 'SMDT', nome: 'SÃO MIGUEL DO GOSTOSO' },
+                { sigla: 'SLG', nome: 'SAO PAULO DO POTENGI' },
+                { sigla: 'SPK', nome: 'SAO PEDRO' },
+                { sigla: 'STM', nome: 'SAO TOME' },
+                { sigla: 'SOZ', nome: 'SENADOR ELOI DE SOUZA' },
+                { sigla: 'SGV', nome: 'SENADOR GEORGINO AVELINO' },
+                { sigla: 'SBK', nome: 'SERRA DE SAO BENTO' },
+                { sigla: 'SWR', nome: 'SERRINHA' },
+                { sigla: 'SYO', nome: 'SITIO NOVO' },
+                { sigla: 'TAI', nome: 'TAIPU' },
+                { sigla: 'TNG', nome: 'TANGARA' },
+                { sigla: 'TUL', nome: 'TIBAU DO SUL' },
+                { sigla: 'TUS', nome: 'TOUROS' },
+                { sigla: 'VZA', nome: 'VARZEA' },
+                { sigla: 'VRZ', nome: 'VERA CRUZ' },
+                { sigla: 'VLR', nome: 'VILA FLOR' },
+                { sigla: 'ACU', nome: 'ACU' },
+                { sigla: 'AGV', nome: 'AGUA NOVA' },
+                { sigla: 'AXD', nome: 'ALEXANDRIA' },
+                { sigla: 'ALF', nome: 'ALMINO AFONSO' },
+                { sigla: 'ANM', nome: 'ANTONIO MARTINS' },
+                { sigla: 'APD', nome: 'APODI' },
+                { sigla: 'ABC', nome: 'AREIA BRANCA' },
+                { sigla: 'CWD', nome: 'AUGUSTO SEVERO' },
+                { sigla: 'BRN', nome: 'BARAUNA' },
+                { sigla: 'CRB', nome: 'CARAUBAS' },
+                { sigla: 'CNU', nome: 'CARNAUBAIS' },
+                { sigla: 'CJA', nome: 'CORONEL JOAO PESSOA' },
+                { sigla: 'DRV', nome: 'DOUTOR SEVERIANO' },
+                { sigla: 'ECT', nome: 'ENCANTO' },
+                { sigla: 'FPG', nome: 'FELIPE GUERRA' },
+                { sigla: 'FAD', nome: 'FRANCISCO DANTAS' },
+                { sigla: 'FRG', nome: 'FRUTUOSO GOMES' },
+                { sigla: 'GXS', nome: 'GOVERNADOR DIX-SEPT ROSADO' },
+                { sigla: 'GSS', nome: 'GROSSOS' },
+                { sigla: 'INC', nome: 'IPANGUACU' },
+                { sigla: 'ITJY', nome: 'ITAJA' },
+                { sigla: 'ITW', nome: 'ITAU' },
+                { sigla: 'JPI', nome: 'JAQUEIRA DO PIAU' },
+                { sigla: 'JEP', nome: 'JARDIM DE PIRANHAS' },
+                { sigla: 'JDI', nome: 'JOAO Dias' },
+                { sigla: 'JPB', nome: 'JOAO PESSOA' },
+                { sigla: 'JCC', nome: 'JOCA CLAUDINO' },
+                { sigla: 'JUC', nome: 'JUCURUTU' },
+                { sigla: 'MRT', nome: 'MARTINS' },
+                { sigla: 'MRS', nome: 'MOSSORO' },
+                { sigla: 'NLI', nome: 'NOVA LIMA' },
+                { sigla: 'PAX', nome: 'PATU' },
+                { sigla: 'PEN', nome: 'PENDENCIA' },
+                { sigla: 'PIL', nome: 'PILÕES' },
+                { sigla: 'PDM', nome: 'PORTO DO MANGUE' },
+                { sigla: 'ROD', nome: 'ROSSA' },
+                { sigla: 'SLU', nome: 'SANTA LUZIA' },
+                { sigla: 'SPP', nome: 'SERRINHA DOS PINTOS' },
+                { sigla: 'SIT', nome: 'SITIO NOVO' },
+                { sigla: 'SFO', nome: 'SÃO FERNANDO' },
+                { sigla: 'SJD', nome: 'SÃO JOSÉ DO SERIDÓ' },
+                { sigla: 'SMD', nome: 'SÃO MAMDE' },
+                { sigla: 'SPP', nome: 'SÃO PAULO DO POTENGI' },
+                { sigla: 'SRF', nome: 'SÃO RAFAEL' },
+                { sigla: 'STM', nome: 'SÃO TOMÉ' },
+                { sigla: 'TNG', nome: 'TANGARA' },
+                { sigla: 'TEN', nome: 'TENORIO' },
+                { sigla: 'VLF', nome: 'VILA FLOR' },
+            ],
+
+            'PB': [
+                { sigla: 'AHD', nome: 'Alhandra' },
+                { sigla: 'BAI', nome: 'Baia da Traicao' },
+                { sigla: 'BEX', nome: 'Bayeux' },
+                { sigla: 'CPX', nome: 'Caaporã' },
+                { sigla: 'CBD', nome: 'Cabedelo' },
+                { sigla: 'CAPI', nome: 'Capim' },
+                { sigla: 'CWX', nome: 'Conde' },
+                { sigla: 'CZD', nome: 'Cruz do Espírito Santo' },
+                { sigla: 'CUTM', nome: 'Cuité de Mamanguape' },
+                { sigla: 'CUCI', nome: 'Curral de Cima' },
+                { sigla: 'IOO', nome: 'Itapororoca' },
+                { sigla: 'JAC', nome: 'Jacaraú' },
+                { sigla: 'JPA', nome: 'João Pessoa' },
+                { sigla: 'LUN', nome: 'Lucena' },
+                { sigla: 'MME', nome: 'Mamanguape' },
+                { sigla: 'MRCA', nome: 'Marcacão' },
+                { sigla: 'MCX', nome: 'Mataraca' },
+                { sigla: 'PFO', nome: 'Pedras de Fogo' },
+                { sigla: 'PERG', nome: 'Pedro Regis' },
+                { sigla: 'PMU', nome: 'Pitimbu' },
+                { sigla: 'RDPC', nome: 'Riachão do Poco' },
+                { sigla: 'RTT', nome: 'Rio Tinto' },
+                { sigla: 'SRI', nome: 'Santa Rita' },
+                { sigla: 'SMP', nome: 'São Miguel de Taipu' },
+                { sigla: 'SPH', nome: 'Sape' },
+                { sigla: 'SOBR', nome: 'Sobrados' },
+                { sigla: 'AGG', nome: 'Alagoa Grande' },
+                { sigla: 'AHA', nome: 'Alagoinha' },
+                { sigla: 'AAG', nome: 'Aracagi' },
+                { sigla: 'BEM', nome: 'Belem' },
+                { sigla: 'BBE', nome: 'Borboirema' },
+                { sigla: 'CIX', nome: 'Caicara' },
+                { sigla: 'CLSD', nome: 'Caldas Brandão' },
+                { sigla: 'CIG', nome: 'Cuitégi' },
+                { sigla: 'DES', nome: 'Duas Estradas' },
+                { sigla: 'GBI', nome: 'Guarabira' },
+                { sigla: 'GIH', nome: 'Gurinhem' },
+                { sigla: 'IYN', nome: 'Itabaiána' },
+                { sigla: 'JNG', nome: 'Juripiranga' },
+                { sigla: 'LDT', nome: 'Lagoa de Dentro' },
+                { sigla: 'LOGA', nome: 'Logradouro' },
+                { sigla: 'MAI', nome: 'Mari' },
+                { sigla: 'MGY', nome: 'Mogeiro' },
+                { sigla: 'MUL', nome: 'Mulungu' },
+                { sigla: 'PYR', nome: 'Pilar' },
+                { sigla: 'PYL', nome: 'Piloes' },
+                { sigla: 'POZ', nome: 'Piloenzinhos' },
+                { sigla: 'PPB', nome: 'Pirpirituba' },
+                { sigla: 'SSX', nome: 'Salgado de São Félix' },
+                { sigla: 'SJWR', nome: 'São José dos Ramos' },
+                { sigla: 'SDZ', nome: 'Serra da Raiz' },
+                { sigla: 'SRY', nome: 'Serraria' },
+                { sigla: 'SERT', nome: 'Sertãozinho' },
+                { sigla: 'AGO', nome: 'Alagoa Nova' },
+                { sigla: 'ALCA', nome: 'Alcantil' },
+                { sigla: 'ALGJ', nome: 'Algodão de Jandaíra' },
+                { sigla: 'ARX', nome: 'Arara' },
+                { sigla: 'AAN', nome: 'Araruna' },
+                { sigla: 'AEI', nome: 'Areia' },
+                { sigla: 'AEA', nome: 'Areial' },
+                { sigla: 'AES', nome: 'Aroeiras' },
+                { sigla: 'BNN', nome: 'Bananeiras' },
+                { sigla: 'BARS', nome: 'Baraúna' },
+                { sigla: 'BEN', nome: 'Barra de Santa Rosa' },
+                { sigla: 'BRSN', nome: 'Barra de Santana' },
+                { sigla: 'BVTA', nome: 'Boa Vista' },
+                { sigla: 'BQO', nome: 'Boqueirão' },
+                { sigla: 'CIB', nome: 'Cacimba de Dentro' },
+                { sigla: 'CGE', nome: 'Campina Grande' },
+                { sigla: 'TAM', nome: 'Campo de Santana' },
+                { sigla: 'CSRE', nome: 'Casserengue' },
+                { sigla: 'CATR', nome: 'Caturité' },
+                { sigla: 'CBT', nome: 'Cubati' },
+                { sigla: 'CUT', nome: 'Cuité' },
+                { sigla: 'DMIO', nome: 'Damião' },
+                { sigla: 'DNS', nome: 'Dona Inês' },
+                { sigla: 'ERA', nome: 'Esperança' },
+                { sigla: 'FGS', nome: 'Fagundes' },
+                { sigla: 'FRH', nome: 'Frei Martinho' },
+                { sigla: 'GABR', nome: 'Gado Bravo' },
+                { sigla: 'INA', nome: 'Ingá' },
+                { sigla: 'ITX', nome: 'Itatuba' },
+                { sigla: 'JZT', nome: 'Juarez Tavora' },
+                { sigla: 'JZH', nome: 'Juazeirinho' },
+                { sigla: 'LGC', nome: 'Lagoa Seca' },
+                { sigla: 'MNU', nome: 'Massaranduba' },
+                { sigla: 'MATN', nome: 'Matinhas' },
+                { sigla: 'MDK', nome: 'Montadas' },
+                { sigla: 'NUB', nome: 'Natuba' },
+                { sigla: 'NVF', nome: 'Nova Floresta' },
+                { sigla: 'NVL', nome: 'Nova Palmeira' },
+                { sigla: 'OVD', nome: 'Olivedos' },
+                { sigla: 'PVD', nome: 'Pedra Lavrada' },
+                { sigla: 'PCI', nome: 'Picuí' },
+                { sigla: 'PHS', nome: 'Pocinhos' },
+                { sigla: 'PXA', nome: 'Puxinanã' },
+                { sigla: 'QUS', nome: 'Queimadas' },
+                { sigla: 'RMG', nome: 'Remígio' },
+                { sigla: 'RAAO', nome: 'Riacho' },
+                { sigla: 'RCBE', nome: 'Riacho do Bacamarte' },
+                { sigla: 'RISA', nome: 'Riacho de Santo Antônio' },
+                { sigla: 'SCUM', nome: 'Santa Cecília' },
+                { sigla: 'SKL', nome: 'São Sebastião de Lagoa de Roca' },
+                { sigla: 'SIDO', nome: 'Seridó' },
+                { sigla: 'SDK', nome: 'Serra Redonda' },
+                { sigla: 'SOA', nome: 'Solânea' },
+                { sigla: 'SOD', nome: 'Soledade' },
+                { sigla: 'SOSS', nome: 'Sossego' },
+                { sigla: 'TENO', nome: 'Tenório' },
+                { sigla: 'UUZ', nome: 'Umbuzeiro' },
+                { sigla: 'AMPA', nome: 'Amparo' },
+                { sigla: 'BRG', nome: 'Barra de São Miguel' },
+                { sigla: 'CCK', nome: 'Cabaceiras' },
+                { sigla: 'CMW', nome: 'Camalaú' },
+                { sigla: 'CRAU', nome: 'Caraúbas' },
+                { sigla: 'CXG', nome: 'Congo' },
+                { sigla: 'COXI', nome: 'Coxixola' },
+                { sigla: 'DDA', nome: 'Desterro' },
+                { sigla: 'EEI', nome: 'Encruzilhada' },
+                { sigla: 'EOA', nome: 'Fagundes' },
+                { sigla: 'FEE', nome: 'Frei Martinho' },
+                { sigla: 'IAC', nome: 'Ibiara' },
+                { sigla: 'ITL', nome: 'Itabaiana' },
+                { sigla: 'MSSN', nome: 'Mãe D’Água' },
+                { sigla: 'OBE', nome: 'Olivedos' },
+                { sigla: 'PBK', nome: 'Pato' },
+                { sigla: 'PET', nome: 'Pilar' },
+                { sigla: 'RNT', nome: 'Rui Barbosa' },
+                { sigla: 'SIMP', nome: 'São João do Rio do Peixe' },
+                { sigla: 'SMO', nome: 'São Miguel' },
+                { sigla: 'SOME', nome: 'São Sebastião do Umbuzeiro' },
+                { sigla: 'SOU', nome: 'Sousa' },
+                { sigla: 'VIL', nome: 'Vieirópolis' },
+            ],
+            'AL': [
+                { sigla: 'AB', nome: 'Agua Branca' },
+                { sigla: 'AN', nome: 'Anadia' },
+                { sigla: 'AP', nome: 'Arapiraca' },
+                { sigla: 'AT', nome: 'Atalaia' },
+                { sigla: 'BSA', nome: 'Barra de Santo Antonio' },
+                { sigla: 'BSM', nome: 'Barra de Sao Miguel' },
+                { sigla: 'BA', nome: 'Batalha' },
+                { sigla: 'BE', nome: 'Belem' },
+                { sigla: 'BM', nome: 'Belo Monte' },
+                { sigla: 'BM', nome: 'Boca da Mata' },
+                { sigla: 'BQ', nome: 'Branquinha' },
+                { sigla: 'CAC', nome: 'Cacimbinhas' },
+                { sigla: 'CJ', nome: 'Cajueiro' },
+                { sigla: 'CP', nome: 'Campestre' },
+                { sigla: 'CA', nome: 'Campo Alegre' },
+                { sigla: 'CG', nome: 'Campo Grande' },
+                { sigla: 'CA', nome: 'Canapi' },
+                { sigla: 'CP', nome: 'Capela' },
+                { sigla: 'C', nome: 'Carneiros' },
+                { sigla: 'CP', nome: 'Cha Preta' },
+                { sigla: 'CND', nome: 'Coite do Noia' },
+                { sigla: 'CL', nome: 'Colonia Leopoldina' },
+                { sigla: 'CS', nome: 'Coqueiro Seco' },
+                { sigla: 'CR', nome: 'Coruripe' },
+                { sigla: 'C', nome: 'Craibas' },
+                { sigla: 'DG', nome: 'Delmiro Gouveia' },
+                { sigla: 'DR', nome: 'Dois Riachos' },
+                { sigla: 'EA', nome: 'Estrela de Alagoas' },
+                { sigla: 'FG', nome: 'Feira Grande' },
+                { sigla: 'FD', nome: 'Feliz Deserto' },
+                { sigla: 'F', nome: 'Flexeiras' },
+                { sigla: 'GPP', nome: 'Girau do Ponciano' },
+                { sigla: 'IB', nome: 'Ibateguara' },
+                { sigla: 'IG', nome: 'Igaci' },
+                { sigla: 'IN', nome: 'Igreja Nova' },
+                { sigla: 'IH', nome: 'Inhapi' },
+                { sigla: 'JH', nome: 'Jacare dos Homens' },
+                { sigla: 'JP', nome: 'Jacuípe' },
+                { sigla: 'JA', nome: 'Japaratinga' },
+                { sigla: 'JT', nome: 'Jaramataia' },
+                { sigla: 'JQ', nome: 'Jequia da Praia' },
+                { sigla: 'JG', nome: 'Joaquim Gomes' },
+                { sigla: 'JU', nome: 'Jundia' },
+                { sigla: 'JU', nome: 'Junqueiro' },
+                { sigla: 'LDC', nome: 'Lagoa da Canoa' },
+                { sigla: 'LA', nome: 'Limoeiro de Anadia' },
+                { sigla: 'M', nome: 'Maceio' },
+                { sigla: 'MI', nome: 'Major Izidoro' },
+                { sigla: 'MV', nome: 'Mar Vermelho' },
+                { sigla: 'MG', nome: 'Maragogi' },
+                { sigla: 'MV', nome: 'Maravilha' },
+                { sigla: 'MD', nome: 'Marechal Deodoro' },
+                { sigla: 'MB', nome: 'Maribondo' },
+                { sigla: 'MG', nome: 'Mata Grande' },
+                { sigla: 'MC', nome: 'Matriz de Camaragibe' },
+                { sigla: 'MES', nome: 'Messias' },
+                { sigla: 'MN', nome: 'Minador do Negrao' },
+                { sigla: 'M', nome: 'Monteiropolis' },
+                { sigla: 'MU', nome: 'Murici' },
+                { sigla: 'NL', nome: 'Novo Lino' },
+                { sigla: 'OD', nome: 'Olho dAgua das Flores' },
+                { sigla: 'OC', nome: 'Olho dAgua do Casado' },
+                { sigla: 'OG', nome: 'Olho dAgua Grande' },
+                { sigla: 'OL', nome: 'Olivença' },
+                { sigla: 'OB', nome: 'Ouro Branco' },
+                { sigla: 'P', nome: 'Palestina' },
+                { sigla: 'PDI', nome: 'Palmeira dos Indios' },
+                { sigla: 'PA', nome: 'Pao de Acucar' },
+                { sigla: 'P', nome: 'Pariconha' },
+                { sigla: 'P', nome: 'Paripueira' },
+                { sigla: 'PC', nome: 'Passo de Camaragibe' },
+                { sigla: 'PJ', nome: 'Paulo Jacinto' },
+                { sigla: 'P', nome: 'Penedo' },
+                { sigla: 'PC', nome: 'Piaçabuçu' },
+                { sigla: 'PI', nome: 'Pilar' },
+                { sigla: 'P', nome: 'Pindoba' },
+                { sigla: 'P', nome: 'Piranhas' },
+                { sigla: 'P', nome: 'Poco das Trincheiras' },
+                { sigla: 'PC', nome: 'Porto Calvo' },
+                { sigla: 'PP', nome: 'Porto de Pedras' },
+                { sigla: 'PRC', nome: 'Porto Real do Colegio' },
+                { sigla: 'Q', nome: 'Quebrangulo' },
+                { sigla: 'RL', nome: 'Rio Largo' },
+                { sigla: 'R', nome: 'Roteiro' },
+                { sigla: 'SL', nome: 'Santa Luzia do Norte' },
+                { sigla: 'SI', nome: 'Santana do Ipanema' },
+                { sigla: 'SM', nome: 'Santana do Mundaú' },
+                { sigla: 'SB', nome: 'Sao Bras' },
+                { sigla: 'SJL', nome: 'Sao Jose da Laje' },
+                { sigla: 'SJT', nome: 'Sao Jose da Tapera' },
+                { sigla: 'SLQ', nome: 'Sao Luis do Quitunde' },
+                { sigla: 'SMC', nome: 'Sao Miguel dos Campos' },
+                { sigla: 'SMM', nome: 'Sao Miguel dos Milagres' },
+                { sigla: 'SS', nome: 'Sao Sebastiao' },
+                { sigla: 'S', nome: 'Satuba' },
+                { sigla: 'SRP', nome: 'Senador Rui Palmeira' },
+                { sigla: 'TDA', nome: 'Tanque dArca' },
+                { sigla: 'TA', nome: 'Taquarana' },
+                { sigla: 'TV', nome: 'Teotonio Vilela' },
+                { sigla: 'TP', nome: 'Traipu' },
+                { sigla: 'UP', nome: 'Uniao dos Palmares' },
+                { sigla: 'V', nome: 'Vicosa' }
+            ],
+            'PE': [
+                { sigla: 'AIN', nome: 'Aliança' },
+                { sigla: 'BJI', nome: 'Bom Jardim' },
+                { sigla: 'BOS', nome: 'Buenos Aires' },
+                { sigla: 'CUN', nome: 'Camutanga' },
+                { sigla: 'CAA', nome: 'Carpina' },
+                { sigla: 'CASI', nome: 'Casinhas' },
+                { sigla: 'CDD', nome: 'Condado' },
+                { sigla: 'CUW', nome: 'Cumarú' },
+                { sigla: 'FNV', nome: 'Feira Nova' },
+                { sigla: 'FEN', nome: 'Fernando de Noronha' },
+                { sigla: 'FRS', nome: 'Ferreiros' },
+                { sigla: 'GGT', nome: 'Glória do Goitá' },
+                { sigla: 'GOI', nome: 'Goiana' },
+                { sigla: 'IBX', nome: 'Itambé' },
+                { sigla: 'IQW', nome: 'Itaquitinga' },
+                { sigla: 'JFD', nome: 'João Alfredo' },
+                { sigla: 'LACA', nome: 'Lagoa do Carro' },
+                { sigla: 'LOG', nome: 'Lagoa do Itaenga' },
+                { sigla: 'LIO', nome: 'Limoeiro' },
+                { sigla: 'MCN', nome: 'Macaparana' },
+                { sigla: 'MHO', nome: 'Machados' },
+                { sigla: 'NZM', nome: 'Nazare da Mata' },
+                { sigla: 'OOO', nome: 'Orobó' },
+                { sigla: 'PSS', nome: 'Passira' },
+                { sigla: 'PLH', nome: 'Paudalho' },
+                { sigla: 'SGH', nome: 'Salgadinho' },
+                { sigla: 'SVF', nome: 'São Vicente Ferrer' },
+                { sigla: 'SUU', nome: 'Surubim' },
+                { sigla: 'TIU', nome: 'Timbaúba' },
+                { sigla: 'THM', nome: 'Tracunhaém' },
+                { sigla: 'VELE', nome: 'Vertente do Lério' },
+                { sigla: 'VCI', nome: 'Vicência' },
+                { sigla: 'AGE', nome: 'Agrestina' },
+                { sigla: 'ANH', nome: 'Altinho' },
+                { sigla: 'BGB', nome: 'Barra de Guabiraba' },
+                { sigla: 'BJM', nome: 'Belo Jardim' },
+                { sigla: 'BEZ', nome: 'Bezerros' },
+                { sigla: 'BNO', nome: 'Bonito' },
+                { sigla: 'BDD', nome: 'Brejo da Madre de Deus' },
+                { sigla: 'CIH', nome: 'Cachoeirinha' },
+                { sigla: 'CFX', nome: 'Camocim de São Félix' },
+                { sigla: 'CRU', nome: 'Caruaru' },
+                { sigla: 'CUP', nome: 'Cupira' },
+                { sigla: 'FML', nome: 'Frei Miguelinho' },
+                { sigla: 'JTB', nome: 'Jataúba' },
+                { sigla: 'RHM', nome: 'Riacho das Almas' },
+                { sigla: 'SYE', nome: 'Saire' },
+                { sigla: 'SZC', nome: 'Santa Cruz do Capibaribe' },
+                { sigla: 'SCU', nome: 'Santa Maria do Cambuca' },
+                { sigla: 'SUN', nome: 'São Bento do Una' },
+                { sigla: 'SIT', nome: 'São Caitano' },
+                { sigla: 'SQM', nome: 'São Joaquim do Monte' },
+                { sigla: 'TAC', nome: 'Tacaímbo' },
+                { sigla: 'TQN', nome: 'Taquaritinga do Norte' },
+                { sigla: 'TTA', nome: 'Toritama' },
+                { sigla: 'VTS', nome: 'Vertentes' },
+                { sigla: 'AGP', nome: 'Água Preta' },
+                { sigla: 'BAR', nome: 'Barreiros' },
+                { sigla: 'BEL', nome: 'Belém de Maria' },
+                { sigla: 'CTN', nome: 'Catende' },
+                { sigla: 'COE', nome: 'Cortes' },
+                { sigla: 'GLR', nome: 'Gameleira' },
+                { sigla: 'JAQU', nome: 'Jaqueira' },
+                { sigla: 'JNO', nome: 'Joaquim Nabuco' },
+                { sigla: 'LGG', nome: 'Lagoa dos Gatos' },
+                { sigla: 'MAA', nome: 'Maraial' },
+                { sigla: 'PLS', nome: 'Palmares' },
+                { sigla: 'PES', nome: 'Panelas' },
+                { sigla: 'QPA', nome: 'Quipapá' },
+                { sigla: 'RBE', nome: 'Ribeirão' },
+                { sigla: 'RIF', nome: 'Rio Formoso' },
+                { sigla: 'SDI', nome: 'São Benedito do Sul' },
+                { sigla: 'SEC', nome: 'São José da Coroa Grande' },
+                { sigla: 'TAMA', nome: 'Tamandaré' },
+                { sigla: 'XEXE', nome: 'Xexéu' },
+                { sigla: 'AGB', nome: 'Águas Belas' },
+                { sigla: 'AGM', nome: 'Angelim' },
+                { sigla: 'BCE', nome: 'Bom Conselho' },
+                { sigla: 'BRA', nome: 'Brejão' },
+                { sigla: 'CEK', nome: 'Caetés' },
+                { sigla: 'CDK', nome: 'Calçado' },
+                { sigla: 'CHH', nome: 'Canhotinho' },
+                { sigla: 'CYX', nome: 'Capoeiras' },
+                { sigla: 'COT', nome: 'Correntes' },
+                { sigla: 'GUS', nome: 'Garanhuns' },
+                { sigla: 'IKI', nome: 'Iati' },
+                { sigla: 'IJB', nome: 'Ibirajuba' },
+                { sigla: 'JUCT', nome: 'Jucati' },
+                { sigla: 'JUI', nome: 'Jupi' },
+                { sigla: 'JUM', nome: 'Jurema' },
+                { sigla: 'LOO', nome: 'Lagoa do Ouro' },
+                { sigla: 'LJD', nome: 'Lajedo' },
+                { sigla: 'PME', nome: 'Palmeirina' },
+                { sigla: 'PMK', nome: 'Paranatama' },
+                { sigla: 'SLX', nome: 'Saloá' },
+                { sigla: 'SOJ', nome: 'São João' },
+                { sigla: 'TEZ', nome: 'Terezinha' },
+                { sigla: 'AGH', nome: 'Alagoinha' },
+                { sigla: 'ACV', nome: 'Arcoverde' },
+                { sigla: 'BQU', nome: 'Buique' },
+                { sigla: 'IRC', nome: 'Iguaraci' },
+                { sigla: 'IYB', nome: 'Itaiá' },
+                { sigla: 'PED', nome: 'Pedra' },
+                { sigla: 'PQE', nome: 'Pesqueira' },
+                { sigla: 'PCO', nome: 'Pocão' },
+                { sigla: 'SNH', nome: 'Sanharó' },
+                { sigla: 'STN', nome: 'Sertânia' },
+                { sigla: 'TTN', nome: 'Tupanatinga' },
+                { sigla: 'VUS', nome: 'Venturosa' },
+                { sigla: 'BEA', nome: 'Betânia' },
+                { sigla: 'CLI', nome: 'Calumbi' },
+                { sigla: 'CUD', nome: 'Custódia' },
+                { sigla: 'FLS', nome: 'Flores' },
+                { sigla: 'IIM', nome: 'Ibimirim' },
+                { sigla: 'INJ', nome: 'Inajá' },
+                { sigla: 'VJTB', nome: 'Jatobá' },
+                { sigla: 'MANA', nome: 'Manari' },
+                { sigla: 'SPO', nome: 'Sertânia' },
+                { sigla: 'SJT', nome: 'São José do Egito' },
+                { sigla: 'TCH', nome: 'Tanhaçu' },
+                { sigla: 'TRS', nome: 'Trindade' },
+                { sigla: 'AFD', nome: 'Afrânio' },
+                { sigla: 'CAR', nome: 'Cabrobó' },
+                { sigla: 'CEN', nome: 'Cenário' },
+                { sigla: 'GDN', nome: 'Gedin' },
+                { sigla: 'GLS', nome: 'Glória' },
+                { sigla: 'JGM', nome: 'Jatobá' },
+                { sigla: 'JNO', nome: 'Jurema' },
+                { sigla: 'PAC', nome: 'Paulo Afonso' },
+                { sigla: 'PGL', nome: 'Pernambuco' },
+                { sigla: 'PRF', nome: 'Petrolina' },
+                { sigla: 'RBD', nome: 'Rodelas' },
+                { sigla: 'SMA', nome: 'Santa Maria da Boa Vista' },
+                { sigla: 'SOF', nome: 'Solidão' },
+                { sigla: 'STB', nome: 'Salgado' },
+                { sigla: 'TPD', nome: 'Terra Nova' },
+                { sigla: 'TTC', nome: 'Trindade' },
+                { sigla: 'AAB', nome: 'Águas Belas' },
+                { sigla: 'BOD', nome: 'Belém do São Francisco' },
+                { sigla: 'BEP', nome: 'Bodocó' },
+                { sigla: 'BGR', nome: 'Bom Jesus da Lapa' },
+                { sigla: 'CAB', nome: 'Cabrobó' },
+                { sigla: 'CST', nome: 'Cabo de Santo Agostinho' },
+                { sigla: 'RCH', nome: 'Riacho das Almas' },
+                { sigla: 'BRF', nome: 'Brito' },
+                { sigla: 'VJU', nome: 'Vitória de Santo Antão' },
+                { sigla: 'FRB', nome: 'Ferreiros' },
+                { sigla: 'RES', nome: 'Reis' },
+                { sigla: 'RMU', nome: 'Rondinha' },
+                { sigla: 'SPP', nome: 'São Pedro' },
+                { sigla: 'SNP', nome: 'São Paulo' },
+                { sigla: 'TAN', nome: 'Tanque' },
+                { sigla: 'TMU', nome: 'Tamarindo' },
+                { sigla: 'TRO', nome: 'Tropa' },
+                { sigla: 'VER', nome: 'Veredinha' },
+            ],
+            'PI': [
+                { sigla: 'AOX', nome: 'Alto Longa' },
+                { sigla: 'ATS', nome: 'Altos' },
+                { sigla: 'BTS', nome: 'Beneditinos' },
+                { sigla: 'BQRO', nome: 'Boqueirão do Piauí' },
+                { sigla: 'CRA', nome: 'Campo Maior' },
+                { sigla: 'CLTH', nome: 'Cocal de Telha' },
+                { sigla: 'CRAS', nome: 'Coivaras' },
+                { sigla: 'CLHO', nome: 'Curralinhos' },
+                { sigla: 'DVB', nome: 'Demerval Lobão' },
+                { sigla: 'JAOB', nome: 'Jatobá do Piauí' },
+                { sigla: 'JFT', nome: 'José de Freitas' },
+                { sigla: 'LGAG', nome: 'Lagoa Alegre' },
+                { sigla: 'LAKY', nome: 'Lagoa do Piauí' },
+                { sigla: 'MHG', nome: 'Monsenhor Gil' },
+                { sigla: 'NSHN', nome: 'Nossa Senhora de Nazaré' },
+                { sigla: 'NSTA', nome: 'Novo Santo Antônio' },
+                { sigla: 'PDCP', nome: 'Pau D’Arco do Piauí' },
+                { sigla: 'SFPO', nome: 'Sigefredo Pacheco' },
+                { sigla: 'TSA', nome: 'Teresina' },
+                { sigla: 'UIO', nome: 'União' },
+                { sigla: 'BRZ', nome: 'Barras' },
+                { sigla: 'BOHO', nome: 'Boa Hora' },
+                { sigla: 'CBRS', nome: 'Cabeceiras do Piauí' },
+                { sigla: 'CLAR', nome: 'Campo Largo do Piauí' },
+                { sigla: 'MLV', nome: 'Miguel Alves' },
+                { sigla: 'NRM', nome: 'Nossa Senhora dos Remédios' },
+                { sigla: 'PRW', nome: 'Porto' },
+                { sigla: 'ASUO', nome: 'Assunção do Piauí' },
+                { sigla: 'BUMS', nome: 'Buriti dos Montes' },
+                { sigla: 'CPI', nome: 'Castelo do Piauí' },
+                { sigla: 'JUAZ', nome: 'Juazeiro do Piauí' },
+                { sigla: 'PPY', nome: 'Prata do Piauí' },
+                { sigla: 'SXJ', nome: 'São João da Serra' },
+                { sigla: 'SUO', nome: 'São Miguel do Tapuio' },
+                { sigla: 'AIL', nome: 'Agricolândia' },
+                { sigla: 'ABA', nome: 'Água Branca' },
+                { sigla: 'ANT', nome: 'Amarante' },
+                { sigla: 'ALD', nome: 'Angical do Piauí' },
+                { sigla: 'BDU', nome: 'Barro Duro' },
+                { sigla: 'EEV', nome: 'Elesbão Veloso' },
+                { sigla: 'HUN', nome: 'Hugo Napoleão' },
+                { sigla: 'JDMU', nome: 'Jardim do Mulato' },
+                { sigla: 'LAOI', nome: 'Lagoinha do Piauí' },
+                { sigla: 'MIE', nome: 'Miguel Leão' },
+                { sigla: 'OHDU', nome: 'Olho D’Água do Piauí' },
+                { sigla: 'PYA', nome: 'Palmeirais' },
+                { sigla: 'PGFA', nome: 'Passagem Franca do Piauí' },
+                { sigla: 'RGE', nome: 'Regeneração' },
+                { sigla: 'STML', nome: 'Santo Antônio dos Milagres' },
+                { sigla: 'SXI', nome: 'São Félix do Piauí' },
+                { sigla: 'SCY', nome: 'São Gonçalo do Piauí' },
+                { sigla: 'SMBG', nome: 'São Miguel da Baixa Grande' },
+                { sigla: 'SPP', nome: 'São Pedro do Piauí' },
+                { sigla: 'BSLA', nome: 'Brasileira' },
+                { sigla: 'CPW', nome: 'Capitão de Campos' },
+                { sigla: 'DMM', nome: 'Domingos Mourão' },
+                { sigla: 'LGSF', nome: 'Lagoa de São Francisco' },
+                { sigla: 'MLTB', nome: 'Milton Brandão' },
+                { sigla: 'PDO', nome: 'Pedro II' },
+                { sigla: 'PIP', nome: 'Piripiri' },
+                { sigla: 'BMPP', nome: 'Bom Princípio do Piauí' },
+                { sigla: 'BIL', nome: 'Buriti dos Lopes' },
+                { sigla: 'CJUO', nome: 'Cajueiro da Praia' },
+                { sigla: 'CRWB', nome: 'Caraúbas do Piauí' },
+                { sigla: 'CXGO', nome: 'Caxingó' },
+                { sigla: 'CCX', nome: 'Cocal' },
+                { sigla: 'CLAV', nome: 'Cocal dos Alves' },
+                { sigla: 'ILGD', nome: 'Ilha Grande' },
+                { sigla: 'JQP', nome: 'Joaquim Pires' },
+                { sigla: 'LSR', nome: 'Luis Correia' },
+                { sigla: 'MIPA', nome: 'Murici dos Portelas' },
+                { sigla: 'PNA', nome: 'Parnaíba' },
+                { sigla: 'BLH', nome: 'Batalha' },
+                { sigla: 'ENA', nome: 'Esperantina' },
+                { sigla: 'JCMS', nome: 'Joca Marques' },
+                { sigla: 'LZN', nome: 'Luzilândia' },
+                { sigla: 'MDIO', nome: 'Madeiro' },
+                { sigla: 'MSO', nome: 'Matias Olímpio' },
+                { sigla: 'MRCP', nome: 'Morro do Chapeu do Piauí' },
+                { sigla: 'PCR', nome: 'Piracuruca' },
+                { sigla: 'SJFT', nome: 'São João da Fronteira' },
+                { sigla: 'SJRL', nome: 'São João do Arraial' },
+                { sigla: 'SJDV', nome: 'São José do Divino' },
+                { sigla: 'AKP', nome: 'Alagoinha do Piauí' },
+                { sigla: 'ATPI', nome: 'Alegrete do Piauí' },
+                { sigla: 'ARDY', nome: 'Aroeiras do Itaim' },
+                { sigla: 'BLMP', nome: 'Belém do Piauí' },
+                { sigla: 'BCI', nome: 'Bocaina' },
+                { sigla: 'CZEI', nome: 'Cajazeiras do Piauí' },
+                { sigla: 'CDGD', nome: 'Caldeirão Grande do Piauí' },
+                { sigla: 'CGDP', nome: 'Campo Grande do Piauí' },
+                { sigla: 'CDDE', nome: 'Caridade do Piauí' },
+                { sigla: 'CLPI', nome: 'Colônia do Piauí' },
+                { sigla: 'CLNW', nome: 'Curral Novo do Piauí' },
+                { sigla: 'DEL', nome: 'Dom Expedito Lopes' },
+                { sigla: 'FRTA', nome: 'Floresta do Piauí' },
+                { sigla: 'FCCM', nome: 'Francisco Macedo' },
+                { sigla: 'FCC', nome: 'Francisco Santos' },
+                { sigla: 'FNT', nome: 'Fronteiras' },
+                { sigla: 'GMNO', nome: 'Geminiano' },
+                { sigla: 'IPD', nome: 'Ipiranga do Piauí' },
+                { sigla: 'ITO', nome: 'Itainópolis' },
+                { sigla: 'JOS', nome: 'Jaicós' },
+                { sigla: 'MCLD', nome: 'Marcolândia' },
+                { sigla: 'MSSP', nome: 'Massapê do Piauí' },
+                { sigla: 'MHP', nome: 'Monsenhor Hipólito' },
+                { sigla: 'NMS', nome: 'Nova Santa Rita' },
+                { sigla: 'PAIB', nome: 'Paquetá' },
+                { sigla: 'PISE', nome: 'Piracuruca' },
+                { sigla: 'PRCE', nome: 'Picos' },
+                { sigla: 'PPV', nome: 'Polignano' },
+                { sigla: 'RCC', nome: 'Riacho Frio' },
+                { sigla: 'RMAD', nome: 'Ribeira do Piauí' },
+                { sigla: 'SNRD', nome: 'São Raimundo Nonato' },
+                { sigla: 'SBPR', nome: 'Santo Antônio do Piauí' },
+                { sigla: 'TLD', nome: 'Terra Nova do Piauí' },
+                { sigla: 'TMRG', nome: 'Timon' },
+                { sigla: 'TRDC', nome: 'Três Lagoas do Piauí' },
+                { sigla: 'VALE', nome: 'Várzea Grande do Piauí' },
+                { sigla: 'VNF', nome: 'Vila Nova do Piauí' },
+                { sigla: 'VVH', nome: 'Várzea do Sucuru' },
+                { sigla: 'PRIE', nome: 'Prata do Piauí' },
+                { sigla: 'BBNR', nome: 'Batalha' },
+                { sigla: 'CID', nome: 'Caxias' },
+                { sigla: 'PRDA', nome: 'Prata do Piauí' },
+                { sigla: 'PETD', nome: 'Pedro II' },
+                { sigla: 'SCTN', nome: 'São Caetano do Sul' },
+                { sigla: 'ZRA', nome: 'Zé Doca' },
+            ],
+            'BA': [
+                { sigla: 'CAR', nome: 'Camaçari' },
+                { sigla: 'CIS', nome: 'Candeias' },
+                { sigla: 'CAU', nome: 'Catu' },
+                { sigla: 'DSA', nome: 'Dias d\'Ávila' },
+                { sigla: 'IAP', nome: 'Itaparica' },
+                { sigla: 'LFS', nome: 'Lauro de Freitas' },
+                { sigla: 'MDY', nome: 'Madre de Deus' },
+                { sigla: 'MJO', nome: 'Mata de São João' },
+                { sigla: 'PJC', nome: 'Pojuçara' },
+                { sigla: 'SDR', nome: 'Salvador' },
+                { sigla: 'SFN', nome: 'São Francisco do Conde' },
+                { sigla: 'SSE', nome: 'São Sebastião do Passe' },
+                { sigla: 'SMF', nome: 'Simões Filho' },
+                { sigla: 'VCZ', nome: 'Vera Cruz' },
+                { sigla: 'ALM', nome: 'Almadina' },
+                { sigla: 'ATW', nome: 'Arataca' },
+                { sigla: 'BPO', nome: 'Barro Preto' },
+                { sigla: 'BUE', nome: 'Buerarema' },
+                { sigla: 'COC', nome: 'Coaraci' },
+                { sigla: 'FMV', nome: 'Firmino Alves' },
+                { sigla: 'FAL', nome: 'Floresta Azul' },
+                { sigla: 'ICR', nome: 'Ibicaraí' },
+                { sigla: 'IBC', nome: 'Ibicui' },
+                { sigla: 'IUI', nome: 'Iguaí' },
+                { sigla: 'ILH', nome: 'Ilhéus' },
+                { sigla: 'ITB', nome: 'Itabuna' },
+                { sigla: 'IJL', nome: 'Itaju do Colônia' },
+                { sigla: 'IJP', nome: 'Itajuípe' },
+                { sigla: 'YPE', nome: 'Itape' },
+                { sigla: 'ITT', nome: 'Itapitanga' },
+                { sigla: 'IRR', nome: 'Itororó' },
+                { sigla: 'JSI', nome: 'Jussari' },
+                { sigla: 'NCO', nome: 'Nova Canaã' },
+                { sigla: 'SVT', nome: 'Santa Cruz da Vitória' },
+                { sigla: 'SVQ', nome: 'São José da Vitória' },
+                { sigla: 'WNA', nome: 'Una' },
+                { sigla: 'UUU', nome: 'Uruçuca' },
+                { sigla: 'EUS', nome: 'Eunápolis' },
+                { sigla: 'GNG', nome: 'Guaratinga' },
+                { sigla: 'IBH', nome: 'Itabela' },
+                { sigla: 'IMM', nome: 'Itagimirim' },
+                { sigla: 'IEY', nome: 'Itapebi' },
+                { sigla: 'PGU', nome: 'Porto Seguro' },
+                { sigla: 'SZB', nome: 'Santa Cruz Cabrália' },
+                { sigla: 'ALC', nome: 'Alcobaça' },
+                { sigla: 'CRV', nome: 'Caravelas' },
+                { sigla: 'IBP', nome: 'Ibirapuã' },
+                { sigla: 'IMJ', nome: 'Itamaraju' },
+                { sigla: 'IHM', nome: 'Itanhem' },
+                { sigla: 'JUC', nome: 'Jucuruçu' },
+                { sigla: 'LED', nome: 'Lajedão' },
+                { sigla: 'MSN', nome: 'Medeiros Neto' },
+                { sigla: 'MUI', nome: 'Mucuri' },
+                { sigla: 'NVV', nome: 'Nova Viçosa' },
+                { sigla: 'PRD', nome: 'Prado' },
+                { sigla: 'TAF', nome: 'Teixeira de Freitas' },
+                { sigla: 'VEE', nome: 'Vereda' },
+                { sigla: 'BLE', nome: 'Belmonte' },
+                { sigla: 'CCN', nome: 'Camacan' },
+                { sigla: 'CVS', nome: 'Canavieiras' },
+                { sigla: 'IRM', nome: 'Itarantim' },
+                { sigla: 'MAE', nome: 'Mascote' },
+                { sigla: 'PSL', nome: 'Pau Brasil' },
+                { sigla: 'POG', nome: 'Potiraguá' },
+                { sigla: 'SUY', nome: 'Santa Luzia' },
+                { sigla: 'AEL', nome: 'Aurelino Leal' },
+                { sigla: 'BCH', nome: 'Barra do Rocha' },
+                { sigla: 'CMM', nome: 'Camamu' },
+                { sigla: 'GDU', nome: 'Gandu' },
+                { sigla: 'GGG', nome: 'Gongogi' },
+                { sigla: 'IIP', nome: 'Ibirapitanga' },
+                { sigla: 'IRT', nome: 'Ibirataia' },
+                { sigla: 'IGH', nome: 'Igrapiúna' },
+                { sigla: 'IRE', nome: 'Itacaré' },
+                { sigla: 'IMY', nome: 'Itamari' },
+                { sigla: 'IUR', nome: 'Ituberá' },
+                { sigla: 'MRU', nome: 'Maraú' },
+                { sigla: 'NIA', nome: 'Nilo Peçanha' },
+                { sigla: 'NIB', nome: 'Nova Ibiá' },
+                { sigla: 'PDQ', nome: 'Piraí do Norte' },
+                { sigla: 'PTQ', nome: 'Presidente Tancredo Neves' },
+                { sigla: 'TEN', nome: 'Teolândia' },
+                { sigla: 'UIA', nome: 'Ubataba' },
+                { sigla: 'UAT', nome: 'Ubaitaba' },
+                { sigla: 'WGS', nome: 'Wenceslau Guimarães' },
+                { sigla: 'AIQ', nome: 'Aiquara' },
+                { sigla: 'APE', nome: 'Apuarema' },
+                { sigla: 'CVO', nome: 'Cravolândia' },
+                { sigla: 'DMA', nome: 'Dário Meira' },
+                { sigla: 'IPW', nome: 'Ipiau' },
+                { sigla: 'IRJ', nome: 'Irajuba' },
+                { sigla: 'YGI', nome: 'Itagi' },
+                { sigla: 'IGB', nome: 'Itagiba' },
+                { sigla: 'IQA', nome: 'Itaquara' },
+                { sigla: 'IIC', nome: 'Itiruçu' },
+                { sigla: 'JGQ', nome: 'Jaguaquara' },
+                { sigla: 'JEE', nome: 'Jequié' },
+                { sigla: 'JTN', nome: 'Jitaúna' },
+                { sigla: 'LFE', nome: 'Lafaíete Coutinho' },
+                { sigla: 'LTL', nome: 'Lajedo do Tabocal' },
+                { sigla: 'MVO', nome: 'Manoel Vitorino' },
+                { sigla: 'MAS', nome: 'Maracás' },
+                { sigla: 'NOI', nome: 'Nova Itarana' },
+                { sigla: 'PLY', nome: 'Planaltino' },
+                { sigla: 'SAT', nome: 'Santa Inês' },
+                { sigla: 'BXD', nome: 'Baixa Grande' },
+                { sigla: 'CKX', nome: 'Caém' },
+                { sigla: 'CDG', nome: 'Caldeirão Grande' },
+                { sigla: 'CCG', nome: 'Capim Grosso' },
+                { sigla: 'JBN', nome: 'Jacobina' },
+                { sigla: 'MJU', nome: 'Macajuba' },
+                { sigla: 'MRY', nome: 'Mairi' },
+                { sigla: 'MGN', nome: 'Miguel Calmon' },
+                { sigla: 'MIN', nome: 'Mirangaba' },
+                { sigla: 'MHU', nome: 'Morro do Chapéu' },
+                { sigla: 'MNO', nome: 'Mundo Novo' },
+                { sigla: 'OUL', nome: 'Ourolândia' },
+                { sigla: 'RIN', nome: 'Ribeirão do Largo' },
+                { sigla: 'RPR', nome: 'Ruy Barbosa' },
+                { sigla: 'SOM', nome: 'Serra Preta' },
+                { sigla: 'SGL', nome: 'Souto Soares' },
+                { sigla: 'TCI', nome: 'Tanhaçu' },
+                { sigla: 'TAN', nome: 'Tanque Novo' },
+                { sigla: 'TCA', nome: 'Tucano' },
+                { sigla: 'UKT', nome: 'Utinga' },
+                { sigla: 'UPI', nome: 'Valença' },
+                { sigla: 'VBP', nome: 'Valente' },
+                { sigla: 'WPO', nome: 'Wagão' },
+            ],
+            'SE': [
+                { sigla: 'AJU', nome: 'Aracaju' },
+                { sigla: 'AEB', nome: 'Areia Branca' },
+                { sigla: 'BQS', nome: 'Barra dos Coqueiros' },
+                { sigla: 'CPL', nome: 'Capela' },
+                { sigla: 'CAI', nome: 'Carmópolis' },
+                { sigla: 'DNP', nome: 'Divina Pastora' },
+                { sigla: 'GYD', nome: 'General Maynard' },
+                { sigla: 'IJD', nome: 'Itaporanga D\'Ajuda' },
+                { sigla: 'JUB', nome: 'Japaratuba' },
+                { sigla: 'LNJ', nome: 'Laranjeiras' },
+                { sigla: 'MRM', nome: 'Maruim' },
+                { sigla: 'NSD', nome: 'Nossa Senhora das Dores' },
+                { sigla: 'NRO', nome: 'Nossa Senhora do Socorro' },
+                { sigla: 'PAB', nome: 'Pirambu' },
+                { sigla: 'RCH', nome: 'Riachuelo' },
+                { sigla: 'REE', nome: 'Rosário do Catete' },
+                { sigla: 'SLM', nome: 'Santa Rosa de Lima' },
+                { sigla: 'SMB', nome: 'Santo Amaro das Brotas' },
+                { sigla: 'SCV', nome: 'São Cristovão' },
+                { sigla: 'SYR', nome: 'Siriri' },
+                { sigla: 'APF', nome: 'Amparo de São Francisco' },
+                { sigla: 'AQB', nome: 'Aquidabã' },
+                { sigla: 'BEJ', nome: 'Brejo Grande' },
+                { sigla: 'CHB', nome: 'Canhoba' },
+                { sigla: 'CEJ', nome: 'Cedro de São João' },
+                { sigla: 'CBE', nome: 'Cumbe' },
+                { sigla: 'IHF', nome: 'Ilha das Flores' },
+                { sigla: 'JPO', nome: 'Japoatã' },
+                { sigla: 'MLD', nome: 'Malhada dos Bois' },
+                { sigla: 'MUB', nome: 'Muribeca' },
+                { sigla: 'NOS', nome: 'Neópolis' },
+                { sigla: 'PKT', nome: 'Pacatuba' },
+                { sigla: 'PPI', nome: 'Propriá' },
+                { sigla: 'SFW', nome: 'Santana do São Francisco' },
+                { sigla: 'SFY', nome: 'São Francisco' },
+                { sigla: 'TLH', nome: 'Telha' },
+                { sigla: 'CFY', nome: 'Canindé de São Francisco' },
+                { sigla: 'FVA', nome: 'Feira Nova' },
+                { sigla: 'GRX', nome: 'Gararu' },
+                { sigla: 'GCH', nome: 'Gracho Cardoso' },
+                { sigla: 'IBI', nome: 'Itabi' },
+                { sigla: 'MSG', nome: 'Monte Alegre de Sergipe' },
+                { sigla: 'NHG', nome: 'Nossa Senhora da Glória' },
+                { sigla: 'NNL', nome: 'Nossa Senhora de Lourdes' },
+                { sigla: 'PDK', nome: 'Poço Redondo' },
+                { sigla: 'PFH', nome: 'Porto da Folha' },
+                { sigla: 'CDB', nome: 'Campo do Brito' },
+                { sigla: 'CYR', nome: 'Carira' },
+                { sigla: 'FIP', nome: 'Frei Paulo' },
+                { sigla: 'INT', nome: 'Itabaiana' },
+                { sigla: 'MMB', nome: 'Macambira' },
+                { sigla: 'MHR', nome: 'Malhador' },
+                { sigla: 'MOB', nome: 'Moita Bonita' },
+                { sigla: 'NRA', nome: 'Nossa Senhora Aparecida' },
+                { sigla: 'PXM', nome: 'Pedra Mole' },
+                { sigla: 'PYO', nome: 'Pinhão' },
+                { sigla: 'RRO', nome: 'Ribeirópolis' },
+                { sigla: 'SXO', nome: 'São Miguel do Aleixo' },
+                { sigla: 'AUX', nome: 'Arauá' },
+                { sigla: 'CSP', nome: 'Cristinápolis' },
+                { sigla: 'ETC', nome: 'Estância' },
+                { sigla: 'IND', nome: 'Indiaroba' },
+                { sigla: 'INN', nome: 'Itabaianninha' },
+                { sigla: 'PEH', nome: 'Pedrinhas' },
+                { sigla: 'POV', nome: 'Poço Verde' },
+                { sigla: 'SHY', nome: 'Santa Luzia do Itanhy' },
+                { sigla: 'TBB', nome: 'Tobias Barreto' },
+                { sigla: 'TGU', nome: 'Tomar do Geru' },
+                { sigla: 'UUB', nome: 'Umbaúba' },
+                { sigla: 'BQM', nome: 'Boquim' },
+                { sigla: 'LAT', nome: 'Lagarto' },
+                { sigla: 'RHT', nome: 'Riacha do Dantas' },
+                { sigla: 'SAX', nome: 'Salgado' },
+                { sigla: 'SXN', nome: 'São Domingos' },
+                { sigla: 'SDS', nome: 'Simão Dias' }
+            ],
+            'MA': [
+                { sigla: 'ALN', nome: 'ALCÂNTARA' },
+                { sigla: 'AXI', nome: 'AXIXÁ' },
+                { sigla: 'BBEI', nome: 'BACABEIRA' },
+                { sigla: 'CCGE', nome: 'CACHOEIRA GRANDE' },
+                { sigla: 'HCS', nome: 'HUMBERTO DE CAMPOS' },
+                { sigla: 'ICT', nome: 'ICATU' },
+                { sigla: 'MRX', nome: 'MORROS' },
+                { sigla: 'PCL', nome: 'PACO DO LUMIAR' },
+                { sigla: 'PJN', nome: 'PRESIDENTE JUSCELINO' },
+                { sigla: 'PUZ', nome: 'PRIMEIRA CRUZ' },
+                { sigla: 'RAPO', nome: 'RAPOSA' },
+                { sigla: 'RSI', nome: 'ROSÁRIO' },
+                { sigla: 'SAAM', nome: 'SANTO AMARO DO MARANHÃO' },
+                { sigla: 'SJE', nome: 'SÃO JOSÉ DE RIBAMAR' },
+                { sigla: 'SLS', nome: 'SÃO LUÍS' },
+                { sigla: 'AMA', nome: 'APICUM-AÇU' },
+                { sigla: 'BAU', nome: 'BACURI' },
+                { sigla: 'BACU', nome: 'BACURITUBA' },
+                { sigla: 'BEQ', nome: 'BEQUIMÃO' },
+                { sigla: 'CAJ', nome: 'CAJAPIO' },
+                { sigla: 'CKA', nome: 'CEDRAL' },
+                { sigla: 'CNTR', nome: 'CENTRAL DO MARANHÃO' },
+                { sigla: 'CUR', nome: 'CURURUPU' },
+                { sigla: 'GIM', nome: 'GUIMARÃES' },
+                { sigla: 'MRZ', nome: 'MIRINZAL' },
+                { sigla: 'OLNM', nome: 'OLINDA NOVA DO MARANHÃO' },
+                { sigla: 'PMR', nome: 'PALMEIRANDIA' },
+                { sigla: 'PORO', nome: 'PEDRO DO ROSÁRIO' },
+                { sigla: 'PEM', nome: 'PERI MIRIM' },
+                { sigla: 'PHE', nome: 'PINHEIRO' },
+                { sigla: 'PTRM', nome: 'PORTO RICO DO MARANHÃO' },
+                { sigla: 'PSEY', nome: 'PRESIDENTE SARNEY' },
+                { sigla: 'SHE', nome: 'SANTA HELENA' },
+                { sigla: 'SEO', nome: 'SÃO BENTO' },
+                { sigla: 'SJY', nome: 'SÃO JOÃO BATISTA' },
+                { sigla: 'SCF', nome: 'SÃO VICENTE FERRER' },
+                { sigla: 'SRRN', nome: 'SERRANO DO MARANHÃO' },
+                { sigla: 'BXVA', nome: 'BELA VISTA DO MARANHÃO' },
+                { sigla: 'CJI', nome: 'CAJARI' },
+                { sigla: 'CLGU', nome: 'CONCEIÇÃO DO LAGO-AÇU' },
+                { sigla: 'IEMO', nome: 'IGARAPÉ DO MEIO' },
+                { sigla: 'MTA', nome: 'MATINHA' },
+                { sigla: 'PLV', nome: 'PENALVA' },
+                { sigla: 'VNA', nome: 'VIANA' },
+                { sigla: 'VMM', nome: 'VITÓRIA DO MEARIM' },
+                { sigla: 'AMPK', nome: 'AMAPÁ DO MARANHÃO' },
+                { sigla: 'BVTG', nome: 'BOA VISTA DO GURUPI' },
+                { sigla: 'CDN', nome: 'CÂNDIDO MENDES' },
+                { sigla: 'CTP', nome: 'CARUTAPERA' },
+                { sigla: 'COGE', nome: 'CENTRO DO GUILHERME' },
+                { sigla: 'CTNO', nome: 'CENTRO NOVO DO MARANHÃO' },
+                { sigla: 'GFV', nome: 'GODOFREDO VIANA' },
+                { sigla: 'GVNF', nome: 'GOVERNADOR NUNES FREIRE' },
+                { sigla: 'JNKO', nome: 'JUNCO DO MARANHÃO' },
+                { sigla: 'LDS', nome: 'LUIS DOMINGUES' },
+                { sigla: 'MCAE', nome: 'MARACACUMÉ' },
+                { sigla: 'MHZH', nome: 'MARANHÃOZINHO' },
+                { sigla: 'NVMH', nome: 'NOVA OLINDA DO MARANHÃO' },
+                { sigla: 'PEMD', nome: 'PRESIDENTE MEDICI' },
+                { sigla: 'SPQ', nome: 'SANTA LUZIA DO PARUÁ' },
+                { sigla: 'TUC', nome: 'TURIACU' },
+                { sigla: 'TURI', nome: 'TURILÂNDIA' },
+                { sigla: 'ANJ', nome: 'ANAJATUBA' },
+                { sigla: 'AAR', nome: 'ARARI' },
+                { sigla: 'BLGA', nome: 'BELÁGUA' },
+                { sigla: 'CHX', nome: 'CANTANHEDE' },
+                { sigla: 'ITI', nome: 'ITAPECURU MIRIM' },
+                { sigla: 'MTES', nome: 'MATÕES DO NORTE' },
+                { sigla: 'MIR', nome: 'MIRANDA DO NORTE' },
+                { sigla: 'NNR', nome: 'NINA RODRIGUES' },
+                { sigla: 'PRP', nome: 'PIRAPEMAS' },
+                { sigla: 'PVS', nome: 'PRESIDENTE VARGAS' },
+                { sigla: 'STY', nome: 'SANTA RITA' },
+                { sigla: 'SBP', nome: 'SÃO BENEDITO DO RIO PRETO' },
+                { sigla: 'USS', nome: 'URBANO SANTOS' },
+                { sigla: 'VGE', nome: 'VARGEM GRANDE' },
+                { sigla: 'ASH', nome: 'AFONSO CUNHA' },
+                { sigla: 'ADCE', nome: 'ÁGUA DOCE DO MARANHÃO' },
+                { sigla: 'ARW', nome: 'ANAPURUS' },
+                { sigla: 'AIS', nome: 'ARAIOSES' },
+                { sigla: 'BIH', nome: 'BARREIRINHAS' },
+                { sigla: 'BRJ', nome: 'BREJO' },
+                { sigla: 'BUI', nome: 'BURITI' },
+                { sigla: 'CHI', nome: 'CHAPADINHA' },
+                { sigla: 'CHT', nome: 'COELHO NETO' },
+                { sigla: 'DQR', nome: 'DUQUE BACELAR' },
+                { sigla: 'MHA', nome: 'MAGALHÃES DE ALMEIDA' },
+                { sigla: 'MMA', nome: 'MATA ROMA' },
+                { sigla: 'MLMH', nome: 'MILAGRES DO MARANHÃO' },
+                { sigla: 'PANE', nome: 'PAULINO NEVES' },
+                { sigla: 'SQH', nome: 'SANTA QUITÉRIA DO MARANHÃO' },
+                { sigla: 'STMH', nome: 'SANTANA DO MARANHÃO' },
+                { sigla: 'SBW', nome: 'SÃO BERNARDO' },
+                { sigla: 'TUT', nome: 'TUTOIA' },
+                { sigla: 'ASA', nome: 'ALDEIAS ALTAS' },
+                { sigla: 'BDC', nome: 'BARRA DO CORDA' },
+                { sigla: 'CXS', nome: 'CAXIAS' },
+                { sigla: 'FNFC', nome: 'FERNANDO FALCÃO' },
+                { sigla: 'GSD', nome: 'GONÇALVES DIAS' },
+                { sigla: 'GGB', nome: 'GOVERNADOR EUGÊNIO BARROS' },
+                { sigla: 'GVLR', nome: 'GOVERNADOR LUÍS ROCHA' },
+                { sigla: 'HAB', nome: 'HUMBERTO DE CAMPOS' },
+                { sigla: 'LEB', nome: 'LIMA CAMPOS' },
+                { sigla: 'PBT', nome: 'PASSAGEM FRANCA' },
+                { sigla: 'SAB', nome: 'SÃO DOMINGOS DO MARANHÃO' },
+                { sigla: 'SFD', nome: 'SÃO FELIPE DO MARANHÃO' },
+                { sigla: 'SJNS', nome: 'SÃO JOÃO DOS PATOS' },
+                { sigla: 'SJRN', nome: 'SÃO JOÃO DO CARÚ' },
+                { sigla: 'SHY', nome: 'SÃO JOSÉ DOS BASÍLIOS' },
+                { sigla: 'TSM', nome: 'TUNTUM' },
+                { sigla: 'UVA', nome: 'URBANO SANTOS' },
+                { sigla: 'VCC', nome: 'VILA NOVA DOS MARTÍRIOS' },
+                { sigla: 'BNK', nome: 'BOM JARDIM' },
+                { sigla: 'CUEI', nome: 'CURTINHA' },
+                { sigla: 'IAX', nome: 'IGARAPÉ GRANDE' },
+                { sigla: 'IMB', nome: 'IMPERATRIZ' },
+                { sigla: 'IGT', nome: 'IGARAPÉ DO MEIO' },
+                { sigla: 'JNAC', nome: 'JOÃO LISBOA' },
+                { sigla: 'LAIZ', nome: 'LAGO DA PEDRA' },
+                { sigla: 'LSE', nome: 'LAGO DO JUNCO' },
+                { sigla: 'MDA', nome: 'MATA ROMA' },
+                { sigla: 'MNBI', nome: 'MONÇÃO' },
+                { sigla: 'NAR', nome: 'NOVA OLINDO' },
+                { sigla: 'PAH', nome: 'PAULO RAMOS' },
+                { sigla: 'PARI', nome: 'PAULO RAMOS' },
+                { sigla: 'PER', nome: 'PERI MIRIM' },
+                { sigla: 'PIZ', nome: 'PIZAL' },
+                { sigla: 'PRM', nome: 'PRESIDENTE DUTRA' },
+                { sigla: 'REX', nome: 'REX NILO' },
+                { sigla: 'SDS', nome: 'SANTA FILOMENA DO MARANHÃO' },
+                { sigla: 'SVP', nome: 'SENADOR VASCONCELOS' },
+                { sigla: 'VCF', nome: 'VITÓRIA DO MEARIM' },
+                { sigla: 'WNF', nome: 'WANDERLEY NUNES FILHO' },
+                { sigla: 'AFC', nome: 'AMAPÁ DO MARANHÃO' },
+                { sigla: 'BPY', nome: 'BARRA DO CORDIA' },
+                { sigla: 'CAY', nome: 'CAXIAS' },
+                { sigla: 'CDT', nome: 'CONCEIÇÃO DO LAGO AÇU' },
+                { sigla: 'COA', nome: 'COSTA RICA' },
+                { sigla: 'GSM', nome: 'GOVERNADOR SANDOVAL DINIZ' },
+                { sigla: 'FEP', nome: 'FELIPE CAMARÃO' },
+                { sigla: 'IJT', nome: 'ILHA JACARÉ' },
+                { sigla: 'LIH', nome: 'LIMOEIRO DO NORTE' },
+                { sigla: 'LUR', nome: 'LURDANEVS' },
+                { sigla: 'MMAH', nome: 'MAJOR VIEIRA' },
+                { sigla: 'MNME', nome: 'MIRANDA DO NORTE' },
+                { sigla: 'NIV', nome: 'NOVA IORQUE' },
+                { sigla: 'NPR', nome: 'NOVA PALMEIRA' },
+                { sigla: 'PAB', nome: 'PENALVA' },
+                { sigla: 'PDM', nome: 'PRESIDENTE DUTRA' },
+                { sigla: 'PSAT', nome: 'PRESIDENTE SARNEY' },
+                { sigla: 'SAK', nome: 'SANTANA DO MARANHÃO' },
+                { sigla: 'SDB', nome: 'SÃO DOMINGOS DO MARANHÃO' },
+                { sigla: 'SLP', nome: 'SÃO LUIS DO MARANHÃO' },
+                { sigla: 'SNR', nome: 'SÃO NUNO DO NORTE' },
+                { sigla: 'SRR', nome: 'SERRANO DO MARANHÃO' },
+                { sigla: 'SIT', nome: 'SITIO NOVO' },
+                { sigla: 'TOR', nome: 'TORO' },
+                { sigla: 'VGE', nome: 'VITORIA DO MEARIM' }
+            ]
+
+
+
+
+            // Adicione mais estados e cidades conforme necessário
+        };
+
+        // Função para filtrar cidades com base no estado selecionado
+        function filtrarCidades() {
+            const estadoSelecionado = document.getElementById('estado').value;
+            const cidadeSelect = document.getElementById('cidade');
+
+            // Limpa as opções de cidade
+            cidadeSelect.innerHTML = '<option value="">Selecione uma cidade</option>';
+
+            // Popula as cidades relacionadas ao estado selecionado
+            if (estadoSelecionado && cidadesPorEstado[estadoSelecionado]) {
+                cidadesPorEstado[estadoSelecionado].forEach(cidade => {
+                    const option = document.createElement('option');
+                    option.value = cidade.sigla;
+                    option.textContent = cidade.nome;
+                    cidadeSelect.appendChild(option);
+                });
+            }
+        }
+
+        function gerarTitulos() {
+            const categoria = document.getElementById("categoria").value;
+            const servico = document.getElementById("servico").value;
+            const cnpj = document.getElementById("cnpj").value;
+            const contrato = document.getElementById("contrato").value;
+            const ponto = document.getElementById("ponto").value;
+            const estado = document.getElementById("estado").value;
+            const cidade = document.getElementById("cidade").value;
+            const empresa = document.getElementById("empresa").value;
+
+            const projetoPai = `${categoria}-${servico}-${cnpj}-${estado}-${empresa}`;
+            const projetoFilho = `${categoria}-${servico}-${contrato}-${ponto}-${cidade}-${empresa}`;
+            document.getElementById("projetoPai").innerText = projetoPai;
+            document.getElementById("projetoFilho").innerText = projetoFilho;
+
+            document.getElementById("resultModal").style.display = "flex"; // Exibe o modal
+        }
+        //Copiar textos
+        function copiarTexto(id) {
+            const texto = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('Texto copiado: ' + texto);
+            });
+        }
+
+        //fechar pop
+        function fecharModal() {
+            document.getElementById("resultModal").style.display = "none"; // Oculta o modal
+        }
+
+
+
+    </script>
+</body>
+</html>
