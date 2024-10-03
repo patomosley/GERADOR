@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon/pato.png" type="image/x-icon">
-    <title>FORM VALDAÇÃO ETICE</title>
+    <title>Formulário de Validação ETICE</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,7 +47,7 @@
             cursor: pointer;
         }
         button:hover {
-            background-color: ##3498db;
+            background-color: #3498db;
         }
         .bnt-voltar {
             width: 100%;
@@ -60,7 +60,7 @@
             cursor: pointer;
         }
         .bnt-voltar:hover {
-            background-color: ##a52828;
+            background-color: #a52828;
         }
         #resultado {
             margin-top: 20px;
@@ -79,28 +79,29 @@
 <body>
 
 <div class="container">
-    <h1>Solicitação de Validação etice</h1>
-    
+    <h1>Solicitação de Validação ETICE</h1>
+
     <div class="input-group">
-        <label for="orgao">Órgão:</label>
+        <label for="orgao">🏢 Órgão:</label>
         <input type="text" id="orgao" placeholder="Informe o órgão">
     </div>
     <div class="input-group">
-        <label for="rua">Rua:</label>
+        <label for="rua">📍 Endereço:</label>
         <input type="text" id="rua" placeholder="Informe a rua">
     </div>
     <div class="input-group">
-        <label for="numero">Número:</label>
+        <label for="numero">#️⃣ Número:</label>
         <input type="text" id="numero" placeholder="Informe o número">
     </div>
     <div class="input-group">
-        <label for="bairro">Bairro:</label>
+        <label for="bairro">🏙️ Bairro:</label>
         <input type="text" id="bairro" placeholder="Informe o bairro">
     </div>
     <div class="input-group">
-        <label for="gw">GW:</label>
+        <label for="gw">🌐 GW:</label>
         <input type="text" id="gw" placeholder="Informe o GW">
     </div>
+
     <button class="bnt-voltar" onclick="location.href='index.html'">Voltar</button>
     <button onclick="gerarDescricao()">Gerar Descrição</button>
 
