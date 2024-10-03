@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Descrição</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            font-size: 16px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e0f7fa;
+            border-radius: 10px;
+            font-size: 16px;
+            word-wrap: break-word;
+        }
+        #copyButton {
+            background-color: #2196F3;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Gerador de Descrição</h1>
+    <div class="input-group">
+        <label for="orgao">Órgão:</label>
+        <input type="text" id="orgao" placeholder="Informe o órgão">
+    </div>
+    <div class="input-group">
+        <label for="rua">Rua:</label>
+        <input type="text" id="rua" placeholder="Informe a rua">
+    </div>
+    <div class="input-group">
+        <label for="numero">Número:</label>
+        <input type="text" id="numero" placeholder="Informe o número">
+    </div>
+    <div class="input-group">
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" placeholder="Informe o bairro">
+    </div>
+    <div class="input-group">
+        <label for="gw">GW:</label>
+        <input type="text" id="gw" placeholder="Informe o GW">
+    </div>
+    <button onclick="gerarDescricao()">Gerar Descrição</button>
+
+    <div id="resultado"></div>
+    <button id="copyButton" style="display:none;" onclick="copiarTexto()">Copiar Descrição</button>
+</div>
+
+<script>
+    function gerarDescricao() {
+        var orgao = document.getElementById("orgao").value;
+        var rua = document.getElementById("rua").value;
+        var numero = document.getElementById("numero").value;
+        var bairro = document.getElementById("bairro").value;
+        var gw = document.getElementById("gw").value;
+
+        // Monta a descrição com emojis
+        var descricao = `🏢 Órgão: ${orgao}\n` +
+                        `📍 Endereço: ${rua}, ${numero} - ${bairro}\n` +
+                        `🌐 GW: ${gw}`;
+
+        // Exibe a descrição formatada
+        document.getElementById("resultado").innerText = descricao;
+
+        // Exibe o botão de copiar
+        document.getElementById("copyButton").style.display = "block";
+    }
+
+    function copiarTexto() {
+        // Copia o conteúdo da div de resultado
+        var texto = document.getElementById("resultado").innerText;
+        navigator.clipboard.writeText(texto).then(function() {
+            alert("Texto copiado com sucesso!");
+        }, function(err) {
+            alert("Falha ao copiar o texto!");
+        });
+    }
+</script>
+
+</body>
+</html>
