@@ -337,10 +337,10 @@ function fecharPopup() {
         }
 
         function gerarTituloEDescricao() {
-            const cliente = document.getElementById("clienteInput").value;
-            const contrato = document.getElementById("contratoInput").value;
-            const setor = document.getElementById("setorSelect").value;
-            const servico = document.getElementById("servicoSelect").value;
+            const cliente = document.getElementById("clienteInput").value.toUpperCase();
+            const contrato = document.getElementById("contratoInput").value.toUpperCase();
+            const setor = document.getElementById("setorSelect").value.toUpperCase();
+            const servico = document.getElementById("servicoSelect").value.toUpperCase();
 
             if (cliente && contrato && setor && servico) {
                 mostrarResultados(setor, servico, cliente, contrato);
