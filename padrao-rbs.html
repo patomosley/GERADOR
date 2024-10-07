@@ -87,10 +87,10 @@
             const cnpj = document.getElementById('cnpj').value;
             const ponto = document.getElementById('ponto').value;
             const mesa = document.getElementById('mesa').value;
-
-            // Criando a string do título no formato desejado
-            const titulo = `${contrato}-${siglaCliente}${cnpj}-${ponto}-${mesa}`;
-
+        
+            // Criando a string do título no formato desejado e convertendo para maiúsculas
+            const titulo = `${contrato}-${siglaCliente}${cnpj}-${ponto}-${mesa}`.toUpperCase();
+        
             // Exibindo o resultado
             document.getElementById('resultado').innerText = titulo;
         }
