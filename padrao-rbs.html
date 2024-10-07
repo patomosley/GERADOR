@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Títulos</title>
+    <style>
+        /* Estilos básicos para melhorar a aparência */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gerador de Títulos</h2>
+        <div class="input-group">
+            <label for="contrato">Contrato:</label>
+            <input type="text" id="contrato">
+        </div>
+        <div class="input-group">
+            <label for="siglaCliente">Sigla Cliente:</label>
+            <input type="text" id="siglaCliente">
+        </div>
+        <div class="input-group">
+            <label for="cnpj">3 Números do CNPJ:</label>
+            <input type="text" id="cnpj">
+        </div>
+        <div class="input-group">
+            <label for="ponto">Ponto:</label>
+            <input type="text" id="ponto">
+        </div>
+        <div class="input-group">
+            <label for="mesa">Mesa:</label>
+            <input type="text" id="mesa">
+        </div>
+        <button class="btn" onclick="gerarTitulo()">Gerar Título</button>
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function gerarTitulo() {
+            // Coletando os valores dos campos
+            const contrato = document.getElementById('contrato').value;
+            const siglaCliente = document.getElementById('siglaCliente').value;
+            const cnpj = document.getElementById('cnpj').value;
+            const ponto = document.getElementById('ponto').value;
+            const mesa = document.getElementById('mesa').value;
+
+            // Criando a string do título no formato desejado
+            const titulo = `${contrato}-${siglaCliente}${cnpj}-${ponto}-${mesa}`;
+
+            // Exibindo o resultado
+            document.getElementById('resultado').innerText = titulo;
+        }
+    </script>
+</body>
+</html>
