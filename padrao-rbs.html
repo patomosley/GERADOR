@@ -7,60 +7,111 @@
     <link rel="shortcut icon" href="favicon/pato.png" type="image/x-icon">
     <title>Gerador de Títulos</title>
     <style>
-        /* Estilos básicos para melhorar a aparência */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        /* Estilos modernos e mais dinâmicos */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            color: #333;
         }
+
         .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 450px;
+            max-width: 90%;
+            transition: transform 0.3s ease;
         }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            position: relative;
         }
+
         .input-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #555;
         }
+
         .input-group input {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .btn {
-            background-color: #007bff;
-            color: white;
             padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn, .bnt-voltar {
+            width: 48%;
+            padding: 12px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            font-weight: bold;
+            color: #fff;
         }
-        .btn:hover {
-            background-color: #0056b3;
+
+        .btn {
+            background-color: #667eea;
+            margin-right: 4%;
         }
+
         .bnt-voltar {
             background-color: #db3434;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
         }
+
+        .btn:hover {
+            background-color: #4a60e6;
+            transform: translateY(-2px);
+        }
+
         .bnt-voltar:hover {
             background-color: #a52828;
+            transform: translateY(-2px);
         }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
         .result {
             margin-top: 20px;
             font-weight: bold;
+            text-align: center;
+            color: #333;
+            padding: 10px;
+            background: #f4f4f4;
+            border-radius: 6px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -69,42 +120,40 @@
         <h2>Gerador de Títulos</h2>
         <div class="input-group">
             <label for="contrato">Contrato:</label>
-            <input type="text" id="contrato">
+            <input type="text" id="contrato" placeholder="Digite o contrato">
         </div>
         <div class="input-group">
             <label for="siglaCliente">Sigla Cliente:</label>
-            <input type="text" id="siglaCliente">
+            <input type="text" id="siglaCliente" placeholder="Digite a sigla do cliente">
         </div>
         <div class="input-group">
             <label for="cnpj">3 Números do CNPJ:</label>
-            <input type="text" id="cnpj">
+            <input type="text" id="cnpj" placeholder="Digite os 3 números do CNPJ">
         </div>
         <div class="input-group">
             <label for="ponto">Ponto:</label>
-            <input type="text" id="ponto">
+            <input type="text" id="ponto" placeholder="Digite o ponto">
         </div>
         <div class="input-group">
             <label for="mesa">Mesa:</label>
-            <input type="text" id="mesa">
+            <input type="text" id="mesa" placeholder="Digite a mesa">
         </div>
-        <button class="bnt-voltar" onclick="location.href='index.html'">Voltar</button>
-        <button class="btn" onclick="gerarTitulo()">Gerar Título</button>
+        <div class="buttons-container">
+            <button class="bnt-voltar" onclick="location.href='index.html'">Voltar</button>
+            <button class="btn" onclick="gerarTitulo()">Gerar Título</button>
+        </div>
         <div class="result" id="resultado"></div>
     </div>
 
     <script>
         function gerarTitulo() {
-            // Coletando os valores dos campos e convertendo para maiúsculas
             const contrato = document.getElementById('contrato').value.toUpperCase();
             const siglaCliente = document.getElementById('siglaCliente').value.toUpperCase();
             const cnpj = document.getElementById('cnpj').value.toUpperCase();
             const ponto = document.getElementById('ponto').value.toUpperCase();
             const mesa = document.getElementById('mesa').value.toUpperCase();
         
-            // Criando a string do título no formato desejado
             const titulo = `${contrato}-${siglaCliente}${cnpj}-${ponto}-${mesa}`;
-        
-            // Exibindo o resultado
             document.getElementById('resultado').innerText = titulo;
         }
     </script>
