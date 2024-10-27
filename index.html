@@ -21,7 +21,9 @@
             color: white;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
             position: fixed; 
-            height: 100%; 
+            height: 100%;
+            overflow-y: auto; 
+            transition: transform 0.3s ease-in-out;
         }
 
         .menu h2 {
@@ -59,6 +61,7 @@
             background-color: white;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            transition: margin-left 0.3s ease-in-out;
         }
 
         h1 {
@@ -67,6 +70,40 @@
             margin-bottom: 20px;
             font-size: 26px;
         }
+
+        .toggle-menu {
+            display: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .menu {
+                transform: translateX(-100%);
+            }
+
+            .menu.active {
+                transform: translateX(0);
+            }
+
+            .toggle-menu {
+                display: block;
+            }
+
+            .container {
+                margin-left: 0;
+                padding: 15px;
+            }
+        }
+
 
         label {
             font-weight: bold;
@@ -181,7 +218,11 @@
         }
     </style>
     <script>
-const descricoesServicos = {
+        function toggleMenu() {
+            const menu = document.querySelector('.menu');
+            menu.classList.toggle('active');
+        }
+        const descricoesServicos = {
             "NOC-SO": {
                 "REMOVER FILTRO": "Realizar remoção de filtro\n\n*IP:\n*LOGIN:\n*PORTA A SER REMOVIDA:",
 
@@ -210,7 +251,7 @@ const descricoesServicos = {
                 "CONFIGURAR IPT SENCINET":"Peço para que seja realizado configuração do IPT do cliente Sencient\n\n*VLAN: A DEFINIR\n\n*LOCAL-PEER: \n*LOCAL-AS: 64999\n*REMOTE PEER:\n*REMOTE: A.S: 64765\n\n*LIMITE PREFIXO: 10",
             },
             "NOC-O&M":{
-                "RESERVA DE INTERFACE":"Por gentiliza realizar resderva de interface para ativação do cliente.",
+                "RESERVA DE INTERFACE":"Por gentiliza realizar reserva de interface para ativação do cliente.",
                 "ATIVAÇÃO DE INTERFACE":"Por gentileza realizar configuração da interface, segue dados abaixo.\n\nSWITCH:\nINTERFACE:"
             },
             "NOC-ENGENHARIA": {
@@ -424,11 +465,13 @@ function fecharPopup() {
     </script>
 </head>
 <body>
+    <button class="toggle-menu" onclick="toggleMenu()">☰ Menu</button>
     <div class="menu">
         <h2>
-            <img src="favicon/pato.png" width="50px">
+            <img src="favicon/pato.png" width="50px" alt="Logo Pato">
             Pato Menu
-            <img src="favicon/pato.png" width="50px"></h2>
+            <img src="favicon/pato.png" width="50px" alt="Logo Pato">
+        </h2>
         <ul>
             <li><a href="https://novorevan.brisanet.net.br/#/" target="_blank">Revan</a></li>
             <li><a href="https://revan-atendimento.brisanet.net.br/" target="_blank">Yoda</a></li>
@@ -438,7 +481,7 @@ function fecharPopup() {
             <li><a href="https://netboxcop.brisanet.net.br/" target="_blank">NetBox</a></li>
             <li><a href="https://www.wrike.com/workspace.htm?acc=394412#/dashboard-app/13214410?spaceId=1221281649" target="_blank">Painel Wrike</a></li>
             <li><a href="https://revan-estoque.brisanet.net.br/supplychain/#/aang/dashboard-projetos" target="_blank">Supply</a></li>
-            <li><a href="padrao-rbs.html"> Padrao RB</a></li>    
+            <li><a href="padrao-rbs.html">Padrao RB</a></li>    
             <li><a href="projeto-sap/projetosap.html">GERADOR SAP</a></li>
         </ul>
     </div>
