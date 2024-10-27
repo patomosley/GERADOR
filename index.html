@@ -246,7 +246,7 @@ const descricoesServicos = {
 
                 "DESBLOQUEIO LIGAÇÕES INTERNACIONAIS":"Cliente deseja que seja realizado seu desbloqueio para conseguir ligar internacionalmente",
 
-                "BLOQUEIO":"Cliente deseja que seja realizado bloqueio de ligações internacionais em sua linha",
+                "BLOQUEIO LIGAÇÕES INTERNACIONAIS":"Cliente deseja que seja realizado bloqueio de ligações internacionais em sua linha",
 
                 "DESBLOQUEIO PARA LIGAÇÕES 0300/0500":"Cliente deseja que linha possa receber ligações dos numeros 0300/ 0500",
 
@@ -341,6 +341,11 @@ function fecharPopup() {
                     "RESERVA DE INTERFACE",
                     "ATIVAÇÃO DE INTERFACE"
                 ];
+            } else if(setor === "NOC-ENGENHARIA"){
+                servicos = [
+                    "VIABILIDADE PARA ATIVAÇÃO",   
+                    "VIABILIDADE PARA UPGRADE"  
+                ];
             } else if (setor === "GPON") {
                 servicos = [
                     "CONFIGURAR VLAN",
@@ -359,12 +364,27 @@ function fecharPopup() {
                 ];
             } else if (setor === "TELEFONIA") {
                 servicos = [
+                    "FALHA DE AUTENTICAÇÃO",
+                    "NAO EFETUA LIGAÇÃO",
+                    "NAO RECEBE LIGAÇÕES",
+                    "LIGAÇÃO FEITA FALHANDO",
+                    "DESBLOQUEIO LIGAÇÕES INTERNACIONAIS",
+                    "BLOQUEIO LIGAÇÕES INTERNACIONAIS",
+                    "DESBLOQUEIO PARA LIGAÇÕES 0300/0500",
+                    "BLOQUEIO PARA LIGAÇÕES 0300/0500",
+                    "DESBLOQUEIO LIGAÇÕES PARA NUMERO ESPECIFICO",
+                    "BLOQUEIO LIGAÇÕES PARA NUMERO ESPECIFICO",
+                    "LIMITADOR DE CONSUMO",
+                    "ALTERAÇÃO DE LIMITE",
+                    "HISTORICO DE LIGAÇÕES",
+                    "SUPORTE INTERNO",
                     "ATIVAÇÃO DE CLIENTE",
-                    "SUPORTE"
+                    "CANCELAMENTO",
+                    "EDD DOWN"
                 ];
             } else if (setor === "MONITORAMENTO SUPORTE") {
                 servicos = [
-                    "CADASTRO DE CIRCUITO NO LIBRE"
+                    "CADASTRO DE CIRCUITO"
                 ];
             }
 
