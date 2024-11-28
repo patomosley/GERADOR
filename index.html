@@ -224,6 +224,8 @@
         }
         const descricoesServicos = {
             "NOC-SO": {
+                "SELECIONAR SERVICO":"",
+
                 "REMOVER FILTRO": "Realizar remoção de filtro\n\n*IP:\n*LOGIN:\n*PORTA A SER REMOVIDA:",
 
                 "ALTERAR PLANO":"Realizar alteração de Plano do Cliente\n\n*VLAN:",
@@ -253,16 +255,23 @@
                 "SITE SEM ACESSO":"Cliente reclama que nao consegue acesso a sites em especifico no seu LINK\n\nSITE:\n*VLAN:\n*Device\n*Interface:",
             },
             "NOC-O&M":{
+                
                 "RESERVA DE INTERFACE":"Por gentiliza realizar reserva de interface para ativação do cliente.",
                 "ATIVAÇÃO DE INTERFACE":"Por gentileza realizar configuração da interface, segue dados abaixo.\n\nSWITCH:\nINTERFACE:"
             },
             "NOC-ENGENHARIA": {
+                "SELECIONAR SERVICO":"";,
+                
                 "VIABILIDADE PARA ATIVAÇÃO":"Por favor verificar se temos capacidade para atender ativação mediante dados informados",
 
                 "VIABILIDADE PARA UPGRADE":"Por favor verificar se temos capacidade para atender upgrade mediante dados informados"
             },
 
             "GPON": {
+                "SELECIONAR SERVICO":"",
+
+                "VERIFICAÇÃO DE ONU": "Peço para que seja realizado a verificação da ONU\nMotivo da verificação:",
+                
                 "CONFIGURAR VLAN": "Realizar configuração de VLAN\n\nLAN:\nVLAN:\nOLT:",
 
                 "ATUALIZAR ONU": "Verificar se ONU possui atualizações disponiveis, caso sim, realizar Atualização da mesma\n\nONU:\nOLT:",
@@ -272,9 +281,12 @@
                 "TESTE P2P L2L": "Realizar configuração de uma rede nas ONUs e realizar teste de ICMP entre as mesmas para testarmos a comunicação.\n\nREDE:\n\nPONTA A\nONU:\nVLAN:\nHOST:\n\nPONTA B\nONU:\nVLAN:\nHOST:",
             },
             "ESTOQUE":{
+                "SELECIONAR SERVICO":"",
                 "SEPARAR MATERIAL":"Realizar separação de material para atender Projeto",
             },
             "SAP":{
+                "SELECIONAR SERVICO":"",
+
                 "SUPLEMENTAÇÃO":"Realizar suplementação de material Mediante anexo da copia da Planilha de Orçamento de material",
 
                 "RETIFICAÇÃO":"Realizar retificação de material mediante anexo da copia da Planilha de Orçamento de material",
@@ -282,7 +294,10 @@
                 "CRIAÇÃO DE PROJETO":"Realizar Criação do Projeto Mediante anexo da copia da Planilha de Orçamento de material"
             },
             "TELEFONIA":{
+                "SELECIONAR SERVICO":"",
+
                 "FALHA DE AUTENTICAÇÃO":"Telefonia apresenta falha de autenticação",
+
                 "NAO EFETUA LIGAÇÃO":"Serviço de telefonia nao esta efetuando ligações\n\nOperadoras testadas:",
 
                 "NAO RECEBE LIGAÇÕES":"Serviço de telefonia nao recebe ligações\n\nOperadoras testadas:",
@@ -322,6 +337,7 @@
             },
 
             "MONITORAMENTO SUPORTE":{
+                "SELECIONAR SERVICO":"",
                 "CADASTRO DE CIRCUITO":"Realizar cadastro de unidade no monitoramento",
             }
         };
@@ -367,6 +383,7 @@ function fecharPopup() {
 
             if (setor === "NOC-SO") {
                 servicos = [
+                    "SELECIONAR SERVICO",
                     "REMOVER FILTRO",
                     "ALTERAR PLANO",
                     "REDE DE GERENCIA",
@@ -384,6 +401,7 @@ function fecharPopup() {
                 ];
             } else if (setor === "NOC-O&M") {
                 servicos = [
+                    "SELECIONAR SERVICO",
                     "RESERVA DE INTERFACE",
                     "ATIVAÇÃO DE INTERFACE"
                 ];
@@ -394,6 +412,8 @@ function fecharPopup() {
                 ];
             } else if (setor === "GPON") {
                 servicos = [
+                    "SELECIONAR SERVICO",
+                    "VERIFICAÇÃO DE ONU",
                     "CONFIGURAR VLAN",
                     "ATUALIZAR ONU",
                     "TESTE DE P2P",
@@ -401,16 +421,19 @@ function fecharPopup() {
                 ];
             } else if (setor === "ESTOQUE") {
                 servicos = [
+                    "SELECIONAR SERVICO",
                     "SEPARAR MATERIAL"
                 ];
             } else if (setor === "SAP") {
                 servicos = [
+                    "SELECIONAR SERVICO",
                     "SUPLEMENTAÇÃO",
                     "RETIFICAÇÃO",
                     "CRIAÇÃO DE PROJETO"
                 ];
             } else if (setor === "TELEFONIA") {
                 servicos = [
+                    "SELECIONAR SERVICO",
                     "FALHA DE AUTENTICAÇÃO",
                     "NAO EFETUA LIGAÇÃO",
                     "NAO RECEBE LIGAÇÕES",
@@ -431,6 +454,7 @@ function fecharPopup() {
                 ];
             } else if (setor === "MONITORAMENTO SUPORTE") {
                 servicos = [
+                    "SELECIONAR SERVICO",
                     "CADASTRO DE CIRCUITO"
                 ];
             }
