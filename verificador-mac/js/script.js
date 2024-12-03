@@ -1,31 +1,28 @@
-document.getElementById('macForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evita o envio do formulário
+document.getElementById('gerarDescricao').addEventListener('click', () => {
+  const orgao = document.getElementById('orgao').value;
+  const rua = document.getElementById('rua').value;
+  const numero = document.getElementById('numero').value;
+  const cidade = document.getElementById('cidade').value;
+  const gw = document.getElementById('gw').value;
 
-    let macAddress = document.getElementById('macInput').value;
+  const descricao = `
+    📌 Órgão: ${orgao}\n
+    🛤️ Rua: ${rua}\n
+    🏢 Número: ${numero}\n
+    🌆 Cidade: ${cidade}\n
+    🌐 GW/IP: ${gw}
+  `;
 
-    // Validação básica do formato do MAC Address
-    if (!/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/.test(macAddress)) {
-        document.getElementById('result').innerText = "Formato de MAC Address inválido. Tente novamente.";
-        return;
-    }
+  document.getElementById('descricaoGerada').textContent = descricao;
+  document.getElementById('popup').classList.remove('hidden');
+});
 
-    // Limpa os caracteres ':' e '-' do MAC
-    macAddress = macAddress.replace(/[:-]/g, "").toUpperCase();
+document.getElementById('closePopup').addEventListener('click', () => {
+  document.getElementById('popup').classList.add('hidden');
+});
 
-    // URL da API para consulta de fabricante pelo MAC Vendors (substitua pela sua chave, se necessário)
-    const apiUrl = `https://api.macvendors.com/${macAddress}`;
-
-    // Fazendo a consulta usando fetch
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error("Erro ao consultar o MAC Address.");
-            return response.text();
-        })
-        .then(manufacturer => {
-            document.getElementById('result').innerText = `Fabricante: ${manufacturer}`;
-        })
-        .catch(error => {
-            document.getElementById('result').innerText = "Fabricante não encontrado ou erro na consulta.";
-            console.error(error);
-        });
+document.getElementById('copiarDescricao').addEventListener('click', () => {
+  const descricao = document.getElementById('descricaoGerada').textContent;
+  navigator.clipboard.writeText(descricao);
+  alert('Descrição copiada para a área de transferência!');
 });
