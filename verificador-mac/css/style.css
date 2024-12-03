@@ -1,7 +1,9 @@
+/* Pop-up padrão oculto */
 .hidden {
   display: none;
 }
 
+/* Estilização do pop-up */
 #popup {
   position: fixed;
   top: 0;
@@ -15,6 +17,7 @@
   z-index: 1000;
 }
 
+/* Conteúdo do pop-up */
 .popup-content {
   background: #fff;
   padding: 20px;
@@ -32,4 +35,9 @@
   cursor: pointer;
   font-size: 20px;
   color: #555;
+}
+
+#descricaoGerada {
+  word-break: break-word;
+  white-space: pre-wrap; /* Para preservar as quebras de linha */
 }
