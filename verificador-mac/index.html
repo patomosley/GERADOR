@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../favicon/pato.png" type="image/x-icon">
-    <title>Consulta de Fabricante por MAC</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Descrições</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Consulta de Fabricante por MAC</h1>
-        <form id="macForm">
-            <label for="macInput">Insira o MAC Address:</label>
-            <input type="text" id="macInput" placeholder="Ex: 00:1A:2B:3C:4D:5E" required>
-            <button type="submit">Consultar Fabricante</button>
-        </form>
-        <div id="result"></div>
+  <div class="container">
+    <h1>Gerador de Descrições</h1>
+    <form id="descricaoForm">
+      <label for="orgao">📌 Órgão:</label>
+      <input type="text" id="orgao" name="orgao" required>
+      
+      <label for="rua">🛤️ Rua:</label>
+      <input type="text" id="rua" name="rua" required>
+      
+      <label for="numero">🏢 Número:</label>
+      <input type="text" id="numero" name="numero" required>
+      
+      <label for="cidade">🌆 Cidade:</label>
+      <input type="text" id="cidade" name="cidade" required>
+      
+      <label for="gw">🌐 GW/IP:</label>
+      <input type="text" id="gw" name="gw" required>
+      
+      <button type="button" id="gerarDescricao">Gerar Descrição</button>
+    </form>
+  </div>
+
+  <div id="popup" class="hidden">
+    <div class="popup-content">
+      <span id="closePopup">&times;</span>
+      <h2>Descrição Gerada</h2>
+      <p id="descricaoGerada"></p>
+      <button id="copiarDescricao">Copiar</button>
     </div>
-    <script src="js/script.js"></script>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
