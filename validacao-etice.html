@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Descrições</title>
+  <style>
+
+/* Pop-up padrão oculto */
+.hidden {
+  display: none;
+}
+
+/* Estilização do pop-up */
+#popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Conteúdo do pop-up */
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 300px;
+  width: 100%;
+  position: relative;
+}
+
+#closePopup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #555;
+}
+
+#descricaoGerada {
+  word-break: break-word;
+  white-space: pre-wrap; /* Para preservar as quebras de linha */
+}
+
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Gerador de Descrições</h1>
+    <form id="descricaoForm">
+      <label for="orgao">📌 Órgão:</label>
+      <input type="text" id="orgao" name="orgao" required>
+      
+      <label for="rua">🛤️ Rua:</label>
+      <input type="text" id="rua" name="rua" required>
+      
+      <label for="numero">🏢 Número:</label>
+      <input type="text" id="numero" name="numero" required>
+      
+      <label for="cidade">🌆 Cidade:</label>
+      <input type="text" id="cidade" name="cidade" required>
+      
+      <label for="gw">🌐 GW/IP:</label>
+      <input type="text" id="gw" name="gw" required>
+      
+      <button type="button" id="gerarDescricao">Gerar Descrição</button>
+    </form>
+  </div>
+
+  <div id="popup" class="hidden">
+    <div class="popup-content">
+      <span id="closePopup">&times;</span>
+      <h2>Descrição Gerada</h2>
+      <p id="descricaoGerada"></p>
+      <button id="copiarDescricao">Copiar</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('gerarDescricao').addEventListener('click', () => {
+  const orgao = document.getElementById('orgao').value.trim();
+  const rua = document.getElementById('rua').value.trim();
+  const numero = document.getElementById('numero').value.trim();
+  const cidade = document.getElementById('cidade').value.trim();
+  const gw = document.getElementById('gw').value.trim();
+
+  // Valida se todos os campos foram preenchidos
+  if (!orgao || !rua || !numero || !cidade || !gw) {
+    alert('Por favor, preencha todos os campos antes de gerar a descrição.');
+    return;
+  }
+
+  // Cria a descrição formatada
+  const descricao = `
+    📌 Órgão: ${orgao}\n
+    🛤️ Rua: ${rua}\n
+    🏢 Número: ${numero}\n
+    🌆 Cidade: ${cidade}\n
+    🌐 GW/IP: ${gw}
+  `;
+
+  // Atualiza o conteúdo do pop-up
+  document.getElementById('descricaoGerada').textContent = descricao;
+  document.getElementById('popup').classList.remove('hidden');
+});
+
+document.getElementById('closePopup').addEventListener('click', () => {
+  // Fecha o pop-up
+  document.getElementById('popup').classList.add('hidden');
+});
+
+document.getElementById('copiarDescricao').addEventListener('click', () => {
+  const descricao = document.getElementById('descricaoGerada').textContent;
+  navigator.clipboard.writeText(descricao).then(() => {
+    alert('Descrição copiada para a área de transferência!');
+  }).catch(err => {
+    alert('Erro ao copiar a descrição: ' + err);
+  });
+});
+
+  </script>
+</body>
+</html>
