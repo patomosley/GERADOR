@@ -283,6 +283,9 @@
                 "SELECIONAR SERVICO":"",
                 "SEPARAR MATERIAL":"Realizar separação de material para atender Projeto",
             },
+            "REDES WIRELESS":{
+                "MANUTENÇÃO":"Será nescessario a configuração do enlace mediante troca de equipamentos para o upgrade do link\n\nDADOS DA PONTA A\n\nDADOS DA PONTA B:",
+            },
             "SAP":{
                 
 
@@ -409,6 +412,11 @@ function fecharPopup() {
                     "Selecionar Serviço",
                     "VIABILIDADE PARA ATIVAÇÃO",   
                     "VIABILIDADE PARA UPGRADE"  
+                ];
+            } else if(setor === "REDES WIRELESS"){
+                servicos = [
+                    "Selecionar Serviço",
+                    "MANUTENÇÃO"
                 ];
             } else if (setor === "GPON") {
                 servicos = [
