@@ -1,144 +1,148 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon/pato.png" type="image/x-icon">
-    <title>Formulário de Validação ETICE</title>
+    <title>Gerador de Descrições</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 20px;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            background-color: white;
+            background: #fff;
             padding: 20px;
             border-radius: 10px;
-            max-width: 400px;
-            margin: auto;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
         }
-        h1 {
+        .container h1 {
             text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
         }
-        .input-group {
+        .form-group {
             margin-bottom: 15px;
         }
-        .input-group label {
-            font-size: 16px;
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
-        .input-group input {
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            font-size: 14px;
-            border-radius: 5px;
+            padding: 8px;
             border: 1px solid #ccc;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #2980b9;
-            color: white;
-            border: none;
             border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
+            font-size: 1em;
         }
-        button:hover {
-            background-color: #3498db;
-        }
-        .bnt-voltar {
-            width: 100%;
-            padding: 10px;
-            background-color: #db3434;
-            color: white;
+        .btn {
+            background-color: #007BFF;
+            color: #fff;
             border: none;
+            padding: 10px;
             border-radius: 5px;
-            font-size: 16px;
             cursor: pointer;
+            width: 100%;
+            font-size: 1em;
         }
-        .bnt-voltar:hover {
-            background-color: #a52828;
+        .btn:hover {
+            background-color: #0056b3;
         }
-        #resultado {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e0f7fa;
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
             border-radius: 10px;
-            font-size: 16px;
-            word-wrap: break-word;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
-        #copyButton {
-            background-color: #2196F3;
-            margin-top: 10px;
+        .popup p {
+            margin-bottom: 15px;
+        }
+        .popup .close-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .popup .close-btn:hover {
+            background-color: #a71d2a;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>Solicitação de Validação ETICE</h1>
-
-    <div class="input-group">
-        <label for="orgao">🏢 Órgão:</label>
-        <input type="text" id="orgao" placeholder="Informe o órgão">
+    <div class="container">
+        <h1>Gerador de Descrições</h1>
+        <div class="form-group">
+            <label for="orgao">📋 Órgão:</label>
+            <input type="text" id="orgao" placeholder="Digite o órgão">
+        </div>
+        <div class="form-group">
+            <label for="rua">📍 Rua:</label>
+            <input type="text" id="rua" placeholder="Digite a rua">
+        </div>
+        <div class="form-group">
+            <label for="numero">🔢 Número:</label>
+            <input type="text" id="numero" placeholder="Digite o número">
+        </div>
+        <div class="form-group">
+            <label for="cidade">🏙️ Cidade:</label>
+            <input type="text" id="cidade" placeholder="Digite a cidade">
+        </div>
+        <div class="form-group">
+            <label for="bairro">📦 Bairro:</label>
+            <input type="text" id="bairro" placeholder="Digite o bairro">
+        </div>
+        <div class="form-group">
+            <label for="opcao">🌐 Gateway ou Host:</label>
+            <select id="opcao">
+                <option value="Gateway">Gateway</option>
+                <option value="Host">Host</option>
+            </select>
+        </div>
+        <button class="btn" onclick="gerarDescricao()">Gerar Descrição</button>
     </div>
-    <div class="input-group">
-        <label for="rua">📍 Endereço:</label>
-        <input type="text" id="rua" placeholder="Informe a rua">
-    </div>
-    <div class="input-group">
-        <label for="numero">#️⃣ Número:</label>
-        <input type="text" id="numero" placeholder="Informe o número">
-    </div>
-    <div class="input-group">
-        <label for="bairro">🏙️ Bairro:</label>
-        <input type="text" id="bairro" placeholder="Informe o bairro">
-    </div>
-    <div class="input-group">
-        <label for="gw">🌐 GW:</label>
-        <input type="text" id="gw" placeholder="Informe o GW">
+
+    <div class="popup" id="popup">
+        <p id="resultado"></p>
+        <button class="btn close-btn" onclick="fecharPopup()">Fechar</button>
     </div>
 
-    <button class="bnt-voltar" onclick="location.href='index.html'">Voltar</button>
-    <button onclick="gerarDescricao()">Gerar Descrição</button>
+    <script>
+        function gerarDescricao() {
+            const orgao = document.getElementById('orgao').value;
+            const rua = document.getElementById('rua').value;
+            const numero = document.getElementById('numero').value;
+            const cidade = document.getElementById('cidade').value;
+            const bairro = document.getElementById('bairro').value;
+            const opcao = document.getElementById('opcao').value;
 
-    <div id="resultado"></div>
-    <button id="copyButton" style="display:none;" onclick="copiarTexto()">Copiar Descrição</button>
-</div>
+            const descricao = `📋 Órgão: ${orgao}\n📍 Rua: ${rua}\n🔢 Número: ${numero}\n🏙️ Cidade: ${cidade}\n📦 Bairro: ${bairro}\n🌐 ${opcao}: Ativo`;
 
-<script>
-    function gerarDescricao() {
-        var orgao = document.getElementById("orgao").value;
-        var rua = document.getElementById("rua").value;
-        var numero = document.getElementById("numero").value;
-        var bairro = document.getElementById("bairro").value;
-        var gw = document.getElementById("gw").value;
+            const resultado = document.getElementById('resultado');
+            resultado.textContent = descricao;
 
-        // Monta a descrição com emojis
-        var descricao = `🏢 Órgão: ${orgao}\n` +
-                        `📍 Endereço: ${rua}, ${numero} - ${bairro}\n` +
-                        `🌐 GW: ${gw}`;
+            const popup = document.getElementById('popup');
+            popup.style.display = 'block';
+        }
 
-        // Exibe a descrição formatada
-        document.getElementById("resultado").innerText = descricao;
-
-        // Exibe o botão de copiar
-        document.getElementById("copyButton").style.display = "block";
-    }
-
-    function copiarTexto() {
-        // Copia o conteúdo da div de resultado
-        var texto = document.getElementById("resultado").innerText;
-        navigator.clipboard.writeText(texto).then(function() {
-            alert("Texto copiado com sucesso!");
-        }, function(err) {
-            alert("Falha ao copiar o texto!");
-        });
-    }
-</script>
-
+        function fecharPopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
