@@ -42,6 +42,9 @@
             border-radius: 5px;
             font-size: 1em;
         }
+        .form-group input[disabled] {
+            background-color: #e9ecef;
+        }
         .btn {
             background-color: #007BFF;
             color: #fff;
@@ -108,10 +111,15 @@
         </div>
         <div class="form-group">
             <label for="opcao">🌐 Gateway ou Host:</label>
-            <select id="opcao">
+            <select id="opcao" onchange="habilitarIP()">
+                <option value="">Selecione</option>
                 <option value="Gateway">Gateway</option>
                 <option value="Host">Host</option>
             </select>
+        </div>
+        <div class="form-group">
+            <label for="ip">💻 IP:</label>
+            <input type="text" id="ip" placeholder="Digite o IP" disabled>
         </div>
         <button class="btn" onclick="gerarDescricao()">Gerar Descrição</button>
     </div>
@@ -122,6 +130,18 @@
     </div>
 
     <script>
+        function habilitarIP() {
+            const opcao = document.getElementById('opcao').value;
+            const ipField = document.getElementById('ip');
+
+            if (opcao === 'Gateway' || opcao === 'Host') {
+                ipField.disabled = false;
+            } else {
+                ipField.disabled = true;
+                ipField.value = '';
+            }
+        }
+
         function gerarDescricao() {
             const orgao = document.getElementById('orgao').value;
             const rua = document.getElementById('rua').value;
@@ -129,8 +149,16 @@
             const cidade = document.getElementById('cidade').value;
             const bairro = document.getElementById('bairro').value;
             const opcao = document.getElementById('opcao').value;
+            const ip = document.getElementById('ip').value;
 
-            const descricao = `📋 Órgão: ${orgao}\n📍 Rua: ${rua}\n🔢 Número: ${numero}\n🏙️ Cidade: ${cidade}\n📦 Bairro: ${bairro}\n🌐 ${opcao}: Ativo`;
+            let descricao = `📋 Órgão: ${orgao}\n📍 Rua: ${rua}\n🔢 Número: ${numero}\n🏙️ Cidade: ${cidade}\n📦 Bairro: ${bairro}`;
+
+            if (opcao) {
+                descricao += `\n🌐 ${opcao}: Ativo`;
+            }
+            if (ip) {
+                descricao += `\n💻 IP: ${ip}`;
+            }
 
             const resultado = document.getElementById('resultado');
             resultado.textContent = descricao;
