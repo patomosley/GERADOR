@@ -54,6 +54,7 @@
             cursor: pointer;
             width: 100%;
             font-size: 1em;
+            margin-bottom: 10px;
         }
         .btn:hover {
             background-color: #0056b3;
@@ -72,6 +73,11 @@
         }
         .popup p {
             margin-bottom: 15px;
+            white-space: pre-wrap;
+            font-weight: bold;
+        }
+        .popup .btn {
+            margin-bottom: 5px;
         }
         .popup .close-btn {
             background-color: #dc3545;
@@ -126,6 +132,7 @@
 
     <div class="popup" id="popup">
         <p id="resultado"></p>
+        <button class="btn" onclick="copiarDescricao()">Copiar</button>
         <button class="btn close-btn" onclick="fecharPopup()">Fechar</button>
     </div>
 
@@ -143,18 +150,18 @@
         }
 
         function gerarDescricao() {
-            const orgao = document.getElementById('orgao').value;
-            const rua = document.getElementById('rua').value;
-            const numero = document.getElementById('numero').value;
-            const cidade = document.getElementById('cidade').value;
-            const bairro = document.getElementById('bairro').value;
-            const opcao = document.getElementById('opcao').value;
-            const ip = document.getElementById('ip').value;
+            const orgao = document.getElementById('orgao').value.toUpperCase();
+            const rua = document.getElementById('rua').value.toUpperCase();
+            const numero = document.getElementById('numero').value.toUpperCase();
+            const cidade = document.getElementById('cidade').value.toUpperCase();
+            const bairro = document.getElementById('bairro').value.toUpperCase();
+            const opcao = document.getElementById('opcao').value.toUpperCase();
+            const ip = document.getElementById('ip').value.toUpperCase();
 
-            let descricao = `📋 Órgão: ${orgao}\n📍 Rua: ${rua}\n🔢 Número: ${numero}\n🏙️ Cidade: ${cidade}\n📦 Bairro: ${bairro}`;
+            let descricao = `📋 ÓRGÃO: ${orgao}\n📍 RUA: ${rua}\n🔢 NÚMERO: ${numero}\n🏙️ CIDADE: ${cidade}\n📦 BAIRRO: ${bairro}`;
 
             if (opcao) {
-                descricao += `\n🌐 ${opcao}: Ativo`;
+                descricao += `\n🌐 ${opcao}: ATIVO`;
             }
             if (ip) {
                 descricao += `\n💻 IP: ${ip}`;
@@ -165,6 +172,13 @@
 
             const popup = document.getElementById('popup');
             popup.style.display = 'block';
+        }
+
+        function copiarDescricao() {
+            const resultado = document.getElementById('resultado').textContent;
+            navigator.clipboard.writeText(resultado)
+                .then(() => alert('Descrição copiada para a área de transferência!'))
+                .catch(err => alert('Erro ao copiar descrição: ' + err));
         }
 
         function fecharPopup() {
