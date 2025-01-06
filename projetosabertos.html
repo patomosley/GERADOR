@@ -55,6 +55,26 @@
       background-color: #0078D7;
       color: white;
     }
+    .search-group {
+      margin-bottom: 2rem;
+    }
+    .search-group input {
+      width: calc(100% - 2rem);
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    .search-group button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-left: 0.5rem;
+      background-color: #0078D7;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .search-group button:hover {
+      background-color: #0056a1;
+    }
   </style>
 </head>
 <body>
@@ -79,6 +99,10 @@
 
     <div id="consulta">
       <h2>Consulta de Projetos</h2>
+      <div class="search-group">
+        <input type="text" id="pesquisa" placeholder="Pesquisar Projetos">
+        <button onclick="pesquisarProjetos()">Pesquisar</button>
+      </div>
       <table>
         <thead>
           <tr>
@@ -119,32 +143,35 @@
       document.getElementById('projetoFilho').value = '';
     }
 
-    function exibirProjetos() {
+    function exibirProjetos(filtro = '') {
       const tabela = document.getElementById('tabelaProjetos');
       tabela.innerHTML = '';
 
-      projetos.forEach((projeto, index) => {
-        const tr = document.createElement('tr');
+      projetos
+        .filter(projeto => projeto.pai.toLowerCase().includes(filtro.toLowerCase()) || 
+                          projeto.filhos.some(filho => filho.toLowerCase().includes(filtro.toLowerCase())))
+        .forEach((projeto, index) => {
+          const tr = document.createElement('tr');
 
-        const tdPai = document.createElement('td');
-        tdPai.textContent = projeto.pai;
+          const tdPai = document.createElement('td');
+          tdPai.textContent = projeto.pai;
 
-        const tdFilhos = document.createElement('td');
-        tdFilhos.textContent = projeto.filhos.join(', ');
+          const tdFilhos = document.createElement('td');
+          tdFilhos.textContent = projeto.filhos.join(', ');
 
-        const tdAcoes = document.createElement('td');
-        const btnExcluir = document.createElement('button');
-        btnExcluir.textContent = 'Excluir';
-        btnExcluir.onclick = () => excluirProjeto(index);
+          const tdAcoes = document.createElement('td');
+          const btnExcluir = document.createElement('button');
+          btnExcluir.textContent = 'Excluir';
+          btnExcluir.onclick = () => excluirProjeto(index);
 
-        tdAcoes.appendChild(btnExcluir);
+          tdAcoes.appendChild(btnExcluir);
 
-        tr.appendChild(tdPai);
-        tr.appendChild(tdFilhos);
-        tr.appendChild(tdAcoes);
+          tr.appendChild(tdPai);
+          tr.appendChild(tdFilhos);
+          tr.appendChild(tdAcoes);
 
-        tabela.appendChild(tr);
-      });
+          tabela.appendChild(tr);
+        });
     }
 
     function excluirProjeto(index) {
@@ -164,6 +191,11 @@
         projetos = JSON.parse(projetosJSON);
         exibirProjetos();
       }
+    }
+
+    function pesquisarProjetos() {
+      const filtro = document.getElementById('pesquisa').value.trim();
+      exibirProjetos(filtro);
     }
 
     // Carregar projetos ao iniciar
