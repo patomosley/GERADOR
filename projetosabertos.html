@@ -182,7 +182,12 @@
           tdPai.textContent = projeto.pai;
 
           const tdFilhos = document.createElement('td');
-          tdFilhos.textContent = projeto.filhos.map(filho => filho.nome).join(', ');
+          tdFilhos.innerHTML = projeto.filhos.map((filho, filhoIndex) => `
+            <div>
+              ${filho.nome} - <strong>${filho.status}</strong>
+              <button onclick="editarStatus(${index}, ${filhoIndex})">Editar Status</button>
+            </div>
+          `).join('');
 
           const tdStatus = document.createElement('td');
           tdStatus.textContent = projeto.filhos.map(filho => `${filho.nome}: ${filho.status}`).join(', ');
@@ -201,6 +206,17 @@
 
           tabela.appendChild(trPai);
         });
+    }
+
+    function editarStatus(projetoIndex, filhoIndex) {
+      const novoStatus = prompt('Digite o novo status (Planejamento, Em Andamento, Concluído):');
+      if (novoStatus && ['Planejamento', 'Em Andamento', 'Concluído'].includes(novoStatus)) {
+        projetos[projetoIndex].filhos[filhoIndex].status = novoStatus;
+        salvarProjetos();
+        exibirProjetos();
+      } else {
+        alert('Status inválido. Por favor, tente novamente.');
+      }
     }
 
     function excluirProjeto(index) {
