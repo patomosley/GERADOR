@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Controle de Projetos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+    header {
+      background-color: #0078D7;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      padding: 2rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .form-group input, .form-group button {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    .form-group button {
+      background-color: #0078D7;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .form-group button:hover {
+      background-color: #0056a1;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    table th {
+      background-color: #0078D7;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sistema de Controle de Projetos</h1>
+  </header>
+  <div class="container">
+    <div id="cadastro">
+      <h2>Cadastro de Projetos</h2>
+      <div class="form-group">
+        <label for="projetoPai">Projeto PAI</label>
+        <input type="text" id="projetoPai" placeholder="Nome do Projeto PAI">
+      </div>
+      <div class="form-group">
+        <label for="projetoFilho">Projeto FILHO</label>
+        <input type="text" id="projetoFilho" placeholder="Nome do Projeto FILHO">
+      </div>
+      <div class="form-group">
+        <button onclick="adicionarProjeto()">Adicionar Projeto</button>
+      </div>
+    </div>
+
+    <div id="consulta">
+      <h2>Consulta de Projetos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Projeto PAI</th>
+            <th>Projetos FILHO</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaProjetos"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let projetos = [];
+
+    function adicionarProjeto() {
+      const projetoPai = document.getElementById('projetoPai').value.trim();
+      const projetoFilho = document.getElementById('projetoFilho').value.trim();
+
+      if (!projetoPai || !projetoFilho) {
+        alert('Por favor, preencha ambos os campos.');
+        return;
+      }
+
+      let projetoExistente = projetos.find(p => p.pai === projetoPai);
+
+      if (projetoExistente) {
+        projetoExistente.filhos.push(projetoFilho);
+      } else {
+        projetos.push({ pai: projetoPai, filhos: [projetoFilho] });
+      }
+
+      salvarProjetos();
+      exibirProjetos();
+
+      document.getElementById('projetoPai').value = '';
+      document.getElementById('projetoFilho').value = '';
+    }
+
+    function exibirProjetos() {
+      const tabela = document.getElementById('tabelaProjetos');
+      tabela.innerHTML = '';
+
+      projetos.forEach((projeto, index) => {
+        const tr = document.createElement('tr');
+
+        const tdPai = document.createElement('td');
+        tdPai.textContent = projeto.pai;
+
+        const tdFilhos = document.createElement('td');
+        tdFilhos.textContent = projeto.filhos.join(', ');
+
+        const tdAcoes = document.createElement('td');
+        const btnExcluir = document.createElement('button');
+        btnExcluir.textContent = 'Excluir';
+        btnExcluir.onclick = () => excluirProjeto(index);
+
+        tdAcoes.appendChild(btnExcluir);
+
+        tr.appendChild(tdPai);
+        tr.appendChild(tdFilhos);
+        tr.appendChild(tdAcoes);
+
+        tabela.appendChild(tr);
+      });
+    }
+
+    function excluirProjeto(index) {
+      projetos.splice(index, 1);
+      salvarProjetos();
+      exibirProjetos();
+    }
+
+    function salvarProjetos() {
+      const projetosJSON = JSON.stringify(projetos);
+      localStorage.setItem('projetos', projetosJSON);
+    }
+
+    function carregarProjetos() {
+      const projetosJSON = localStorage.getItem('projetos');
+      if (projetosJSON) {
+        projetos = JSON.parse(projetosJSON);
+        exibirProjetos();
+      }
+    }
+
+    // Carregar projetos ao iniciar
+    carregarProjetos();
+  </script>
+</body>
+</html>
