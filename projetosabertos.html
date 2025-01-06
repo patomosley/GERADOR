@@ -27,7 +27,7 @@
       display: block;
       margin-bottom: 0.5rem;
     }
-    .form-group input, .form-group button {
+    .form-group input, .form-group select, .form-group button {
       width: 100%;
       padding: 0.5rem;
       font-size: 1rem;
@@ -75,6 +75,19 @@
     .search-group button:hover {
       background-color: #0056a1;
     }
+    .back-button {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #0078D7;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      border-radius: 5px;
+    }
+    .back-button:hover {
+      background-color: #0056a1;
+    }
   </style>
 </head>
 <body>
@@ -82,6 +95,7 @@
     <h1>Sistema de Controle de Projetos</h1>
   </header>
   <div class="container">
+    <a href="#" class="back-button" id="botaoVoltar">Voltar</a>
     <div id="cadastro">
       <h2>Cadastro de Projetos</h2>
       <div class="form-group">
@@ -91,6 +105,14 @@
       <div class="form-group">
         <label for="projetoFilho">Projeto FILHO</label>
         <input type="text" id="projetoFilho" placeholder="Nome do Projeto FILHO">
+      </div>
+      <div class="form-group">
+        <label for="statusProjeto">Status do Projeto FILHO</label>
+        <select id="statusProjeto">
+          <option value="Planejamento">Planejamento</option>
+          <option value="Em Andamento">Em Andamento</option>
+          <option value="Concluído">Concluído</option>
+        </select>
       </div>
       <div class="form-group">
         <button onclick="adicionarProjeto()">Adicionar Projeto</button>
@@ -108,6 +130,7 @@
           <tr>
             <th>Projeto PAI</th>
             <th>Projetos FILHO</th>
+            <th>Status</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -122,18 +145,19 @@
     function adicionarProjeto() {
       const projetoPai = document.getElementById('projetoPai').value.trim();
       const projetoFilho = document.getElementById('projetoFilho').value.trim();
+      const statusProjeto = document.getElementById('statusProjeto').value;
 
       if (!projetoPai || !projetoFilho) {
-        alert('Por favor, preencha ambos os campos.');
+        alert('Por favor, preencha todos os campos.');
         return;
       }
 
       let projetoExistente = projetos.find(p => p.pai === projetoPai);
 
       if (projetoExistente) {
-        projetoExistente.filhos.push(projetoFilho);
+        projetoExistente.filhos.push({ nome: projetoFilho, status: statusProjeto });
       } else {
-        projetos.push({ pai: projetoPai, filhos: [projetoFilho] });
+        projetos.push({ pai: projetoPai, filhos: [{ nome: projetoFilho, status: statusProjeto }] });
       }
 
       salvarProjetos();
@@ -141,6 +165,7 @@
 
       document.getElementById('projetoPai').value = '';
       document.getElementById('projetoFilho').value = '';
+      document.getElementById('statusProjeto').value = 'Planejamento';
     }
 
     function exibirProjetos(filtro = '') {
@@ -149,15 +174,18 @@
 
       projetos
         .filter(projeto => projeto.pai.toLowerCase().includes(filtro.toLowerCase()) || 
-                          projeto.filhos.some(filho => filho.toLowerCase().includes(filtro.toLowerCase())))
+                          projeto.filhos.some(filho => filho.nome.toLowerCase().includes(filtro.toLowerCase())))
         .forEach((projeto, index) => {
-          const tr = document.createElement('tr');
+          const trPai = document.createElement('tr');
 
           const tdPai = document.createElement('td');
           tdPai.textContent = projeto.pai;
 
           const tdFilhos = document.createElement('td');
-          tdFilhos.textContent = projeto.filhos.join(', ');
+          tdFilhos.textContent = projeto.filhos.map(filho => filho.nome).join(', ');
+
+          const tdStatus = document.createElement('td');
+          tdStatus.textContent = projeto.filhos.map(filho => `${filho.nome}: ${filho.status}`).join(', ');
 
           const tdAcoes = document.createElement('td');
           const btnExcluir = document.createElement('button');
@@ -166,11 +194,12 @@
 
           tdAcoes.appendChild(btnExcluir);
 
-          tr.appendChild(tdPai);
-          tr.appendChild(tdFilhos);
-          tr.appendChild(tdAcoes);
+          trPai.appendChild(tdPai);
+          trPai.appendChild(tdFilhos);
+          trPai.appendChild(tdStatus);
+          trPai.appendChild(tdAcoes);
 
-          tabela.appendChild(tr);
+          tabela.appendChild(trPai);
         });
     }
 
@@ -197,6 +226,10 @@
       const filtro = document.getElementById('pesquisa').value.trim();
       exibirProjetos(filtro);
     }
+
+    document.getElementById('botaoVoltar').onclick = function() {
+      window.location.href = 'sua-pagina-anterior.html'; // Substitua "sua-pagina-anterior.html" pelo endereço desejado
+    };
 
     // Carregar projetos ao iniciar
     carregarProjetos();
