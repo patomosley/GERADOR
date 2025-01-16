@@ -1,0 +1,200 @@
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variáveis de cor */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --background-color: #ffffff;
+    --error-color: #e74c3c;
+    --border-color: #bdc3c7;
+    --hover-color: #2980b9;
+    --button-hover: #a52828;
+    --modal-background: rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo básico do body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #ecf0f1;
+}
+
+/* Estilo do container */
+.container {
+    background: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 90%;
+    max-width: 600px;
+}
+
+/* Estilo do título */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: var(--secondary-color);
+}
+
+/* Estilo dos campos do formulário */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #34495e;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+select:focus, input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Estilo dos botões */
+button, .back-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    margin-top: 10px;
+}
+
+button {
+    background: var(--primary-color);
+}
+
+.back-button {
+    background: #db3434;
+}
+
+button:hover {
+    background: var(--hover-color);
+    transform: scale(1.02);
+}
+
+.back-button:hover {
+    background: var(--button-hover);
+    transform: scale(1.02);
+}
+
+/* Estilo do modal de resultado */
+.result-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--modal-background);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.result-content {
+    background: var(--background-color);
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.result-item {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f7f9fc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.copy-btn {
+    background: var(--primary-color);
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.copy-btn:hover {
+    background: var(--hover-color);
+}
+
+.close-btn {
+    margin-top: 10px;
+    padding: 10px;
+    background: var(--error-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    width: 100%;
+}
+
+.close-btn:hover {
+    background: #c0392b;
+    transform: scale(1.02);
+}
+
+/* Estilo do menu */
+.menu {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+
+.menu img {
+    max-width: 100%;
+    height: auto;
+    margin-right: 10px;
+}
+
+.menu h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .menu h1 {
+        font-size: 20px;
+    }
+
+    .menu img {
+        width: 40px;
+    }
+}
+
