@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Documentação</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" id="view-projects">Ver Projetos</a></li>
+                <li><a href="#" id="create-project">Criar Projeto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Página de Visualização de Projetos -->
+        <section id="projects-view" class="hidden">
+            <h1>Projetos Cadastrados</h1>
+            <div class="table-container">
+                <table id="projects-table">
+                    <thead>
+                        <tr>
+                            <th>Protocolo</th>
+                            <th>Nome do Projeto</th>
+                            <th>Diagrama Pai</th>
+                            <th>Diagrama Filho</th>
+                            <th>Valor</th>
+                            <th>Data de Chegada</th>
+                            <th>Data de Vencimento</th>
+                            <th>Data de Conclusão</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Projetos serão listados aqui -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="actions-container">
+                <button id="export-to-excel">Exportar para Excel</button>
+                <button class="vote-button" onclick="window.location.href='../index.html';">Voltar</button>
+            </div>
+        </section>
+
+        <!-- Página de Criação de Projetos -->
+        <section id="projects-creation" class="hidden">
+            <h1>Criar Novo Projeto</h1>
+            <form id="create-project-form">
+                <label for="protocol">Protocolo:</label>
+                <input type="text" id="protocol" name="protocol" required>
+
+                <label for="project-name">Nome do Projeto:</label>
+                <input type="text" id="project-name" name="project-name" required>
+
+                <label for="parent-diagram">Diagrama Projeto Pai:</label>
+                <input type="text" id="parent-diagram" name="parent-diagram" required>
+
+                <label for="child-diagram">Diagrama Projeto Filho:</label>
+                <input type="text" id="child-diagram" name="child-diagram" required>
+
+                <label for="value">Valor:</label>
+                <input type="number" id="value" name="value" step="0.01" required>
+
+                <label for="arrival-date">Data de Chegada:</label>
+                <input type="date" id="arrival-date" name="arrival-date" required>
+
+                <label for="due-date">Data de Vencimento:</label>
+                <input type="date" id="due-date" name="due-date" required>
+
+                <label for="completion-date">Data de Conclusão:</label>
+                <input type="date" id="completion-date" name="completion-date">
+
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="PENDENTE">Pendente</option>
+                    <option value="ANDAMENTO">Andamento</option>
+                    <option value="CONCLUIDO">Concluído</option>
+                </select>
+
+                <button type="submit">Salvar Projeto</button>
+                <button class="vote-button" onclick="window.location.href='../index.html';">Voltar</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

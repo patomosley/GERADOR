@@ -1,0 +1,209 @@
+/* Reset básico */
+body, h1, h2, h3, p, ul, li, table, th, td, input, button, select {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(135deg, #f4f4f9, #e8eaf6);
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: #fff;
+    padding: 20px 40px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 10px 10px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s, transform 0.2s;
+}
+
+nav a:hover {
+    color: #1abc9c;
+    transform: scale(1.1);
+}
+
+main {
+    padding: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    color: #2c3e50;
+}
+
+/* Estilo da tabela */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+}
+
+#projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#projects-table th, #projects-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#projects-table th {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: #fff;
+    font-weight: bold;
+}
+
+#projects-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#projects-table tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+
+/* Estilo para os status */
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+}
+
+.status-pendente {
+    background-color: #e74c3c;
+}
+
+.status-andamento {
+    background-color: #f1c40f;
+}
+
+.status-concluido {
+    background-color: #2ecc71;
+}
+
+/* Botões */
+button {
+    background: linear-gradient(135deg, #1abc9c, #16a085);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #16a085, #149174);
+    transform: scale(1.05);
+}
+
+button:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* Container para os botões */
+.actions-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Botão de voltar */
+button.vote-button {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button.vote-button:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    transform: scale(1.1);
+}
+
+/* Inputs e Select */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #1abc9c;
+    outline: none;
+    box-shadow: 0 0 10px rgba(26, 188, 156, 0.5);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #projects-table {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    #projects-table th, #projects-table td {
+        padding: 8px;
+    }
+
+    .table-container {
+        margin-bottom: 20px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+
+    .actions-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
