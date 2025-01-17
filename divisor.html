@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Divisor de Projetos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .container {
+      margin-bottom: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #result {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Divisor de Projetos ETICE</h1>
+
+  <div class="container">
+    <label for="inputText">Informe o projeto:</label>
+    <input type="text" id="inputText" placeholder="Ex: 202428189785: ETICE PMCE 1º BATALHAO DE POLICIA MILITAR - RUSSAS CE">
+    <button onclick="processText()">Dividir</button>
+  </div>
+
+  <div id="result">
+    <p><strong>Protocolo:</strong> <span id="protocolo"></span></p>
+    <p><strong>Nome do Projeto:</strong> <span id="nome"></span></p>
+    <p><strong>Cidade:</strong> <span id="cidade"></span></p>
+    <p><strong>UF:</strong> <span id="uf"></span></p>
+  </div>
+
+  <script>
+    function processText() {
+      const inputText = document.getElementById('inputText').value;
+      
+      // Regex para extrair os dados
+      const regex = /(\d+):\s*([A-Za-z0-9\s\[\]\-]+)\s*-\s*([A-Za-z\s]+)\s*([A-Z]{2})/;
+      const match = inputText.match(regex);
+      
+      if (match) {
+        const protocolo = match[1];
+        const nome = match[2];
+        const cidade = match[3];
+        const uf = match[4];
+
+        // Preencher os resultados na tela
+        document.getElementById('protocolo').textContent = protocolo;
+        document.getElementById('nome').textContent = nome;
+        document.getElementById('cidade').textContent = cidade;
+        document.getElementById('uf').textContent = uf;
+      } else {
+        alert("Formato inválido! Certifique-se de seguir o padrão.");
+      }
+    }
+  </script>
+
+</body>
+</html>
