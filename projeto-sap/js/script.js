@@ -467,7 +467,9 @@ const cidadesPorEstado = {
 
     'PE': [
         { sigla: 'SGI', nome: 'Salgueiro' },
-        { sigla: 'VER', nome: 'Veredinha' }
+        { sigla: 'VER', nome: 'Veredinha' },
+	{ sigla: 'ACV', nome: 'ARCOVERDE' }
+	
     ],
     'PI': [
         { sigla: 'AOX', nome: 'Alto Longa' },
