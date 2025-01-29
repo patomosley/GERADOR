@@ -357,6 +357,7 @@ const cidadesPorEstado = {
     ],
     'PB': [
         { sigla: 'AHD', nome: 'Alhandra' },
+        { sigla: 'JPA', nome: 'JOAO PESSOA' },
         { sigla: 'UIN', nome: 'Uiraúna' },
         { sigla: 'VIEI', nome: 'Vieirópolis' }
     ],
