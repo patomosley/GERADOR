@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon/pato.png" type="image/x-icon">
     <title>Gerador de Padrões</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -21,18 +20,18 @@
         }
         .container {
             background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             text-align: center;
             box-sizing: border-box;
             animation: fadeIn 0.5s ease-in-out;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         h2 {
             margin-bottom: 20px;
@@ -41,10 +40,10 @@
         input, select, button {
             width: calc(100% - 24px);
             margin-top: 12px;
-            padding: 12px;
+            padding: 14px;
             font-size: 16px;
             border: 2px solid #ddd;
-            border-radius: 6px;
+            border-radius: 8px;
             outline: none;
             transition: 0.3s;
             box-sizing: border-box;
@@ -52,7 +51,7 @@
         }
         input:focus, select:focus {
             border-color: #764ba2;
-            box-shadow: 0 0 8px rgba(118, 75, 162, 0.5);
+            box-shadow: 0 0 10px rgba(118, 75, 162, 0.4);
         }
         button {
             background: #764ba2;
@@ -70,12 +69,12 @@
             margin-top: 20px;
             padding: 15px;
             background: #e9ecef;
-            border-radius: 6px;
+            border-radius: 8px;
             word-wrap: break-word;
             font-weight: bold;
             font-size: 18px;
             color: #333;
-            border-left: 4px solid #764ba2;
+            border-left: 5px solid #764ba2;
             text-transform: uppercase;
             opacity: 0;
             transform: translateY(10px);
@@ -89,7 +88,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>GERADOR SAP</h2>
+        <h2>Gerador de Padrões</h2>
         <input type="text" id="projetoFilho" placeholder="Projeto Filho">
         <input type="text" id="cliente" placeholder="Cliente">
         <select id="tipoAtendimento">
@@ -114,7 +113,22 @@
                 return;
             }
             
-            const padrao = `${projetoFilho} - ${cliente} - ${tipoAtendimento}`;
+            let descricao = "";
+            switch (tipoAtendimento) {
+                case "NOVO PROJETO":
+                    descricao = "Realizar criação de novo projeto mediante o arquivo em anexo.";
+                    break;
+                case "SUPLEMENTAÇÃO PROJETO":
+                    descricao = "Realizar suplementação do projeto conforme especificado no documento de suporte.";
+                    break;
+                case "RETIFICAÇÃO PROJETO":
+                    descricao = "Realizar retificação do projeto conforme os ajustes indicados.";
+                    break;
+                default:
+                    descricao = "";
+            }
+            
+            const padrao = `${projetoFilho} - ${cliente} - ${tipoAtendimento}\nOBSERVAÇÃO: ${descricao}`;
             const resultadoDiv = document.getElementById("resultado");
             resultadoDiv.innerText = padrao;
             resultadoDiv.classList.add("show");
