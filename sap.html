@@ -85,6 +85,19 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .copy-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #5a3d8f;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+        .copy-button:hover {
+            background: #764ba2;
+        }
     </style>
 </head>
 <body>
@@ -98,8 +111,12 @@
             <option value="RETIFICAÇÃO PROJETO">RETIFICAÇÃO PROJETO</option>
         </select>
         <button onclick="gerarPadrao()">Gerar Padrão</button>
-        <div id="resultado" class="output"></div>
-        <button onclick="copiarTexto()">Copiar</button>
+
+        <div id="descricao" class="output"></div>
+        <div id="observacao" class="output"></div>
+
+        <button class="copy-button" onclick="copiarDescricao()">Copiar Descrição</button>
+        <button class="copy-button" onclick="copiarObservacao()">Copiar Observação</button>
         <button onclick="voltarPagina()">Voltar</button>
     </div>
 
@@ -128,21 +145,34 @@
                 default:
                     descricao = "";
             }
-            
-            const padrao = `${projetoFilho} - ${cliente} - ${tipoAtendimento}\nOBSERVAÇÃO: ${descricao}`;
-            const resultadoDiv = document.getElementById("resultado");
-            resultadoDiv.innerText = padrao;
-            resultadoDiv.classList.add("show");
+
+            const descricaoDiv = document.getElementById("descricao");
+            descricaoDiv.innerText = `${projetoFilho} - ${cliente} - ${tipoAtendimento}`;
+            descricaoDiv.classList.add("show");
+
+            const observacaoDiv = document.getElementById("observacao");
+            observacaoDiv.innerText = `OBSERVAÇÃO: ${descricao}`;
+            observacaoDiv.classList.add("show");
         }
 
-        function copiarTexto() {
-            const resultado = document.getElementById("resultado").innerText;
-            if (!resultado) {
+        function copiarDescricao() {
+            const descricao = document.getElementById("descricao").innerText;
+            if (!descricao) {
                 alert("Nada para copiar!");
                 return;
             }
-            navigator.clipboard.writeText(resultado);
-            alert("Padrão copiado!");
+            navigator.clipboard.writeText(descricao);
+            alert("Descrição copiada!");
+        }
+
+        function copiarObservacao() {
+            const observacao = document.getElementById("observacao").innerText;
+            if (!observacao) {
+                alert("Nada para copiar!");
+                return;
+            }
+            navigator.clipboard.writeText(observacao);
+            alert("Observação copiada!");
         }
 
         function voltarPagina() {
