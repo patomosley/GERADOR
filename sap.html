@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Padrões</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input, select, button {
+            width: calc(100% - 24px);
+            margin-top: 12px;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+            text-transform: uppercase;
+        }
+        input:focus, select:focus {
+            border-color: #764ba2;
+        }
+        button {
+            background: #764ba2;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: none;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #5a3d8f;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 6px;
+            word-wrap: break-word;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+            border-left: 4px solid #764ba2;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gerador de Padrões</h2>
+        <input type="text" id="projetoFilho" placeholder="Projeto Filho">
+        <input type="text" id="cliente" placeholder="Cliente">
+        <select id="tipoAtendimento">
+            <option value="NOVO PROJETO">NOVO PROJETO</option>
+            <option value="SUPLEMENTAÇÃO PROJETO">SUPLEMENTAÇÃO PROJETO</option>
+            <option value="RETIFICAÇÃO PROJETO">RETIFICAÇÃO PROJETO</option>
+        </select>
+        <button onclick="gerarPadrao()">Gerar Padrão</button>
+        <div id="resultado" class="output"></div>
+        <button onclick="copiarTexto()">Copiar</button>
+    </div>
+
+    <script>
+        function gerarPadrao() {
+            const tipoAtendimento = document.getElementById("tipoAtendimento").value.toUpperCase();
+            const cliente = document.getElementById("cliente").value.toUpperCase();
+            const projetoFilho = document.getElementById("projetoFilho").value.toUpperCase();
+            
+            if (!tipoAtendimento || !cliente || !projetoFilho) {
+                alert("Preencha todos os campos!");
+                return;
+            }
+            
+            const padrao = `${projetoFilho} - ${cliente} - ${tipoAtendimento}`;
+            document.getElementById("resultado").innerText = padrao;
+        }
+
+        function copiarTexto() {
+            const resultado = document.getElementById("resultado").innerText;
+            if (!resultado) {
+                alert("Nada para copiar!");
+                return;
+            }
+            navigator.clipboard.writeText(resultado);
+            alert("Padrão copiado!");
+        }
+    </script>
+</body>
+</html>
+
