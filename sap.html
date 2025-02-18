@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon/pato.png" type="image/x-icon">
     <title>Gerador de Padrões</title>
     <style>
         body {
@@ -85,6 +84,7 @@
         <button onclick="gerarPadrao()">Gerar Padrão</button>
         <div id="resultado" class="output"></div>
         <button onclick="copiarTexto()">Copiar</button>
+        <button onclick="voltarPagina()">Voltar</button>
     </div>
 
     <script>
@@ -111,7 +111,10 @@
             navigator.clipboard.writeText(resultado);
             alert("Padrão copiado!");
         }
+
+        function voltarPagina() {
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 </html>
-
