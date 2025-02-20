@@ -690,7 +690,7 @@ const cidadesPorEstado = {
         { sigla: 'SGI', nome: 'Salgueiro' },
         { sigla: 'VER', nome: 'Veredinha' },
 	{ sigla: 'ACV', nome: 'ARCOVERDE' },
-	{sigla: 'PTA', nome 'PETROLINA'}    
+	{sigla: 'PTA', nome: 'PETROLINA'}    
 	
     ],
     'PI': [
