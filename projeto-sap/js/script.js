@@ -694,7 +694,8 @@ const cidadesPorEstado = {
     ],
     'PI': [
         { sigla: 'AOX', nome: 'Alto Longa' },
-        { sigla: 'ZRA', nome: 'Zé Doca' }
+        { sigla: 'ZRA', nome: 'Zé Doca' },
+	{sigla: 'PTA', nome 'PETROLINA'}
     ],
     'BA': [
 	    { sigla: 'CAR', nome: 'Camaçari' },
