@@ -7,7 +7,7 @@ const cidadesPorEstado = {
 	    { sigla: 'CZH', nome: 'Chorozinho' },
 	    { sigla: 'ESB', nome: 'Eusebio' },
 	    { sigla: 'FLA', nome: 'Fortaleza' },
-	    { sigla: 'GBA', nome: 'Guaiuba' },
+	    { sigla: 'GBA', nome: 'Guaiuba' },"
 	    { sigla: 'HZT', nome: 'Horizonte' },
 	    { sigla: 'IAGA', nome: 'Itaitinga' },
 	    { sigla: 'MCW', nome: 'Maracanaú' },
@@ -689,13 +689,14 @@ const cidadesPorEstado = {
     'PE': [
         { sigla: 'SGI', nome: 'Salgueiro' },
         { sigla: 'VER', nome: 'Veredinha' },
-	{ sigla: 'ACV', nome: 'ARCOVERDE' }
+	{ sigla: 'ACV', nome: 'ARCOVERDE' },
+	{sigla: 'PTA', nome 'PETROLINA'}    
 	
     ],
     'PI': [
         { sigla: 'AOX', nome: 'Alto Longa' },
         { sigla: 'ZRA', nome: 'Zé Doca' },
-	{sigla: 'PTA', nome 'PETROLINA'}
+	
     ],
     'BA': [
 	    { sigla: 'CAR', nome: 'Camaçari' },
