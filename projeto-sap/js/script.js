@@ -7,7 +7,7 @@ const cidadesPorEstado = {
 	    { sigla: 'CZH', nome: 'Chorozinho' },
 	    { sigla: 'ESB', nome: 'Eusebio' },
 	    { sigla: 'FLA', nome: 'Fortaleza' },
-	    { sigla: 'GBA', nome: 'Guaiuba' },"
+	    { sigla: 'GBA', nome: 'Guaiuba' },
 	    { sigla: 'HZT', nome: 'Horizonte' },
 	    { sigla: 'IAGA', nome: 'Itaitinga' },
 	    { sigla: 'MCW', nome: 'Maracanaú' },
