@@ -694,6 +694,7 @@ const cidadesPorEstado = {
 	
     ],
     'PI': [
+	{sigla: 'TSA', nome: 'TERESINA'},
         { sigla: 'AOX', nome: 'Alto Longa' },
         { sigla: 'ZRA', nome: 'Zé Doca' },
 	
