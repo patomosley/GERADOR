@@ -1128,15 +1128,12 @@ const cidadesPorEstado = {
     ]
 };
 
-// Função para filtrar cidades com base no estado selecionado
+// Filtra cidades com base no estado selecionado
 function filtrarCidades() {
     const estadoSelecionado = document.getElementById('estado').value;
     const cidadeSelect = document.getElementById('cidade');
-
-    // Limpa as opções de cidade
     cidadeSelect.innerHTML = '<option value="">Selecione uma cidade</option>';
 
-    // Popula as cidades relacionadas ao estado selecionado
     if (estadoSelecionado && cidadesPorEstado[estadoSelecionado]) {
         cidadesPorEstado[estadoSelecionado].forEach(cidade => {
             const option = document.createElement('option');
@@ -1147,7 +1144,7 @@ function filtrarCidades() {
     }
 }
 
-// Função para gerar os títulos
+// Gera os títulos com a opção de padrão FUST
 function gerarTitulos() {
     const categoria = document.getElementById("categoria").value;
     const servico = document.getElementById("servico").value;
@@ -1157,25 +1154,19 @@ function gerarTitulos() {
     const estado = document.getElementById("estado").value;
     const cidade = document.getElementById("cidade").value;
     const empresa = document.getElementById("empresa").value;
+    const tipoProjetoAtivado = document.getElementById("tipoProjeto").checked;
 
-    const projetoPai = `${categoria}-${servico}-${cnpj}-${estado}-${empresa}`;
-    const projetoFilho = `${categoria}-${servico}-${contrato}-${ponto}-${cidade}-${empresa}`;
-    document.getElementById("projetoPai").innerText = projetoPai;
-    document.getElementById("projetoFilho").innerText = projetoFilho;
+    const categoriaModificada = tipoProjetoAtivado ? `${categoria}-FUST` : categoria;
 
-    document.getElementById("resultModal").style.display = "flex"; // Exibe o modal
+    document.getElementById("projetoPai").innerText = `${categoriaModificada}-${servico}-${cnpj}-${estado}-${empresa}`;
+    document.getElementById("projetoFilho").innerText = `${categoriaModificada}-${servico}-${contrato}-${ponto}-${cidade}-${empresa}`;
+    document.getElementById("resultModal").style.display = "flex";
 }
 
-// Função para copiar textos
 function copiarTexto(id) {
-    const texto = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(texto).then(() => {
-        alert("Texto copiado com sucesso!");
-    });
+    navigator.clipboard.writeText(document.getElementById(id).innerText).then(() => alert("Texto copiado!"));
 }
 
-// Função para fechar o modal
 function fecharModal() {
-    document.getElementById("resultModal").style.display = "none"; // Oculta o modal
+    document.getElementById("resultModal").style.display = "none";
 }
-
