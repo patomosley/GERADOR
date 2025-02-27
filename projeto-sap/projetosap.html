@@ -28,7 +28,7 @@
 
                     <section class="form-group">
                         <label for="categoria">Categoria:</label>
-                        <select id="categoria" required aria-label="Selecione a categoria">
+                        <select id="categoria" required>
                             <option value="">Selecione a Categoria</option>
                             <option value="B2G">B2G</option>
                             <option value="B2B">B2B</option>
@@ -39,7 +39,7 @@
 
                     <section class="form-group">
                         <label for="servico">Serviço:</label>
-                        <select id="servico" required aria-label="Selecione o serviço">
+                        <select id="servico" required>
                             <option value="">Selecionar Serviço</option>
                             <option value="MTR">REDE METRO ETHERNET</option>
                             <option value="DWDM">REDE DWDM</option>
@@ -55,22 +55,22 @@
 
                     <section class="form-group">
                         <label for="cnpj">Nº CNPJ:</label>
-                        <input type="text" id="cnpj" pattern="\d*" maxlength="24" placeholder="Digite o CNPJ" required aria-label="Digite o CNPJ" autocomplete="off">
+                        <input type="text" id="cnpj" maxlength="24" placeholder="Digite o CNPJ" required autocomplete="off">
                     </section>
 
                     <section class="form-group">
                         <label for="contrato">Nº Contrato:</label>
-                        <input type="text" id="contrato" placeholder="Digite o número do contrato" required aria-label="Digite o número do contrato" autocomplete="off">
+                        <input type="text" id="contrato" placeholder="Digite o número do contrato" required autocomplete="off">
                     </section>
 
                     <section class="form-group">
                         <label for="ponto">Nº Ponto:</label>
-                        <input type="text" id="ponto" placeholder="Digite o número do ponto" required aria-label="Digite o número do ponto" autocomplete="off">
+                        <input type="text" id="ponto" placeholder="Digite o número do ponto" required autocomplete="off">
                     </section>
 
                     <section class="form-group">
                         <label for="estado">Estado:</label>
-                        <select id="estado" required onchange="filtrarCidades()" aria-label="Selecione o estado">
+                        <select id="estado" required onchange="filtrarCidades()">
                             <option value="">Selecionar Estado</option>
                             <option value="AL">Alagoas</option>
                             <option value="BA">Bahia</option>
@@ -86,14 +86,14 @@
 
                     <section class="form-group">
                         <label for="cidade">Cidade:</label>
-                        <select id="cidade" required aria-label="Selecione a cidade">
+                        <select id="cidade" required>
                             <option value="">Selecione uma cidade</option>
                         </select>
                     </section>
 
                     <section class="form-group">
                         <label for="empresa">Empresa:</label>
-                        <select id="empresa" required aria-label="Selecione a empresa">
+                        <select id="empresa" required>
                             <option value="">Selecionar Empresa</option>
                             <option value="BRIT">Brisanet</option>
                             <option value="AMT">American Tower Company</option>
@@ -107,6 +107,13 @@
                             <option value="TLX">Telxius</option>
                         </select>
                     </section>
+
+                    <!-- Opção para ativar o novo padrão -->
+                    <section class="form-group">
+                        <input type="checkbox" id="tipoProjeto">
+                        <label for="tipoProjeto">Ativar padrão FUST</label>
+                    </section>
+
                 </fieldset>
 
                 <button type="button" onclick="gerarTitulos()">Gerar Títulos</button>
@@ -114,24 +121,24 @@
         </main>
 
         <!-- Modal de resultado -->
-        <div class="result-modal" id="resultModal" role="dialog" aria-hidden="true">
+        <div class="result-modal" id="resultModal">
             <div class="result-content">
                 <h2>Resultados</h2>
                 <section>
                     <label>PROJETO PAI</label>
                     <div id="resultadoPai" class="result-item">
                         <span id="projetoPai"></span>
-                        <button class="copy-btn" onclick="copiarTexto('projetoPai')" aria-label="Copiar título do projeto pai">Copiar</button>
+                        <button class="copy-btn" onclick="copiarTexto('projetoPai')">Copiar</button>
                     </div>
                 </section>
                 <section>
                     <label>PROJETO FILHO</label>
                     <div id="resultadoFilho" class="result-item">
                         <span id="projetoFilho"></span>
-                        <button class="copy-btn" onclick="copiarTexto('projetoFilho')" aria-label="Copiar título do projeto filho">Copiar</button>
+                        <button class="copy-btn" onclick="copiarTexto('projetoFilho')">Copiar</button>
                     </div>
                 </section>
-                <button class="close-btn" onclick="fecharModal()" aria-label="Fechar modal">Fechar</button>
+                <button class="close-btn" onclick="fecharModal()">Fechar</button>
             </div>
         </div>
     </div>
@@ -139,4 +146,3 @@
     <script src="js/script.js"></script>
 </body>
 </html>
-
