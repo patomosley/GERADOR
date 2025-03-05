@@ -232,7 +232,7 @@ button[type="button"]:hover {
     }
 }
 
-/* Estilo para o campo "Ativar padrão FUST" */
+/* Estilo para o campo "Ativar padrão FUST" como um switch */
 .form-group {
     display: flex;
     align-items: center;
@@ -240,13 +240,13 @@ button[type="button"]:hover {
     margin-bottom: 15px;
 }
 
-/* Estilo do checkbox transformado em switch */
+/* Estilo para o checkbox como toggle switch */
 #tipoProjeto {
     appearance: none;
     -webkit-appearance: none;
     width: 50px;
     height: 24px;
-    background-color: var(--border-color);
+    background-color: #ccc;
     border-radius: 50px;
     position: relative;
     cursor: pointer;
