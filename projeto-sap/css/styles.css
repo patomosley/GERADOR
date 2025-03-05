@@ -95,6 +95,8 @@ form {
     display: flex;
     flex-direction: column;
     gap: 20px; /* Maior espaçamento entre os grupos de campos */
+    width: 100%;
+    box-sizing: border-box; /* Garante que o padding não cause o overflow */
 }
 
 /* Estilo das seções */
@@ -116,6 +118,7 @@ input, select {
     border-radius: 8px;
     font-size: var(--font-size-small);
     transition: all 0.3s ease;
+    box-sizing: border-box; /* Garantir que o padding seja incluído no cálculo de largura */
 }
 
 /* Ajustando o alinhamento dos campos quando estão focados */
