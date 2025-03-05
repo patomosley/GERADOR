@@ -84,27 +84,29 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px; /* Aumentando o espaçamento entre os campos */
 }
 
-fieldset {
+/* Ajuste dos campos */
+.fieldset {
     border: 1px solid var(--border-color);
-    padding: 15px;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Maior espaçamento entre os grupos de campos */
 }
 
-legend {
-    padding: 0 10px;
-    font-weight: bold;
-    font-size: var(--font-size-large);
-    color: var(--primary-color);
+/* Estilo das seções */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Espaçamento entre o label e o campo */
 }
 
 label {
-    display: block;
     font-size: var(--font-size-small);
     color: var(--secondary-color);
-    margin-bottom: 5px;
 }
 
 input, select {
@@ -116,18 +118,58 @@ input, select {
     transition: all 0.3s ease;
 }
 
+/* Ajustando o alinhamento dos campos quando estão focados */
 input:focus, select:focus {
     border-color: var(--primary-color);
     outline: none;
     box-shadow: 0 0 5px var(--primary-color);
 }
 
-/* Adicionando estilo ao :focus-visible para melhorar a acessibilidade */
-input:focus-visible, select:focus-visible {
-    outline: 2px solid var(--primary-color);
+/* Estilo para a checkbox como toggle switch */
+#tipoProjeto {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 50px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Botão principal */
+#tipoProjeto:checked {
+    background-color: var(--primary-color);
+}
+
+#tipoProjeto:checked::before {
+    transform: translateX(26px);
+}
+
+#tipoProjeto::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+
+label[for="tipoProjeto"] {
+    font-size: var(--font-size-small);
+    color: var(--secondary-color);
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+#tipoProjeto:checked + label {
+    color: var(--primary-color);
+}
+
+/* Estilo dos botões */
 button[type="button"] {
     background: var(--primary-color);
     color: white;
@@ -232,65 +274,6 @@ button[type="button"]:hover {
     }
 }
 
-/* Estilo para o campo "Ativar padrão FUST" como um switch */
-.form-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-/* Estilo para o checkbox como toggle switch */
-#tipoProjeto {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 50px;
-    height: 24px;
-    background-color: #ccc;
-    border-radius: 50px;
-    position: relative;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#tipoProjeto:checked {
-    background-color: var(--primary-color);
-}
-
-#tipoProjeto:checked::before {
-    transform: translateX(26px);
-}
-
-#tipoProjeto::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 4px;
-    width: 16px;
-    height: 16px;
-    background-color: white;
-    border-radius: 50%;
-    transform: translateY(-50%);
-    transition: transform 0.3s ease;
-}
-
-/* Estilo para o texto ao lado do checkbox */
-label[for="tipoProjeto"] {
-    font-size: var(--font-size-small);
-    color: var(--secondary-color);
-    transition: color 0.3s ease;
-}
-
-#tipoProjeto:checked + label {
-    color: var(--primary-color);
-}
-
-/* Adicionando um efeito de foco para acessibilidade */
-#tipoProjeto:focus-visible {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 3px;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
     body {
@@ -307,5 +290,9 @@ label[for="tipoProjeto"] {
 
     .container {
         padding: 15px;
+    }
+
+    .form-group {
+        gap: 8px; /* Ajuste do espaçamento no layout responsivo */
     }
 }
