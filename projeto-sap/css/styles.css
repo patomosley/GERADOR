@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -14,79 +14,134 @@ body {
     height: 100vh;
 }
 
+/* Container principal */
 .container {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     width: 90%;
-    max-width: 400px;
+    max-width: 450px;
     text-align: center;
     color: white;
 }
 
+/* Títulos */
 h1, h2 {
     margin-bottom: 15px;
+    font-weight: 600;
 }
 
+/* Formulário */
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
-input {
-    padding: 10px;
+/* Inputs e Selects */
+input, select {
+    padding: 12px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     outline: none;
+    font-size: 16px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: 0.3s;
 }
 
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+input:focus, select:focus {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Botões */
 button {
-    padding: 10px;
+    padding: 12px;
     background: #3498db;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 button:hover {
     background: #2980b9;
 }
 
-#search {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-}
-
+/* Lista */
 ul {
     list-style: none;
+    padding: 0;
+    margin-top: 15px;
 }
 
 li {
     background: rgba(255, 255, 255, 0.2);
-    padding: 10px;
+    padding: 12px;
     margin-top: 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 14px;
 }
 
+/* Botão dentro dos itens da lista */
 li button {
     background: #e74c3c;
+    padding: 8px 10px;
+    font-size: 14px;
+    border-radius: 5px;
 }
 
 li button:hover {
     background: #c0392b;
 }
+
+/* Modal */
 #resultModal {
     display: none;
     opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
     transition: opacity 0.3s ease-in-out;
 }
 
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+    width: 80%;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+}
+
+.modal-content button {
+    background: #2ecc71;
+    margin-top: 15px;
+}
+
+.modal-content button:hover {
+    background: #27ae60;
+}
