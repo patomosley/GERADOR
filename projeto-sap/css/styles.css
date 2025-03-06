@@ -201,31 +201,77 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8); /* Fundo mais escuro para dar foco */
     justify-content: center;
     align-items: center;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: scale(0.9); /* Inicia com uma escala menor */
+}
+
+.result-modal.show {
+    display: flex;
+    opacity: 1;
+    transform: scale(1); /* Aumenta a escala ao aparecer */
 }
 
 .result-content {
     background: #ffffff;
-    padding: 25px;
+    padding: 30px;
     border-radius: 12px;
     text-align: center;
     color: black;
     width: 85%;
     max-width: 420px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Adiciona sombra suave ao redor */
+    transition: transform 0.3s ease-out;
 }
 
 .result-content h2 {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333; /* Título mais escuro para destaque */
+}
+
+.result-content p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555555;
+    line-height: 1.5;
 }
 
 .result-content button {
-    background: #2ecc71;
-    margin-top: 15px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+    width: 100%;
+    max-width: 180px;
+    margin-top: 10px;
 }
 
 .result-content button:hover {
-    background: #27ae60;
+    background: #4338ca;
+    transform: scale(1.05); /* Leve aumento no tamanho do botão ao passar o mouse */
+}
+
+.result-content .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #4f46e5;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.result-content .close-btn:hover {
+    color: #4338ca; /* Muda a cor ao passar o mouse */
 }
