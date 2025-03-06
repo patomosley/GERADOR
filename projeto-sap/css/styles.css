@@ -84,3 +84,9 @@ li button {
 li button:hover {
     background: #c0392b;
 }
+#resultModal {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
