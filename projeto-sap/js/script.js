@@ -1356,41 +1356,56 @@ const cidadesPorEstado = {
 function filtrarCidades() {
     const estadoSelecionado = document.getElementById('estado').value;
     const cidadeSelect = document.getElementById('cidade');
+    
     cidadeSelect.innerHTML = '<option value="">Selecione uma cidade</option>';
-
-    if (estadoSelecionado && cidadesPorEstado[estadoSelecionado]) {
-        cidadesPorEstado[estadoSelecionado].forEach(cidade => {
-            const option = document.createElement('option');
-            option.value = cidade.sigla;
-            option.textContent = cidade.nome;
-            cidadeSelect.appendChild(option);
-        });
+    
+    if (cidadesPorEstado[estadoSelecionado]) {
+        cidadeSelect.innerHTML += cidadesPorEstado[estadoSelecionado].map(
+            cidade => `<option value="${cidade.sigla}">${cidade.nome}</option>`
+        ).join('');
     }
 }
 
-// Gera os títulos com a opção de padrão FUST
+// Gera os títulos com base nas entradas do formulário
 function gerarTitulos() {
-    const categoria = document.getElementById("categoria").value;
-    const servico = document.getElementById("servico").value;
-    const cnpj = document.getElementById("cnpj").value;
-    const contrato = document.getElementById("contrato").value;
-    const ponto = document.getElementById("ponto").value;
-    const estado = document.getElementById("estado").value;
-    const cidade = document.getElementById("cidade").value;
-    const empresa = document.getElementById("empresa").value;
-    const tipoProjetoAtivado = document.getElementById("tipoProjeto").checked;
+    const getValue = id => document.getElementById(id).value;
+    const isChecked = id => document.getElementById(id).checked;
 
-    const categoriaModificada = tipoProjetoAtivado ? `${categoria}-FUST` : categoria;
+    const categoria = getValue("categoria");
+    const servico = getValue("servico");
+    const cnpj = getValue("cnpj");
+    const contrato = getValue("contrato");
+    const ponto = getValue("ponto");
+    const estado = getValue("estado");
+    const cidade = getValue("cidade");
+    const empresa = getValue("empresa");
+    const categoriaModificada = isChecked("tipoProjeto") ? `${categoria}-FUST` : categoria;
 
     document.getElementById("projetoPai").innerText = `${categoriaModificada}-${servico}-${cnpj}-${estado}-${empresa}`;
     document.getElementById("projetoFilho").innerText = `${categoriaModificada}-${servico}-${contrato}-${ponto}-${cidade}-${empresa}`;
-    document.getElementById("resultModal").style.display = "flex";
+
+    abrirModal();
 }
 
+// Copia texto para a área de transferência com feedback visual
 function copiarTexto(id) {
-    navigator.clipboard.writeText(document.getElementById(id).innerText).then(() => alert("Texto copiado!"));
+    const texto = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(texto).then(() => {
+        const botao = document.querySelector(`[onclick="copiarTexto('${id}')"]`);
+        botao.innerText = "✅ Copiado!";
+        setTimeout(() => botao.innerText = "📋 Copiar", 1500);
+    });
+}
+
+// Abre e fecha o modal com transição suave
+function abrirModal() {
+    const modal = document.getElementById("resultModal");
+    modal.style.display = "flex";
+    setTimeout(() => modal.style.opacity = "1", 50);
 }
 
 function fecharModal() {
-    document.getElementById("resultModal").style.display = "none";
+    const modal = document.getElementById("resultModal");
+    modal.style.opacity = "0";
+    setTimeout(() => modal.style.display = "none", 300);
 }
