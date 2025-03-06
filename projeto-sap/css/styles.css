@@ -23,16 +23,39 @@ body {
     border-radius: 12px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 450px;
+    max-width: 600px;
     text-align: center;
     color: #ffffff;
 }
 
-/* Títulos */
-h1, h2 {
-    margin-bottom: 20px;
+/* Menu de navegação */
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.menu h1 {
+    font-size: 20px;
     font-weight: 600;
-    color: #ffffff;
+}
+
+.back-button {
+    padding: 10px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.back-button:hover {
+    background: #4338ca;
 }
 
 /* Formulário */
@@ -40,16 +63,42 @@ form {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-top: 20px;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+}
+
+legend {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white;
 }
 
 /* Campos de entrada e seleção */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+label {
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+}
+
 input, select {
+    width: 100%;
     padding: 12px;
     border: none;
     border-radius: 8px;
     outline: none;
     font-size: 16px;
-    text-align: center;
     background: rgba(255, 255, 255, 0.2);
     color: #ffffff;
     transition: 0.3s;
@@ -64,13 +113,11 @@ input:focus, select:focus {
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
-/* Estilização da Checkbox */
+/* Checkbox personalizada */
 .checkbox-container {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
-    margin-top: 10px;
 }
 
 .checkbox-container label {
@@ -79,7 +126,6 @@ input:focus, select:focus {
     cursor: pointer;
 }
 
-/* Estilizando a Checkbox */
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
@@ -129,39 +175,8 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Lista */
-ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 15px;
-}
-
-li {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 12px;
-    margin-top: 8px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    color: white;
-}
-
-/* Botão dentro dos itens da lista */
-li button {
-    background: #e74c3c;
-    padding: 8px 10px;
-    font-size: 14px;
-    border-radius: 5px;
-}
-
-li button:hover {
-    background: #c0392b;
-}
-
 /* Modal */
-#resultModal {
+.result-modal {
     display: none;
     opacity: 0;
     position: fixed;
@@ -175,7 +190,7 @@ li button:hover {
     transition: opacity 0.3s ease-in-out;
 }
 
-.modal-content {
+.result-content {
     background: #ffffff;
     padding: 25px;
     border-radius: 12px;
@@ -185,15 +200,15 @@ li button:hover {
     max-width: 420px;
 }
 
-.modal-content h2 {
+.result-content h2 {
     margin-bottom: 15px;
 }
 
-.modal-content button {
+.result-content button {
     background: #2ecc71;
     margin-top: 15px;
 }
 
-.modal-content button:hover {
+.result-content button:hover {
     background: #27ae60;
 }
