@@ -23,26 +23,26 @@ body {
     border-radius: 12px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 420px;
+    max-width: 450px;
     text-align: center;
-    color: #ffffff; /* Letras brancas para melhor contraste */
+    color: #ffffff;
 }
 
 /* Títulos */
 h1, h2 {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-weight: 600;
-    color: #ffffff; /* Garante contraste em qualquer fundo */
+    color: #ffffff;
 }
 
 /* Formulário */
 form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
 }
 
-/* Inputs e Selects */
+/* Campos de entrada e seleção */
 input, select {
     padding: 12px;
     border: none;
@@ -64,10 +64,57 @@ input:focus, select:focus {
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
+/* Estilização da Checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-container label {
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Estilizando a Checkbox */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #4f46e5;
+    border-color: #4f46e5;
+}
+
+input[type="checkbox"]::before {
+    content: '✔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: white;
+    opacity: 0;
+}
+
+input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+
 /* Botões */
 button {
     padding: 12px;
-    background: #4f46e5; /* Azul moderno */
+    background: #4f46e5;
     color: white;
     border: none;
     border-radius: 8px;
@@ -92,7 +139,7 @@ ul {
 li {
     background: rgba(255, 255, 255, 0.2);
     padding: 12px;
-    margin-top: 5px;
+    margin-top: 8px;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
@@ -130,12 +177,12 @@ li button:hover {
 
 .modal-content {
     background: #ffffff;
-    padding: 20px;
+    padding: 25px;
     border-radius: 12px;
     text-align: center;
     color: black;
-    width: 80%;
-    max-width: 400px;
+    width: 85%;
+    max-width: 420px;
 }
 
 .modal-content h2 {
