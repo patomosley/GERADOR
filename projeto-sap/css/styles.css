@@ -93,6 +93,7 @@ label {
     font-size: 16px;
     color: white;
     font-weight: 500;
+    margin-top: 10px; /* Aumentei o espaçamento superior da label */
 }
 
 input, select {
@@ -144,7 +145,7 @@ input[type="checkbox"] {
     height: 24px;
     appearance: none;
     background-color: transparent;
-    border: 2px solid white;
+    border: 2px solid #4f46e5; /* Mudei para combinar com a cor do tema */
     border-radius: 6px;
     cursor: pointer;
     position: relative;
