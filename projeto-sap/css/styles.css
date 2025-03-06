@@ -14,6 +14,7 @@ body {
     height: 100vh;
     padding: 0 20px; /* Adicionando padding para evitar vazamento */
     overflow: hidden;
+    min-height: 100%; /* Garante que a altura seja 100% da tela */
 }
 
 /* Container principal */
@@ -28,6 +29,7 @@ body {
     text-align: center;
     color: #ffffff;
     margin: 0 auto; /* Garantir que o container fique centralizado */
+    overflow: auto; /* Evita que o conteúdo ultrapasse o container */
 }
 
 /* Menu de navegação */
@@ -67,6 +69,7 @@ form {
     gap: 25px;
     margin-top: 20px;
     width: 100%;
+    overflow: auto; /* Evita que o conteúdo vaze para fora */
 }
 
 fieldset {
@@ -287,6 +290,8 @@ button:hover {
 
     .container {
         padding: 20px;
+        height: auto; /* Ajusta a altura do container */
+        margin: 0 auto;
     }
 
     .menu {
