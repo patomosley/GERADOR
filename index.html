@@ -5,142 +5,310 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon/pato.png" type="image/x-icon">
     <title>Gerador de Títulos e Descrições</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            display: flex;
-            height: 100vh;
-            background: #eef1f5;
-            transition: background 0.3s ease-in-out;
-        }
-        .menu {
-            width: 260px;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            padding: 20px;
-            color: white;
-            box-shadow: 3px 0 15px rgba(0, 0, 0, 0.3);
-            position: fixed;
-            height: 100%;
-            overflow-y: auto;
-            transition: transform 0.3s ease-in-out;
-        }
-        .menu h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .menu ul {
-            list-style: none;
-        }
-        .menu ul li a {
-            display: block;
-            padding: 12px;
-            color: #ecf0f1;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: 0.3s;
-            font-weight: 500;
-        }
-        .menu ul li a:hover {
-            background: #34495e;
-            transform: translateX(5px);
-        }
-        .container {
-            flex: 1;
-            padding: 30px;
-            margin-left: 270px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            transition: margin-left 0.3s ease-in-out;
-        }
-        h1 {
-            text-align: center;
-            color: #2980b9;
-            margin-bottom: 20px;
-            font-size: 26px;
-            text-transform: uppercase;
-        }
-        label {
-            font-weight: 600;
-            display: block;
-            margin: 12px 0 5px;
-            color: #34495e;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-        input, select {
-            border: 2px solid #bdc3c7;
-            background: white;
-        }
-        input:focus, select:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
-        }
-        button {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-top: 15px;
-        }
-        button:hover {
-            background: linear-gradient(135deg, #2980b9, #1e6a9a);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            transform: translateY(-2px);
-        }
-        @media (max-width: 768px) {
-            .menu {
-                transform: translateX(-100%);
-            }
-            .menu.active {
-                transform: translateX(0);
-            }
-            .container {
-                margin-left: 0;
-                padding: 15px;
-            }
-        }
+	body {
+	    font-family: 'Poppins', sans-serif;
+	    background-color: #f4f6f8;
+	    margin: 0;
+	    display: flex;
+	    height: 100vh;
+	    transition: background 0.3s ease-in-out;
+	}
+
+	.menu {
+	    width: 250px;
+	    background: linear-gradient(135deg, #1a1a2e, #16213e);
+	    padding: 20px;
+	    color: white;
+	    box-shadow: 3px 0 15px rgba(0, 0, 0, 0.3);
+	    position: fixed;
+	    height: 100%;
+	    overflow-y: auto;
+	    transition: transform 0.3s ease-in-out;
+	}
+
+	.menu h2 {
+	    margin-top: 0;
+	    font-size: 22px;
+	    text-align: center;
+	    color: #ecf0f1;
+	}
+
+	.menu ul {
+	    list-style: none;
+	    padding: 0;
+	}
+
+	.menu ul li {
+	    margin: 15px 0;
+	}
+
+	.menu ul li a {
+	    color: #ecf0f1;
+	    text-decoration: none;
+	    display: block;
+	    padding: 12px;
+	    border-radius: 8px;
+	    transition: all 0.3s;
+	    font-weight: 500;
+	}
+
+	.menu ul li a:hover {
+	    background: #34495e;
+	    transform: translateX(5px);
+	}
+
+	.container {
+	    flex: 1;
+	    padding: 30px;
+	    margin-left: 270px;
+	    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+	    border-radius: 10px;
+	    background: white;
+	    transition: margin-left 0.3s ease-in-out;
+	}
+
+	h1 {
+	    text-align: center;
+	    color: #2980b9;
+	    margin-bottom: 20px;
+	    font-size: 26px;
+	    font-weight: bold;
+	    text-transform: uppercase;
+	    letter-spacing: 1px;
+	}
+
+	.toggle-menu {
+	    display: none;
+	    position: fixed;
+	    top: 15px;
+	    left: 15px;
+	    background: #2980b9;
+	    color: white;
+	    border: none;
+	    padding: 12px 16px;
+	    cursor: pointer;
+	    border-radius: 8px;
+	    z-index: 1000;
+	    transition: 0.3s;
+	}
+
+	.toggle-menu:hover {
+	    background: #1e6a9a;
+	}
+
+	@media (max-width: 768px) {
+	    .menu {
+		transform: translateX(-100%);
+	    }
+
+	    .menu.active {
+		transform: translateX(0);
+	    }
+
+	    .toggle-menu {
+		display: block;
+	    }
+
+	    .container {
+		margin-left: 0;
+		padding: 15px;
+	    }
+	}
+
+	label {
+	    font-weight: bold;
+	    display: block;
+	    color: #34495e;
+	    margin: 12px 0 5px;
+	}
+
+	select, input {
+	    width: 100%;
+	    padding: 14px;
+	    border: 2px solid #bdc3c7;
+	    border-radius: 8px;
+	    font-size: 16px;
+	    transition: all 0.3s ease-in-out;
+	    background: white;
+	}
+
+	select:focus, input:focus {
+	    border-color: #3498db;
+	    outline: none;
+	    box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+	}
+
+	button {
+	    width: 100%;
+	    padding: 14px;
+	    background: linear-gradient(135deg, #3498db, #2980b9);
+	    color: white;
+	    border: none;
+	    border-radius: 8px;
+	    font-size: 16px;
+	    cursor: pointer;
+	    transition: all 0.3s ease-in-out;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	    font-weight: bold;
+	    text-transform: uppercase;
+	}
+
+	button:hover {
+	    background: linear-gradient(135deg, #2980b9, #1e6a9a);
+	    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+	    transform: translateY(-2px);
+	}
+
+	.popup {
+	    position: fixed;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    background: white;
+	    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+	    border-radius: 12px;
+	    padding: 25px;
+	    display: none;
+	    width: 350px;
+	    animation: fadeIn 0.4s ease-in-out;
+	}
+
+	.popup h2 {
+	    margin: 0 0 20px;
+	    color: #2980b9;
+	    text-align: center;
+	    font-size: 20px;
+	    font-weight: bold;
+	}
+
+	.popup .resultado {
+	    margin-bottom: 20px;
+	    padding: 12px;
+	    background: #f9f9f9;
+	    border: 2px solid #ddd;
+	    border-radius: 8px;
+	    font-size: 15px;
+	    white-space: pre-wrap;
+	}
+
+	.popup button {
+	    padding: 10px 15px;
+	    background: linear-gradient(135deg, #3498db, #2980b9);
+	    border: none;
+	    border-radius: 8px;
+	    color: white;
+	    cursor: pointer;
+	    font-size: 14px;
+	    transition: all 0.3s;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	}
+
+	.popup button:hover {
+	    background: linear-gradient(135deg, #2980b9, #1e6a9a);
+	    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+	}
+
+	#bnt-fechar {
+	    padding: 10px 15px;
+	    background: linear-gradient(135deg, #db3434, #a52828);
+	    border: none;
+	    border-radius: 8px;
+	    color: white;
+	    cursor: pointer;
+	    font-size: 14px;
+	    transition: all 0.3s;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	}
+
+	#bnt-fechar:hover {
+	    background: linear-gradient(135deg, #a52828, #7a1d1d);
+	    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+	}
+
+	.overlay {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background: rgba(0, 0, 0, 0.5);
+	    display: none;
+	}
+
+	@keyframes fadeIn {
+	    from {
+		opacity: 0;
+		transform: translate(-50%, -45%);
+	    }
+	    to {
+		opacity: 1;
+		transform: translate(-50%, -50%);
+	    }
+	}
+
+
     </style>
+    
 </head>
 <body>
+    <button class="toggle-menu" onclick="toggleMenu()">☰ Menu</button>
     <div class="menu">
-        <h2>Pato Menu</h2>
+        <h2>
+            <img src="favicon/pato.png" width="50px" alt="Logo Pato">
+            Pato Menu
+            <img src="favicon/pato.png" width="50px" alt="Logo Pato">
+        </h2>
         <ul>
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
+            <li><a href="https://novorevan.brisanet.net.br/#/" target="_blank">Revan</a></li>
+            <li><a href="https://revan-atendimento.brisanet.net.br/" target="_blank">Yoda</a></li>
+            <li><a href="https://saski.brisanet.net.br/" target="_blank">Saski</a></li>
+            <li><a href="https://librenms.brisanet.net.br/" target="_blank">LibreNMS</a></li>
+            <li><a href="https://libre-portalcorp-01.brisanet.net.br/" target="_blank">Libre Corp</a></li>
+            <li><a href="https://netboxcop.brisanet.net.br/" target="_blank">NetBox</a></li>
+            <li><a href="https://www.wrike.com/workspace.htm?acc=394412#/dashboard-app/13214410?spaceId=1221281649" target="_blank">Painel Wrike</a></li>
+            <li><a href="https://revan-estoque.brisanet.net.br/supplychain/#/aang/dashboard-projetos" target="_blank">Supply</a></li>
+            <li><a href="sap.html">CHAMADOS SAP</a></li>    
+            <li><a href="projeto-sap/projetosap.html">GERADOR SAP</a></li>
+            <li><a href="projetos-realizados/index.html"> PROJETOS CRIADOS </a></li>
         </ul>
     </div>
+
     <div class="container">
         <h1>Gerador de Títulos e Descrições</h1>
         <label for="clienteInput">Cliente:</label>
         <input type="text" id="clienteInput" placeholder="Digite o nome do cliente">
+
         <label for="contratoInput">Designação:</label>
-        <input type="text" id="contratoInput" placeholder="Descrição do contrato">
+        <input type="text" id="contratoInput" placeholder="para chamado saski anexar contrato, Tiflux anexar projeto">
+
         <label for="setorSelect">Setor:</label>
-        <select id="setorSelect">
+        <select id="setorSelect" onchange="atualizarServicos()">
             <option value="">Selecione um setor</option>
             <option value="NOC-SO">NOC-SO</option>
+            <option value="NOC-O&M">NOC-O&M</option>
+            <option value="NOC-ENGENHARIA">NOC-ENGENHARIA</option>
+            <option value="GPON">GPON</option>
+            <option value="ESTOQUE">ESTOQUE</option>
+            <option value="SAP">SAP</option>
+            <option value="TELEFONIA">TELEFONIA</option>
+            <option value="REDES WIRELESS">REDES WIRELESS</option>
+            <option value="MONITORAMENTO SUPORTE">MONITORAMENTO SUPORTE</option>
         </select>
+
         <label for="servicoSelect">Serviço:</label>
         <select id="servicoSelect">
             <option value="">Nenhum Serviço</option>
         </select>
-        <button onclick="gerarTituloEDescricao()">Gerar</button>
+
+        <button onclick="gerarTituloEDescricao()">Gerar Título e Descrição</button>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="fecharPopup()"></div>
+    <div class="popup" id="popup">
+        <h2>Resultados</h2>
+        <div id="resultadoContainer"></div>
+        <button id="bnt-fechar" onclick="fecharPopup()">Fechar</button>
     </div>
 
 <script>
