@@ -59,7 +59,7 @@ const estadosCidades = {
     "Alto Santo": "ATO",
     "Aracati": "ACA",
     "Fortim": "FORT",
-    "Credro": "CED",
+    "Cedro": "CED",
     "Oros": "OOS",
     "Ibicuitinga": "ICN",
     "Icapui": "ICP",
