@@ -1,148 +1,118 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../favicon/pato.png" type="image/x-icon">
-    <title>Gerador de Títulos</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../favicon/pato.png" type="image/x-icon">
+  <title>Gerador de Padrões</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Menu de navegação -->
-        <header>
-            <nav class="menu">
-                <a href="index.html">
-                    <img src="../favicon/pato.png" width="50" alt="Ícone do site">
-                </a>
-                <h1>Nomenclaturas SAP</h1>
-                <button type="button" class="back-button" onclick="location.href='../index.html'">Voltar</button>
-            </nav>
-        </header>
 
-        <main>
-            <!-- Formulário principal -->
-            <form id="formulario">
-                <fieldset>
-                    <legend>Dados do Título</legend>
+  <div class="container">
+    <h1>Gerador de Padrões de Projeto</h1>
 
-                    <section class="form-group">
-                        <label for="categoria">Categoria:</label>
-                        <select id="categoria" required>
-                            <option value="">Selecione a Categoria</option>
-                            <option value="B2G">B2G</option>
-                            <option value="B2B">B2B</option>
-                            <option value="ISP">ISP</option>
-                            <option value="AGL">AGL</option>
-                        </select>
-                    </section>
+    <!-- O formulário para coletar os dados -->
+    <form id="form">
+      <div class="form-group">
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" required>
+          <option value="">Selecionar opção</option>
+          <option value="GOVERNO">GOVERNO</option>
+          <option value="EMPRESA">EMPRESA</option>
+          <option value="PROVEDOR DE INTERNET">PROVEDOR DE INTERNET</option>
+          <option value="PROJETOS DA AGILITY">PROJETOS DA AGILITY</option>
+          <option value="PROJETO FUST">PROJETO FUST</option>
+        </select>
+      </div>
 
-                    <section class="form-group">
-                        <label for="servico">Serviço:</label>
-                        <select id="servico" required>
-                            <option value="">Selecionar Serviço</option>
-                            <option value="MTR">REDE METRO ETHERNET</option>
-                            <option value="DWDM">REDE DWDM</option>
-                            <option value="WL-RADIO">REDES RADIO</option>
-                            <option value="GPON">INSTALAÇÃO PADRÃO</option>
-                            <option value="GPONAS">INSTALAÇÃO PADRÃO COM AS</option>
-                            <option value="WIFI">WIFI DE ALTA PERFORMANCE</option>
-                            <option value="LINK">LINK DEDICADO</option>
-                            <option value="CFTV">VIDEO MONITORAMENTO</option>
-                            <option value="TEL">TELEFONIA</option>
-                        </select>
-                    </section>
+      <div class="form-group">
+        <label for="servico">Serviço:</label>
+        <select id="servico" required>
+          <option value="">Selecionar opção</option>
+          <option value="REDE METRO ETHERNET">REDE METRO ETHERNET</option>
+          <option value="REDE DWDM">REDE DWDM</option>
+          <option value="REDES RÁDIOS">REDES RÁDIOS</option>
+          <option value="INTERNET COM ONU (GPON)">INTERNET COM ONU (GPON)</option>
+          <option value="INTERNET COM ONU (GPON) E CABO AS">INTERNET COM ONU (GPON) E CABO AS</option>
+          <option value="WIFI DE ALTA PERFORMANCE">WIFI DE ALTA PERFORMANCE</option>
+          <option value="LINK DEDICADO">LINK DEDICADO</option>
+          <option value="VIDEO MONITORAMENTO">VIDEO MONITORAMENTO</option>
+          <option value="TELEFONIA">TELEFONIA</option>
+        </select>
+      </div>
 
-                    <section class="form-group">
-                        <label for="cnpj">Nº CNPJ:</label>
-                        <input type="text" id="cnpj" maxlength="24" placeholder="Digite o CNPJ" required autocomplete="off">
-                    </section>
+      <div class="form-group">
+        <label for="cnpj">Número CNPJ:</label>
+        <input type="text" id="cnpj" required>
+      </div>
 
-                    <section class="form-group">
-                        <label for="contrato">Nº Contrato:</label>
-                        <input type="text" id="contrato" placeholder="Digite o número do contrato" required autocomplete="off">
-                    </section>
+      <div class="form-group">
+        <label for="numeroContrato">Número do Contrato:</label>
+        <input type="text" id="numeroContrato" required>
+      </div>
 
-                    <section class="form-group">
-                        <label for="ponto">Nº Ponto:</label>
-                        <input type="text" id="ponto" placeholder="Digite o número do ponto" required autocomplete="off">
-                    </section>
+      <div class="form-group">
+        <label for="numeroPonto">Número do Ponto:</label>
+        <input type="text" id="numeroPonto" required>
+      </div>
 
-                    <section class="form-group">
-                        <label for="estado">Estado:</label>
-                        <select id="estado" required onchange="filtrarCidades()">
-                            <option value="">Selecionar Estado</option>
-                            <option value="AL">Alagoas</option>
-                            <option value="BA">Bahia</option>
-                            <option value="CE">Ceará</option>
-                            <option value="MA">Maranhão</option>
-                            <option value="PB">Paraíba</option>
-                            <option value="PE">Pernambuco</option>
-                            <option value="PI">Piauí</option>
-                            <option value="RN">Rio Grande do Norte</option>
-                            <option value="SE">Sergipe</option>
-                        </select>
-                    </section>
+	<div class="form-group">
+		<label for="estado">Estado:</label>
+		<select id="estado" required>
+		  <option value="">Selecionar opção</option>
+		  <option value="AL">Alagoas</option>
+		  <option value="BA">Bahia</option>
+		  <option value="CE">Ceará</option>
+		  <option value="MA">Maranhão</option>
+		  <option value="PB">Paraíba</option>
+		  <option value="PE">Pernambuco</option>
+		  <option value="PI">Piauí</option>
+		  <option value="RN">Rio Grande do Norte</option>
+		  <option value="SE">Sergipe</option>
+        </select>
+      </div>
 
-                    <section class="form-group">
-                        <label for="cidade">Cidade:</label>
-                        <select id="cidade" required>
-                            <option value="">Selecione uma cidade</option>
-                        </select>
-                    </section>
+      <div class="form-group">
+        <label for="cidade">Cidade:</label>
+        <select id="cidade" required>
+          <option value="">Selecionar opção</option>
+        </select>
+      </div>
 
-                    <section class="form-group">
-                        <label for="empresa">Empresa:</label>
-                        <select id="empresa" required>
-                            <option value="">Selecionar Empresa</option>
-                            <option value="BRIT">Brisanet</option>
-                            <option value="AMT">American Tower Company</option>
-                            <option value="BTC">Brasil Tower Company</option>
-                            <option value="SBA">SBA</option>
-                            <option value="AGIL">Agility</option>
-                            <option value="AGILP">Agility Propria</option>
-                            <option value="HGH">Highline</option>
-                            <option value="MOBW">MobWire</option>
-                            <option value="GNTW">Globenet</option>
-                            <option value="TLX">Telxius</option>
-                        </select>
-                    </section>
+      <div class="form-group">
+        <label for="empresa">Empresa:</label>
+        <select id="empresa" required>
+          <option value="">Selecionar opção</option>
+          <option value="Brisanet">Brisanet</option>
+          <option value="American Tower Company">American Tower Company</option>
+          <!-- Adicionar outras empresas conforme necessário -->
+        </select>
+      </div>
 
-                    <!-- Opção para ativar o novo padrão -->
-                    <section class="form-group">
-                        <input type="checkbox" id="tipoProjeto">
-                        <label for="tipoProjeto">Ativar padrão FUST</label>
-                    </section>
+      <button type="submit">Gerar Padrão</button>
+    </form>
 
-                </fieldset>
+    <!-- Notificação de sucesso ou erro -->
+    <div id="notification" class="notification"></div>
 
-                <button type="button" onclick="gerarTitulos()">Gerar Títulos</button>
-            </form>
-        </main>
+    <!-- Popup para mostrar os resultados -->
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <button id="closePopup" class="close-btn">Fechar</button>
+        <h2>Projeto Pai:</h2>
+        <p id="projetoPai"></p>
+        <button id="copyProjetoPai">Copiar Projeto Pai</button>
 
-        <!-- Modal de resultado -->
-        <div class="result-modal" id="resultModal">
-            <div class="result-content">
-                <h2>Resultados</h2>
-                <section>
-                    <label>PROJETO PAI</label>
-                    <div id="resultadoPai" class="result-item">
-                        <span id="projetoPai"></span>
-                        <button class="copy-btn" onclick="copiarTexto('projetoPai')">Copiar</button>
-                    </div>
-                </section>
-                <section>
-                    <label>PROJETO FILHO</label>
-                    <div id="resultadoFilho" class="result-item">
-                        <span id="projetoFilho"></span>
-                        <button class="copy-btn" onclick="copiarTexto('projetoFilho')">Copiar</button>
-                    </div>
-                </section>
-                <button class="close-btn" onclick="fecharModal()">Fechar</button>
-            </div>
-        </div>
+        <h2>Projeto Filho:</h2>
+        <p id="projetoFilho"></p>
+        <button id="copyProjetoFilho">Copiar Projeto Filho</button>
+      </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <button id="backButton" class="back-btn">Voltar</button>
+  </div>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
