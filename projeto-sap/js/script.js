@@ -1219,7 +1219,7 @@ const categorias = {
   'PROVEDOR DE INTERNET': 'ISP',
   'PROJETOS DA AGILITY': 'AGL',
   'PROJETO FUST': 'FUST',
-  'TERMO DE ACORDO DE REGIME ESPECIAL':'TARE'
+  'TARE':'TARE'
 };
 
 const servicos = {
