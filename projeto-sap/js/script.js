@@ -1219,12 +1219,11 @@ const categorias = {
   'PROVEDOR DE INTERNET': 'ISP',
   'PROJETOS DA AGILITY': 'AGL',
   'PROJETO FUST': 'FUST',
-  'TARE-AL':'TARE-AL',
-  'TARE-PB':'TARE-AL'
+  'TARE-AL': 'TARE-AL',
+  'TARE-PB': 'TARE-PB'
 };
 
 const servicos = {
-  
   'REDE METRO ETHERNET': 'MTR',
   'REDE DWDM': 'DWDM',
   'REDES RÁDIOS': 'WL-RÁDIO',
@@ -1248,10 +1247,10 @@ function formatarCNPJ(cnpj) {
 }
 
 // Atualizar cidades ao selecionar estado
-document.getElementById('estado').addEventListener('change', function() {
+document.getElementById('estado').addEventListener('change', function () {
   const estado = this.value;
   const cidadeSelect = document.getElementById('cidade');
-  cidadeSelect.innerHTML = '<option value="">Selecionar opção</option>';  // Resetar as cidades
+  cidadeSelect.innerHTML = '<option value="">Selecionar opção</option>'; // Resetar as cidades
 
   if (estado && estadosCidades[estado]) {
     const cidades = estadosCidades[estado];
@@ -1265,7 +1264,7 @@ document.getElementById('estado').addEventListener('change', function() {
 });
 
 // Evento de envio do formulário
-document.getElementById("form").addEventListener("submit", function(event) {
+document.getElementById("form").addEventListener("submit", function (event) {
   event.preventDefault();
 
   const categoria = document.getElementById("categoria").value;
@@ -1277,7 +1276,13 @@ document.getElementById("form").addEventListener("submit", function(event) {
   const cidadeSigla = document.getElementById("cidade").value;
   const empresa = document.getElementById("empresa").value;
 
-  const projetoPai = `${categorias[categoria]}-${servicos[servico]}-${formatarCNPJ(cnpj)}-${estado}-${empresas[empresa]}`;
+  // Verifica se a categoria é TARE-AL ou TARE-PB para excluir a UF do projeto pai
+  let projetoPai = `${categorias[categoria]}-${servicos[servico]}-${formatarCNPJ(cnpj)}`;
+  if (categoria !== "TARE-AL" && categoria !== "TARE-PB") {
+    projetoPai += `-${estado}`;
+  }
+  projetoPai += `-${empresas[empresa]}`;
+
   const projetoFilho = `${categorias[categoria]}-${servicos[servico]}-${numeroContrato}-${numeroPonto}-${cidadeSigla}-${empresas[empresa]}`;
 
   document.getElementById("projetoPai").textContent = projetoPai;
@@ -1287,12 +1292,12 @@ document.getElementById("form").addEventListener("submit", function(event) {
 });
 
 // Fechar o popup
-document.getElementById("closePopup").addEventListener("click", function() {
+document.getElementById("closePopup").addEventListener("click", function () {
   document.getElementById("popup").style.display = "none";
 });
 
 // Função para copiar o projeto pai
-document.getElementById("copyProjetoPai").addEventListener("click", function() {
+document.getElementById("copyProjetoPai").addEventListener("click", function () {
   const projetoPai = document.getElementById("projetoPai").textContent;
   navigator.clipboard.writeText(projetoPai).then(() => {
     showNotification("Projeto Pai copiado com sucesso!", "success");
@@ -1302,7 +1307,7 @@ document.getElementById("copyProjetoPai").addEventListener("click", function() {
 });
 
 // Função para copiar o projeto filho
-document.getElementById("copyProjetoFilho").addEventListener("click", function() {
+document.getElementById("copyProjetoFilho").addEventListener("click", function () {
   const projetoFilho = document.getElementById("projetoFilho").textContent;
   navigator.clipboard.writeText(projetoFilho).then(() => {
     showNotification("Projeto Filho copiado com sucesso!", "success");
@@ -1312,13 +1317,13 @@ document.getElementById("copyProjetoFilho").addEventListener("click", function()
 });
 
 // Fechar o popup com ESC
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
   if (event.key === "Escape") {
     document.getElementById("popup").style.display = "none";
   }
 });
 
 // Botão de voltar
-document.getElementById("backButton").addEventListener("click", function() {
+document.getElementById("backButton").addEventListener("click", function () {
   window.history.back();
 });
