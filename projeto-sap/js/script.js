@@ -1219,7 +1219,8 @@ const categorias = {
   'PROVEDOR DE INTERNET': 'ISP',
   'PROJETOS DA AGILITY': 'AGL',
   'PROJETO FUST': 'FUST',
-  'TARE':'TARE'
+  'TARE-AL':'TARE-AL',
+  'TARE-PB':'TARE-AL'
 };
 
 const servicos = {
