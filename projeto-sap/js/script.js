@@ -1232,6 +1232,8 @@ const servicos = {
   'WIFI DE ALTA PERFORMANCE': 'WIFI',
   'LINK DEDICADO': 'LINK',
   'VIDEO MONITORAMENTO': 'CFTV',
+  'SPEED': 'CFTV-SPD',
+  'OCR': 'CFTV-OCR',
   'TELEFONIA': 'TEL'
 };
 
