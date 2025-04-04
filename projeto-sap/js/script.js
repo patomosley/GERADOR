@@ -468,6 +468,7 @@ PE:{
     "ALIANCA": "AIN",
     "BOM JARDIM": "BJI",
     "BUENOS AIRES": "BOS",
+    "SALGUEIRO":"SGI",
     "CAMUTANGA": "CUN",
     "CARPINA": "CAA",
     "CASINHAS": "CASI",
