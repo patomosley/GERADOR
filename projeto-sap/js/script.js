@@ -40,6 +40,7 @@ const estadosCidades = {
     "General Sampaio": "GNL",
     "Guaramiranga": "GAG",
     "Mulungu": "MUN",
+    "Banabuiu":"BIU",
     "Ocara": "OCR",
     "Pacoti": "PTY",
     "Palmacia": "PMC",
