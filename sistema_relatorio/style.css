@@ -1,0 +1,157 @@
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 900px; /* Pode ser ajustado conforme necessário */
+    margin: 20px auto;
+    background: #fff;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+hr {
+    margin: 30px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+#materialForm {
+    margin-bottom: 30px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Layout responsivo */
+    gap: 15px 20px; /* Espaçamento vertical e horizontal */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+button {
+    background-color: #5cb85c;
+    color: white;
+    padding: 10px 15px; /* Ajustado */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Espaço acima do botão */
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+button[type="submit"] {
+    display: block;
+    width: auto;
+    margin: 20px auto 0 auto; /* Centralizado com margem superior */
+}
+
+/* Estilos para a área de exibição dos relatórios */
+#reportDisplayArea {
+    margin-top: 20px;
+    font-size: 0.95em;
+}
+
+.report-item {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    position: relative; /* Para posicionar o botão delete */
+}
+
+.report-item h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.report-item p {
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+.report-item strong {
+    display: inline-block;
+    min-width: 180px; /* Ajuste para alinhar os valores */
+    font-weight: bold;
+}
+
+.delete-button {
+    background-color: #d9534f;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8em;
+    position: absolute; /* Posiciona no canto */
+    top: 10px;
+    right: 10px;
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
+}
+
+.copy-button {
+    display: block; /* Ocupa a largura */
+    width: fit-content; /* Ajusta ao conteúdo */
+    margin: 20px auto 0 auto; /* Centraliza */
+    background-color: #0275d8;
+}
+
+.copy-button:hover {
+    background-color: #025aa5;
+}
+
+.copy-feedback {
+    margin-top: 10px;
+    text-align: center;
+    font-style: italic;
+    color: green;
+    min-height: 1.2em; /* Reserva espaço */
+}
+
+#reportDisplayArea > p { /* Estilo para a mensagem "Nenhum relatório..." */
+    text-align: center;
+    font-style: italic;
+    color: #888;
+}

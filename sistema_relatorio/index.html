@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Relatórios de Materiais (Formato Lista)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Relatórios de Materiais Escolares</h1>
+
+        <form id="materialForm">
+            <h2>Adicionar Novo Relatório</h2>
+
+            <div class="form-grid">
+                <!-- Todos os seus campos <div class="form-group">...</div> vão aqui -->
+                <!-- Exemplo de alguns campos: -->
+                <div class="form-group">
+                    <label for="codigoINEP">Código INEP:</label>
+                    <input type="text" id="codigoINEP" required>
+                </div>
+                <div class="form-group">
+                    <label for="escola">Escola:</label>
+                    <input type="text" id="escola" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdAPS">Qtd. APs:</label>
+                    <input type="number" id="qtdAPS" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdRacks">Qtd. Racks:</label>
+                    <input type="number" id="qtdRacks" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdFirewall">Qtd. Firewall:</label>
+                    <input type="number" id="qtdFirewall" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdSimetBox">Qtd. Simet Box:</label>
+                    <input type="number" id="qtdSimetBox" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdInjetorPOE">Qtd. Injetor POE:</label>
+                    <input type="number" id="qtdInjetorPOE" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdSwitch24P">Qtd. Switch 24P:</label>
+                    <input type="number" id="qtdSwitch24P" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdSwitch8P">Qtd. Switch 8P:</label>
+                    <input type="number" id="qtdSwitch8P" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdCanduletes">Qtd. Canduletes:</label>
+                    <input type="number" id="qtdCanduletes" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdCurvas">Qtd. Curvas:</label>
+                    <input type="number" id="qtdCurvas" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdLuvas">Qtd. Luvas:</label>
+                    <input type="number" id="qtdLuvas" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdCaixas">Qtd. Caixas:</label>
+                    <input type="number" id="qtdCaixas" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdParafusos6mm">Qtd. Parafusos 6mm:</label>
+                    <input type="number" id="qtdParafusos6mm" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdBuchas6mm">Qtd. Buchas 6mm:</label>
+                    <input type="number" id="qtdBuchas6mm" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdAbracadeiras">Qtd. Abraçadeiras:</label>
+                    <input type="number" id="qtdAbracadeiras" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="metragemCaboDrop">Metragem Cabo Drop:</label>
+                    <input type="number" id="metragemCaboDrop" min="0" step="0.1" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="metragemCaboRede">Metragem Cabo Rede:</label>
+                    <input type="number" id="metragemCaboRede" min="0" step="0.1" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdConectoresRJ45">Qtd. Conectores RJ45:</label>
+                    <input type="number" id="qtdConectoresRJ45" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdConectoresAPC">Qtd. Conectores APC:</label>
+                    <input type="number" id="qtdConectoresAPC" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdPregosFixaCabo">Qtd. Pregos Fixa Cabo:</label>
+                    <input type="number" id="qtdPregosFixaCabo" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdConectorCaixinha">Qtd. Conector Caixinha:</label>
+                    <input type="number" id="qtdConectorCaixinha" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="mgmCaboPP">MGM Cabo PP:</label>
+                    <input type="number" id="mgmCaboPP" min="0" step="0.1" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdBandeja">Qtd. Bandeja:</label>
+                    <input type="number" id="qtdBandeja" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdPatchPanel">Qtd. Patch Panel:</label>
+                    <input type="number" id="qtdPatchPanel" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdKitPorcaGaiola">Qtd. Kit Porca Gaiola:</label>
+                    <input type="number" id="qtdKitPorcaGaiola" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdCat6Femea">Qtd. CAT6 Fêmea:</label>
+                    <input type="number" id="qtdCat6Femea" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="tampaCegaKeyston">Tampa Cega Keyston:</label>
+                    <input type="number" id="tampaCegaKeyston" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="qtdPatchCord">Qtd. Patch Cord:</label>
+                    <input type="number" id="qtdPatchCord" min="0" value="0" required>
+                </div>
+                 <div class="form-group">
+                    <label for="qtdOrganizadorCabo">Qtd. Organizador Cabo:</label>
+                    <input type="number" id="qtdOrganizadorCabo" min="0" value="0" required>
+                </div>
+                <!-- Certifique-se de que todos os 29 campos estejam aqui -->
+            </div>
+
+            <button type="submit">Adicionar Relatório</button>
+        </form>
+
+        <hr>
+
+        <h2>Relatórios Adicionados</h2>
+        <div id="reportDisplayArea">
+            <!-- Relatórios serão exibidos aqui pelo JavaScript -->
+             <p>Nenhum relatório adicionado ainda.</p>
+        </div>
+
+        <hr>
+
+        <button id="copyButton" class="copy-button" disabled>Copiar Relatórios (Formato Lista)</button>
+        <p id="copyFeedback" class="copy-feedback"></p>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
