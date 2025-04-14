@@ -72,6 +72,7 @@ const estadosCidades = {
     "Palhano": "PHN",
     "Potiretama": "PTZ",
     "Quixere": "QXE",
+    "QUIXADA":"QXA",
     "Russas": "RUS",
     "Sao Joao do Jaguaribe": "SUB",
     "Tabuleiro do Norte": "TNT",
