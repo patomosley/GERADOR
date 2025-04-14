@@ -1222,7 +1222,8 @@ const categorias = {
   'PROJETOS DA AGILITY': 'AGL',
   'PROJETO FUST': 'FUST',
   'TARE-AL':'TARE-AL',
-  'TARE-PB':'TARE-PB'
+  'TARE-PB':'TARE-PB',
+  'EVENTO':'EVENTO'
 };
 
 const servicos = {
