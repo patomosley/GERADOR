@@ -310,6 +310,9 @@ const estadosCidades = {
     "São Bento do Norte": "SBE"
  },
  PB:{
+    "CATOLE DO ROCHA":"CRH",
+    "POMBAL":"PBL",
+    "SANTA LUZIA":"SANTA LUZIA",
     "ALHANDRA": "AHD",
     "BAIA DA TRAICAO": "BAI",
     "BAYEUX": "BEX",
