@@ -13,6 +13,7 @@ function showNotification(message, type) {
 const estadosCidades = {
   CE: {
     "Aquiraz": "AQZ",
+	  "ICO":"ICO",
     "Beberibe": "BBB",
     "Cascavel": "CVL",
     "Caucaia": "CUC",
