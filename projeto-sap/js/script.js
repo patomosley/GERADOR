@@ -83,6 +83,8 @@ const estadosCidades = {
     "Brejo Santo": "BJS",
     "Caririacu": "CAC",
     "Crato": "CTO",
+    "CRATEUS": "AAU",
+    "ACARAU": "CTO",  
     "Granjeiro": "GJO",
     "Jardim": "JDM",
     "Jati": "JAT",
