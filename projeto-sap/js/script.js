@@ -322,7 +322,10 @@ const estadosCidades = {
  PB:{
     "CATOLE DO ROCHA":"CRH",
     "POMBAL":"PBL",
-    "SANTA LUZIA":"SANTA LUZIA",
+	 "SAO BENTO':"SEO",
+	 "UIRAUNA':"UIN",
+	 "SAO BENTO':"",
+    "SANTA LUZIA":"SPQ",
     "ALHANDRA": "AHD",
     "BAIA DA TRAICAO": "BAI",
     "BAYEUX": "BEX",
