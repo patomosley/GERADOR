@@ -14,6 +14,7 @@ const estadosCidades = {
   CE: {
     "Aquiraz": "AQZ",
 	  "ICO":"ICO",
+	  "PARAMBU":"PBU",
     "Beberibe": "BBB",
     "Cascavel": "CVL",
     "Caucaia": "CUC",
