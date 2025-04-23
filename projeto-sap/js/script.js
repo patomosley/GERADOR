@@ -324,7 +324,6 @@ const estadosCidades = {
     "POMBAL":"PBL",
 	 "SAO BENTO':"SEO",
 	 "UIRAUNA':"UIN",
-	 "SAO BENTO':"",
     "SANTA LUZIA":"SPQ",
     "ALHANDRA": "AHD",
     "BAIA DA TRAICAO": "BAI",
