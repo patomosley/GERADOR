@@ -13,8 +13,8 @@ function showNotification(message, type) {
 const estadosCidades = {
   CE: {
     "Aquiraz": "AQZ",
-	  "ICO":"ICO",
-	  "PARAMBU":"PBU",
+    "ICO":"ICO",
+    "PARAMBU":"PBU",
     "Beberibe": "BBB",
     "Cascavel": "CVL",
     "Caucaia": "CUC",
@@ -324,8 +324,8 @@ const estadosCidades = {
  PB:{
     "CATOLE DO ROCHA":"CRH",
     "POMBAL":"PBL",
-	 "SAO BENTO':"SEO",
-	 "UIRAUNA':"UIN",
+    "SAO BENTO":"SEO",
+    "UIRAUNA":"UIN",
     "SANTA LUZIA":"SPQ",
     "ALHANDRA": "AHD",
     "BAIA DA TRAICAO": "BAI",
