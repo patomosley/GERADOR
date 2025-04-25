@@ -324,7 +324,7 @@ const estadosCidades = {
  PB:{
     "CATOLE DO ROCHA":"CRH",
     "POMBAL":"PBL",
-    "SAO BENTO":"SEO",
+    "SAO BENTO":"SBT",
     "UIRAUNA":"UIN",
     "SANTA LUZIA":"SPQ",
     "ALHANDRA": "AHD",
