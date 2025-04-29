@@ -464,6 +464,7 @@ const estadosCidades = {
 PE:{
     "ABREU E LIMA": "ABU",
     "ARACOIABA": "ARAB",
+	"OURICURI":"OUI",
     "CABO DE SANTO AGOSTINHO": "CBO",
     "CAMARAGIBE": "CGB",
     "CHA DE ALEGRIA": "CHG",
