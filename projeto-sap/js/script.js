@@ -1231,7 +1231,10 @@ BA: {
 	  "OLHO D'AGUA DO CASADO": "OHD",
 	  "PARICONHA": "PRCH",
 	  "PIRANHAS": "PYH"
-	}
+	},
+	PR:{
+	"CASCAVEL":"CSC"
+}
 
 
 };
