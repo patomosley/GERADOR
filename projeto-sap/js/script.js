@@ -651,6 +651,9 @@ PE:{
     "SANTA MARIA DA BOA VISTA": "SIB"
 	
 },
+	SE:{
+		"TOBIAS BARRETO": "TBB"
+},
 BA: {
     "Camaçari": "CAR",
     "Candeias": "CIS",
