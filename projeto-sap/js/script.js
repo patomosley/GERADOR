@@ -719,7 +719,7 @@ BA: {
     "Mascote": "MAE",
     "Pau Brasil": "PSL",
     "Potiraguá": "POG",
-    "Santa Luzia": "SUY",
+    "Santa Luzia": "SLZ",
     "Aurelino Leal": "AEL",
     "Barra do Rocha": "BCH",
     "Camamu": "CMM",
