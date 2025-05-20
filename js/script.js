@@ -21,8 +21,8 @@ const descricoes = {
         "ATIVAÇÃO DE INTERFACE": "Por gentileza, realizar configuração da interface, segue dados abaixo.\n\n*SWITCH:\n*INTERFACE:"
     },
     "NOC-ENGENHARIA": {
-        "VIABILIDADE PARA ATIVAÇÃO": "Por favor verificar se temos capacidade para atender ativação mediante dados informados.",
-        "VIABILIDADE PARA UPGRADE": "Por favor verificar se temos capacidade para atender upgrade mediante dados informados."
+        "VIABILIDADE PARA ATIVAÇÃO": "    CNPJ:\n\nCOD CONTRATO:\n\nPor favor verificar se temos capacidade para atender ativação mediante dados informados.",
+        "VIABILIDADE PARA UPGRADE": "CNPJ:\n\nCOD CONTRATO:\n\nPor favor verificar se temos capacidade para atender upgrade mediante dados informados."
     },
     "GPON": {
         "VERIFICAÇÃO DE ONU": "Peço para que seja realizada a verificação da ONU\nMotivo da verificação:",
