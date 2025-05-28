@@ -38,9 +38,7 @@ const descricoes = {
         "CONFIGURAÇÃO DE ENLACE": "Será necessário a configuração do enlace mediante troca de equipamentos para o upgrade do link.\n\nDADOS DA PONTA A\n\nDADOS DA PONTA B:"
     },
     "SAP": {
-        "SUPLEMENTAÇÃO": "Realizar suplementação de material mediante anexo da cópia da Planilha de Orçamento de material.",
-        "RETIFICAÇÃO": "Realizar retificação de material mediante anexo da cópia da Planilha de Orçamento de material.",
-        "CRIAÇÃO DE PROJETO": "Realizar criação do projeto mediante anexo da cópia da Planilha de Orçamento de material."
+        "Descontinuado: Usar Opção do Chamados SAP"
     },
     "TELEFONIA": {
         "FALHA DE AUTENTICAÇÃO": "Telefonia apresenta falha de autenticação.",
