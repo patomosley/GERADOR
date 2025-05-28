@@ -5,129 +5,321 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon/pato.png" type="image/x-icon">
     <title>Gerador de Padrões</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fafafa;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            margin: 0;
             padding: 20px;
-            box-sizing: border-box;
-            overflow: hidden;
+            color: #1a1a1a;
         }
+
         .container {
             background: white;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.06);
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
+            padding: 40px;
+            border: 1px solid #f0f0f0;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
             text-align: center;
-            box-sizing: border-box;
-            animation: fadeIn 0.5s ease-in-out;
+            margin-bottom: 32px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
         }
-        h2 {
-            margin-bottom: 20px;
+
+        .header p {
+            color: #666;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
             color: #333;
+            margin-bottom: 8px;
         }
-        input, select, button {
-            width: calc(100% - 24px);
-            margin-top: 12px;
-            padding: 14px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            background: #fafafa;
+            transition: all 0.3s ease;
             outline: none;
-            transition: 0.3s;
-            box-sizing: border-box;
-            text-transform: uppercase;
         }
-        input:focus, select:focus {
-            border-color: #764ba2;
-            box-shadow: 0 0 10px rgba(118, 75, 162, 0.4);
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: #ff6b35;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
         }
-        button {
-            background: #764ba2;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.2s ease-in-out, background 0.3s;
+
+        .form-input::placeholder {
+            color: #999;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
             border: none;
-            font-weight: bold;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+            position: relative;
+            overflow: hidden;
         }
-        button:hover {
-            background: #5a3d8f;
-            transform: scale(1.05);
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            margin-bottom: 24px;
         }
-        .output {
-            margin-top: 20px;
-            padding: 15px;
-            background: #e9ecef;
-            border-radius: 8px;
-            word-wrap: break-word;
-            font-weight: bold;
-            font-size: 18px;
-            color: #333;
-            border-left: 5px solid #764ba2;
-            text-transform: uppercase;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.5s, transform 0.5s;
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
         }
-        .output.show {
-            opacity: 1;
+
+        .btn-primary:active {
             transform: translateY(0);
         }
-        .copy-button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background: #5a3d8f;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            border: none;
-            font-weight: bold;
+
+        .results {
+            display: none;
+            animation: fadeInUp 0.5s ease;
         }
-        .copy-button:hover {
-            background: #764ba2;
+
+        .results.show {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            background: #fafafa;
+            border: 1px solid #f0f0f0;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .result-card h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ff6b35;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-content {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #333;
+            word-break: break-word;
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #ff6b35;
+            border: 2px solid #ff6b35;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-secondary:hover {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .btn-back {
+            background: #f5f5f5;
+            color: #666;
+            border: 2px solid #e5e5e5;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-back:hover {
+            background: #e5e5e5;
+            color: #333;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b35;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .btn-group {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Gerador de Padrões</h2>
-        <input type="text" id="projetoFilho" placeholder="Projeto Filho">
-        <input type="text" id="cliente" placeholder="Cliente">
-        <select id="tipoAtendimento">
-            <option value="NOVO PROJETO">NOVO PROJETO</option>
-            <option value="SUPLEMENTAÇÃO PROJETO">SUPLEMENTAÇÃO PROJETO</option>
-            <option value="RETIFICAÇÃO PROJETO">RETIFICAÇÃO PROJETO</option>
-        </select>
-        <button onclick="gerarPadrao()">Gerar Padrão</button>
+        <div class="header">
+            <h1>Gerador de Padrões</h1>
+            <p>Crie padrões de projeto de forma rápida e eficiente</p>
+        </div>
 
-        <div id="descricao" class="output"></div>
-        <div id="observacao" class="output"></div>
+        <form id="form">
+            <div class="form-group">
+                <label class="form-label" for="projetoFilho">Projeto Filho</label>
+                <input type="text" id="projetoFilho" class="form-input" placeholder="Digite o nome do projeto">
+            </div>
 
-        <button class="copy-button" onclick="copiarDescricao()">Copiar Descrição</button>
-        <button class="copy-button" onclick="copiarObservacao()">Copiar Observação</button>
-        <button onclick="voltarPagina()">Voltar</button>
+            <div class="form-group">
+                <label class="form-label" for="cliente">Cliente</label>
+                <input type="text" id="cliente" class="form-input" placeholder="Digite o nome do cliente">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="tipoAtendimento">Tipo de Atendimento</label>
+                <select id="tipoAtendimento" class="form-select">
+                    <option value="NOVO PROJETO">Novo Projeto</option>
+                    <option value="SUPLEMENTAÇÃO PROJETO">Suplementação Projeto</option>
+                    <option value="RETIFICAÇÃO PROJETO">Retificação Projeto</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Gerar Padrão</button>
+        </form>
+
+        <div id="results" class="results">
+            <div class="result-card">
+                <h3>Descrição</h3>
+                <div id="descricaoContent" class="result-content"></div>
+            </div>
+
+            <div class="result-card">
+                <h3>Observação</h3>
+                <div id="observacaoContent" class="result-content"></div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="copiarTexto('descricao')">
+                    Copiar Descrição
+                </button>
+                <button class="btn btn-secondary" onclick="copiarTexto('observacao')">
+                    Copiar Observação
+                </button>
+            </div>
+
+            <button class="btn btn-back" onclick="voltarPagina()">
+                Voltar à Página Inicial
+            </button>
+        </div>
     </div>
 
+    <div id="notification" class="notification"></div>
+
     <script>
+        const form = document.getElementById('form');
+        const results = document.getElementById('results');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            gerarPadrao();
+        });
+
         function gerarPadrao() {
-            const tipoAtendimento = document.getElementById("tipoAtendimento").value.toUpperCase();
-            const cliente = document.getElementById("cliente").value.toUpperCase();
-            const projetoFilho = document.getElementById("projetoFilho").value.toUpperCase();
+            const tipoAtendimento = document.getElementById("tipoAtendimento").value;
+            const cliente = document.getElementById("cliente").value.trim().toUpperCase();
+            const projetoFilho = document.getElementById("projetoFilho").value.trim().toUpperCase();
             
-            if (!tipoAtendimento || !cliente || !projetoFilho) {
-                alert("Preencha todos os campos!");
+            if (!cliente || !projetoFilho) {
+                mostrarNotificacao("Por favor, preencha todos os campos!", "error");
                 return;
             }
             
@@ -142,42 +334,66 @@
                 case "RETIFICAÇÃO PROJETO":
                     descricao = "Realizar retificação do projeto conforme os ajustes indicados.";
                     break;
-                default:
-                    descricao = "";
             }
 
-            const descricaoDiv = document.getElementById("descricao");
-            descricaoDiv.innerText = `${projetoFilho} - ${cliente} - ${tipoAtendimento}`;
-            descricaoDiv.classList.add("show");
-
-            const observacaoDiv = document.getElementById("observacao");
-            observacaoDiv.innerText = `${descricao}`;
-            observacaoDiv.classList.add("show");
+            document.getElementById("descricaoContent").textContent = 
+                `${projetoFilho} - ${cliente} - ${tipoAtendimento}`;
+            
+            document.getElementById("observacaoContent").textContent = descricao;
+            
+            results.classList.add("show");
+            results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            mostrarNotificacao("Padrão gerado com sucesso!", "success");
         }
 
-        function copiarDescricao() {
-            const descricao = document.getElementById("descricao").innerText;
-            if (!descricao) {
-                alert("Nada para copiar!");
+        function copiarTexto(tipo) {
+            const elemento = tipo === 'descricao' ? 
+                document.getElementById("descricaoContent") : 
+                document.getElementById("observacaoContent");
+            
+            const texto = elemento.textContent;
+            
+            if (!texto.trim()) {
+                mostrarNotificacao("Nada para copiar! Gere um padrão primeiro.", "error");
                 return;
             }
-            navigator.clipboard.writeText(descricao);
-            alert("Descrição copiada!");
-        }
-
-        function copiarObservacao() {
-            const observacao = document.getElementById("observacao").innerText;
-            if (!observacao) {
-                alert("Nada para copiar!");
-                return;
-            }
-            navigator.clipboard.writeText(observacao);
-            alert("Observação copiada!");
+            
+            navigator.clipboard.writeText(texto).then(() => {
+                const tipoTexto = tipo === 'descricao' ? 'Descrição' : 'Observação';
+                mostrarNotificacao(`${tipoTexto} copiada para a área de transferência!`, "success");
+            }).catch(() => {
+                mostrarNotificacao("Erro ao copiar texto.", "error");
+            });
         }
 
         function voltarPagina() {
             window.location.href = 'index.html';
         }
+
+        function mostrarNotificacao(mensagem, tipo) {
+            const notification = document.getElementById('notification');
+            notification.textContent = mensagem;
+            notification.style.background = tipo === 'success' ? '#ff6b35' : '#ff4757';
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Adicionar efeito de loading no botão
+        form.addEventListener('submit', function() {
+            const btn = form.querySelector('.btn-primary');
+            const originalText = btn.textContent;
+            btn.textContent = 'Gerando...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 500);
+        });
     </script>
 </body>
 </html>
