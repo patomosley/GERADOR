@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Solicitação de Material</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff8c00 0%, #ff7700 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff8c00;
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+        }
+
+        .material-item input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background: #fafafa;
+            transition: all 0.2s ease;
+            color: #333;
+        }
+
+        .material-item input:focus {
+            outline: none;
+            border-color: #ff8c00;
+            background: white;
+            box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.08);
+        }
+
+        .material-item input:hover {
+            border-color: #ddd;
+            background: #f8f8f8;
+        }
+
+        .material-item label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #555;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .materials-section {
+            background: #fefefe;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .materials-title {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 25px;
+            text-align: left;
+            border-bottom: 1px solid #f5f5f5;
+            padding-bottom: 10px;
+        }
+
+        .material-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: end;
+            padding: 15px 0;
+            border-bottom: 1px solid #f8f8f8;
+        }
+
+        .material-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .material-input {
+            flex: 2;
+        }
+
+        .quantity-input {
+            flex: 1;
+        }
+
+        .remove-btn {
+            background: #f8f8f8;
+            color: #666;
+            border: 1px solid #e8e8e8;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            font-weight: 400;
+        }
+
+        .remove-btn:hover {
+            background: #f0f0f0;
+            color: #444;
+            border-color: #ddd;
+        }
+
+        .add-material-btn {
+            background: white;
+            color: #ff8c00;
+            border: 1px solid #ff8c00;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-top: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .add-material-btn:hover {
+            background: #ff8c00;
+            color: white;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #ff8c00;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e67c00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #ff8c00 0%, #ff7700 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .result-item h3 {
+            color: #ff8c00;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .result-text {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ff8c00;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff8c00;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #e67c00;
+            transform: scale(1.05);
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff8c00;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+            z-index: 1001;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .notification.success {
+            background: #28a745;
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .material-item {
+                flex-direction: column;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sistema de Solicitação</h1>
+            <p>Criação de Padrões de Material</p>
+        </div>
+
+        <div class="form-container">
+            <form id="materialForm">
+                <div class="form-group">
+                    <label for="clientName">NOME DO CLIENTE:</label>
+                    <input type="text" id="clientName" name="clientName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectChild">PROJETO FILHO:</label>
+                    <input type="text" id="projectChild" name="projectChild" required>
+                </div>
+
+                <div class="materials-section">
+                    <h3 class="materials-title">Material a ser solicitado</h3>
+                    <div id="materialsContainer">
+                        <div class="material-item">
+                            <div class="material-input">
+                                <label>MATERIAL:</label>
+                                <input type="text" name="material" required>
+                            </div>
+                            <div class="quantity-input">
+                                <label>QUANTIDADE:</label>
+                                <input type="text" name="quantity" required>
+                            </div>
+                            <button type="button" class="remove-btn" onclick="removeMaterial(this)" style="display: none;">Remover</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-material-btn" onclick="addMaterial()">+ Adicionar Material</button>
+                </div>
+
+                <div class="buttons-container">
+                    <button type="submit" class="btn btn-primary">Gerar Solicitação</button>
+                    <button type="button" class="btn btn-secondary" onclick="voltarPagina()">Voltar à Página Principal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Solicitação Gerada</h2>
+            </div>
+            <div class="modal-body">
+                <div class="result-item">
+                    <h3>Título da Solicitação</h3>
+                    <button class="copy-btn" onclick="copyText('titleText')">Copiar</button>
+                    <div class="result-text" id="titleText"></div>
+                </div>
+                <div class="result-item">
+                    <h3>Descrição da Solicitação</h3>
+                    <button class="copy-btn" onclick="copyText('descriptionText')">Copiar</button>
+                    <div class="result-text" id="descriptionText"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let materialCount = 1;
+
+        function addMaterial() {
+            materialCount++;
+            const container = document.getElementById('materialsContainer');
+            const newMaterial = document.createElement('div');
+            newMaterial.className = 'material-item';
+            newMaterial.innerHTML = `
+                <div class="material-input">
+                    <label>MATERIAL:</label>
+                    <input type="text" name="material" required>
+                </div>
+                <div class="quantity-input">
+                    <label>QUANTIDADE:</label>
+                    <input type="text" name="quantity" required>
+                </div>
+                <button type="button" class="remove-btn" onclick="removeMaterial(this)">Remover</button>
+            `;
+            container.appendChild(newMaterial);
+            updateRemoveButtons();
+            showNotification('Material adicionado com sucesso!', 'success');
+        }
+
+        function removeMaterial(button) {
+            const materialItem = button.parentElement;
+            materialItem.remove();
+            materialCount--;
+            updateRemoveButtons();
+            showNotification('Material removido com sucesso!', 'success');
+        }
+
+        function updateRemoveButtons() {
+            const removeButtons = document.querySelectorAll('.remove-btn');
+            removeButtons.forEach(btn => {
+                btn.style.display = materialCount > 1 ? 'block' : 'none';
+            });
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('Texto copiado para a área de transferência!', 'success');
+            }).catch(() => {
+                showNotification('Erro ao copiar texto!', 'error');
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('resultModal').style.display = 'none';
+        }
+
+        function voltarPagina() {
+            if (confirm('Tem certeza que deseja voltar? Os dados não salvos serão perdidos.')) {
+                showNotification('Voltando à página principal...', 'success');
+                // Aqui você pode redirecionar para sua página principal
+                // window.location.href = 'sua-pagina-principal.html';
+            }
+        }
+
+        // Event listener para fechar modal com ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Event listener para fechar modal clicando fora
+        document.getElementById('resultModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        // Form submit handler
+        document.getElementById('materialForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const clientName = document.getElementById('clientName').value;
+            const projectChild = document.getElementById('projectChild').value;
+            const materials = document.querySelectorAll('input[name="material"]');
+            const quantities = document.querySelectorAll('input[name="quantity"]');
+
+            // Gerar título
+            const title = `[ESTOQUE] - SOLICITAÇÃO DE MATERIAL - ${clientName.toUpperCase()} - ${projectChild.toUpperCase()}`;
+
+            // Gerar descrição
+            let description = `Realizar separação de material a seguir:\n\n`;
+            for (let i = 0; i < materials.length; i++) {
+                if (materials[i].value && quantities[i].value) {
+                    description += `• ${materials[i].value} - Quantidade: ${quantities[i].value}\n`;
+                }
+            }
+
+            // Mostrar no modal
+            document.getElementById('titleText').textContent = title;
+            document.getElementById('descriptionText').textContent = description;
+            document.getElementById('resultModal').style.display = 'block';
+
+            showNotification('Solicitação gerada com sucesso!', 'success');
+        });
+
+        // Inicializar
+        updateRemoveButtons();
+    </script>
+</body>
+</html>
