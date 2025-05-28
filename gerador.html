@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Padrões de Chamados</title>
+  <style>
+    * { box-sizing: border-box; }
+    
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --accent-color: #ff7700;
+      --accent-hover: #ff9933;
+      --menu-bg: #ffffff;
+      --menu-text: #333333;
+      --menu-hover: #f0f0f0;
+      --menu-active: #fff0e6;
+      --border-color: #e0e0e0;
+      --input-bg: #ffffff;
+      --input-border: #dddddd;
+      --shadow-color: rgba(0,0,0,0.1);
+      --notification-bg: #ff7700;
+      --notification-text: #ffffff;
+      --modal-bg: #ffffff;
+      --modal-overlay: rgba(0,0,0,0.5);
+    }
+    
+    [data-theme="dark"] {
+      --bg-primary: #121212;
+      --bg-secondary: #1e1e1e;
+      --text-primary: #e0e0e0;
+      --text-secondary: #aaaaaa;
+      --accent-color: #7e57c2;
+      --accent-hover: #9575cd;
+      --menu-bg: #1e1e1e;
+      --menu-text: #e0e0e0;
+      --menu-hover: #2d2d2d;
+      --menu-active: #2c2440;
+      --border-color: #333333;
+      --input-bg: #2d2d2d;
+      --input-border: #444444;
+      --shadow-color: rgba(0,0,0,0.3);
+      --notification-bg: #7e57c2;
+      --notification-text: #ffffff;
+      --modal-bg: #1e1e1e;
+      --modal-overlay: rgba(0,0,0,0.7);
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      height: 100vh;
+      transition: all 0.3s ease;
+    }
+
+    /* MENU */
+    .sidebar {
+      width: 250px;
+      background: var(--menu-bg);
+      color: var(--menu-text);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 15px;
+      box-shadow: 0 0 15px var(--shadow-color);
+      position: relative;
+      overflow-y: auto;
+      transition: all 0.3s ease;
+    }
+    
+    .theme-toggle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--accent-color);
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px var(--shadow-color);
+      z-index: 5;
+    }
+    
+    .theme-toggle:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .menu-category {
+      margin-top: 15px;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border-color);
+    }
+
+    .menu-category h3 {
+      font-size: 14px;
+      padding: 12px 15px;
+      margin: 0;
+      background: var(--menu-bg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .menu-category h3:after {
+      content: "▼";
+      font-size: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .menu-category h3:hover {
+      background: var(--menu-hover);
+    }
+
+    .submenu {
+      display: none;
+      flex-direction: column;
+      background: var(--menu-bg);
+      padding: 5px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.215, 0.610, 0.355, 1.000), 
+                  opacity 0.4s ease, 
+                  padding 0.4s ease;
+      opacity: 0;
+    }
+    
+    .submenu.active {
+      max-height: 300px;
+      opacity: 1;
+      display: flex;
+    }
+
+    .submenu a {
+      margin: 2px 0;
+      text-decoration: none;
+      color: var(--menu-text);
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.3s;
+      font-size: 13px;
+      position: relative;
+      padding-left: 20px;
+      transform: translateX(-10px);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+    }
+    
+    .submenu.active a {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .submenu.active a:nth-child(1) { transition-delay: 0.05s; }
+    .submenu.active a:nth-child(2) { transition-delay: 0.1s; }
+    .submenu.active a:nth-child(3) { transition-delay: 0.15s; }
+    .submenu.active a:nth-child(4) { transition-delay: 0.2s; }
+    .submenu.active a:nth-child(5) { transition-delay: 0.25s; }
+
+    .submenu a:before {
+      content: "•";
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent-color);
+    }
+
+    .submenu a:hover {
+      background: var(--menu-hover);
+      transform: translateX(3px);
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      background: var(--bg-secondary);
+      transition: all 0.3s ease;
+    }
+
+    h1 { 
+      color: var(--text-primary); 
+      font-size: 24px;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    h1:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--accent-color);
+      border-radius: 3px;
+    }
+
+    .form-group { 
+      margin-bottom: 20px; 
+      position: relative;
+    }
+
+    label { 
+      font-weight: 500; 
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text-primary);
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb, 255, 119, 0), 0.2);
+    }
+
+    .buttons-container {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    button {
+      padding: 10px 16px;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button:hover { 
+      background: var(--accent-hover); 
+      transform: translateY(-2px);
+    }
+    
+    button.secondary {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+    
+    button.secondary:hover {
+      background: var(--menu-hover);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(3px);
+      background: var(--modal-overlay);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: var(--modal-bg);
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 25px var(--shadow-color);
+      text-align: center;
+      color: var(--text-primary);
+    }
+
+    .modal-content h3 { 
+      margin-top: 0; 
+      color: var(--text-primary); 
+      font-size: 18px;
+    }
+    
+    .modal-content pre {
+      text-align: left;
+      background: var(--bg-secondary);
+      padding: 15px;
+      border-radius: 6px;
+      overflow: auto;
+      color: var(--text-primary);
+      font-family: monospace;
+      margin: 15px 0;
+    }
+    
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .notification {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--notification-bg);
+      color: var(--notification-text);
+      padding: 12px 20px;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px var(--shadow-color);
+      z-index: 100;
+      animation: fadeInOut 2s forwards;
+      font-size: 14px;
+    }
+    
+    .alert-popup {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--notification-bg);
+      color: var(--notification-text);
+      padding: 12px 20px;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px var(--shadow-color);
+      z-index: 100;
+      animation: fadeInOut 3s forwards;
+      font-size: 14px;
+      text-align: center;
+      max-width: 80%;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(-20px) translateX(-50%);}
+      10% { opacity: 1; transform: translateY(0) translateX(-50%);}
+      90% { opacity: 1; transform: translateY(0) translateX(-50%);}
+      100% { opacity: 0; transform: translateY(-20px) translateX(-50%);}
+    }
+    
+    /* Responsividade */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        height: auto;
+      }
+      
+      .sidebar {
+        width: 100%;
+        max-height: 300px;
+      }
+      
+      .content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="menu-category">
+    <h3 onclick="toggleMenu(this)">Sistemas Revan</h3>
+    <div class="submenu">
+      <a href="sistema1.html">Sistema 1</a>
+      <a href="sistema2.html">Sistema 2</a>
+    </div>
+  </div>
+
+  <div class="menu-category">
+    <h3 onclick="toggleMenu(this)">Solicitações de Material</h3>
+    <div class="submenu">
+      <a href="material1.html">Material 1</a>
+      <a href="material2.html">Material 2</a>
+    </div>
+  </div>
+
+  <div class="menu-category">
+    <h3 onclick="toggleMenu(this)">Solicitações SAP</h3>
+    <div class="submenu">
+      <a href="sap1.html">SAP 1</a>
+      <a href="sap2.html">SAP 2</a>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <button class="theme-toggle" id="themeToggle">🌙</button>
+  <h1>Gerador de Padrões de Chamados</h1>
+
+  <div class="form-group">
+    <label>Nome do Cliente:</label>
+    <input type="text" id="cliente">
+  </div>
+
+  <div class="form-group">
+    <label>Código de Contrato:</label>
+    <input type="text" id="codigo">
+  </div>
+
+  <div class="form-group">
+    <label>Setor:</label>
+      <select id="setor" onchange="atualizarTipos()">
+          <option value="">Selecionar Opção</option>
+          <option value="GPON">GPON</option>
+          <option value="MONITORAMENTO SUPORTE">MONITORAMENTO SUPORTE</option>
+          <option value="NOC-ENGENHARIA">NOC-ENGENHARIA</option>
+          <option value="NOC-OM">NOC-OM</option>
+          <option value="NOC-SO">NOC-SO</option>
+          <option value="TELEFONIA">TELEFONIA</option>
+      </select>
+  </div>
+
+  <div class="form-group">
+    <label>Tipo de Solicitação:</label>
+    <select id="tipo">
+      <option value="">Selecionar Opção</option>
+    </select>
+  </div>
+
+  <div class="buttons-container">
+    <button onclick="gerarChamado()">Gerar Chamado</button>
+    <button class="secondary" onclick="limparFormulario()">Limpar</button>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3>Título:</h3>
+    <p id="titulo"></p>
+
+    <h3>Descrição:</h3>
+    <pre id="descricao"></pre>
+
+    <div class="modal-buttons">
+      <button onclick="copiarTexto()">Copiar</button>
+      <button class="secondary" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="notification" id="notification">Copiado com sucesso!</div>
+<div class="alert-popup" id="alertPopup"></div>
+
+<script>
+  // Dados de tipos por setor
+  const tipos = {
+    "GPON": ["ATUALIZAR ONU", "CONFIGURAR VLAN", "TESTE DE P2P", "TESTE P2P L2L", "VERIFICAÇÃO DE ONU"],
+    "MONITORAMENTO SUPORTE": ["ALTERAÇÃO IP UNIDADE CADASTRADA", "CADASTRO DE CIRCUITO"],
+    "NOC-ENGENHARIA": ["VIABILIDADE PARA ATIVAÇÃO", "VIABILIDADE PARA UPGRADE"],
+    "NOC-OM": ["ATIVAÇÃO DE INTERFACE", "RESERVA DE INTERFACE"],
+    "NOC-SO": ["ALTERAR CONFIGURAÇÃO", "ALTERAR PLANO", "CANCELAMENTO DE CLIENTE", "CONFIGURAR IPT", "CONFIGURAR IPT SENCINET", "CONFIGURAR L2VPN", "CONFIGURAR L3VPN", "CONFIGURAR L3VPN ETICE", "IP DEDICADO DIRETO", "IP DEDICADO ROTEADO", "LIBERAR PREFIXOS", "REDE DE GERENCIA", "REMOVER FILTRO", "REVISAO DE CONFIGURAÇÃO", "SITE SEM ACESSO"],
+    "TELEFONIA": ["ALTERAÇÃO DE LIMITE", "ATIVAÇÃO DE CLIENTE", "BLOQUEIO LIGAÇÕES INTERNACIONAIS", "BLOQUEIO LIGAÇÕES PARA NUMERO ESPECIFICO", "BLOQUEIO PARA LIGAÇÕES 0300/0500", "CANCELAMENTO", "DESBLOQUEIO LIGAÇÕES INTERNACIONAIS", "DESBLOQUEIO LIGAÇÕES PARA NUMERO ESPECIFICO", "DESBLOQUEIO PARA LIGAÇÕES 0300/0500", "EDD DOWN", "FALHA DE AUTENTICAÇÃO", "HISTORICO DE LIGAÇÕES", "LIMITADOR DE CONSUMO", "LIGAÇÃO FEITA FALHANDO", "NAO EFETUA LIGAÇÃO", "NAO RECEBE LIGAÇÕES", "SUPORTE INTERNO"]
+
+  };
+
+  // Descrições personalizadas por tipo e setor
+  const descricoes = {
+		"GPON": {
+			"ATUALIZAR ONU": "Verificar se ONU possui atualizações disponíveis, caso sim, realizar atualização da mesma\n\n*ONU:\n*OLT:",
+			"CONFIGURAR VLAN": "Realizar configuração de VLAN\n\n*LAN:\n*VLAN:\n*OLT:",
+			"TESTE DE P2P": "Configurar Rede na ONU e realizar teste de conexão entre o HOST e GW\n\n*REDE:\n*HOST:\n*GATEWAY:\n*VLAN:",
+			"TESTE P2P L2L": "Realizar configuração de uma rede nas ONUs e realizar teste de ICMP entre as mesmas para testarmos a comunicação.\n\n*REDE:\n\nPONTA A\n*ONU:\n*VLAN:\n*HOST:\n\nPONTA B\n*ONU:\n*VLAN:\n*HOST:",
+			"VERIFICAÇÃO DE ONU": "Peço para que seja realizada a verificação da ONU\nMotivo da verificação:"
+		},
+		"MONITORAMENTO SUPORTE": {
+			"ALTERAÇÃO IP UNIDADE CADASTRADA": "Por gentileza, realizar alteração de monitoramento da unidade que já atendemos.",
+			"CADASTRO DE CIRCUITO": "Realizar cadastro de unidade no monitoramento."
+		},
+		"NOC-ENGENHARIA": {
+			"VIABILIDADE PARA ATIVAÇÃO": "    CNPJ:\n\nCOD CONTRATO:\n\nPor favor verificar se temos capacidade para atender ativação mediante dados informados.",
+			"VIABILIDADE PARA UPGRADE": "CNPJ:\n\nCOD CONTRATO:\n\nPor favor verificar se temos capacidade para atender upgrade mediante dados informados."
+		},
+		"NOC-OM": {
+			"ATIVAÇÃO DE INTERFACE": "Por gentileza, realizar configuração da interface, segue dados abaixo.\n\n*SWITCH:\n*INTERFACE:",
+			"RESERVA DE INTERFACE": "Por gentileza, realizar reserva de interface para ativação do cliente."
+		},
+		"NOC-SO": {
+			"ALTERAR CONFIGURAÇÃO": "Por favor realizar alteração de configuração\n\nMotivo:\n\n*DEVICE\n*INTERFACE:\n*VLAN:",
+			"ALTERAR PLANO": "Realizar alteração de Plano do Cliente\n\n*VLAN:",
+			"CANCELAMENTO DE CLIENTE": "Peço que seja removida a configuração do cliente mediante os dados informados\n\n*VLAN:",
+			"CONFIGURAR IPT": "Peço que seja configurado o circuito BGP de acordo com os dados descritos\n\n*VLAN: A Definir\n*Cap. de Tráfego:\n*ASN:\n*CIDR v4:\n*CIDR v6:\n*Routing Table:\n*Radb:",
+			"CONFIGURAR IPT SENCINET": "Peço para que seja realizado configuração do IPT do cliente Sencient\n\n*VLAN: A DEFINIR\n\n*LOCAL-PEER: \n*LOCAL-AS: 64999\n*REMOTE PEER:\n*REMOTE AS: 64765\n\n*LIMITE PREFIXO: 10",
+			"CONFIGURAR L2VPN": "Peço que seja configurado o L2VPN com base nas informações descritas.\n\n*Vlan: A definir\n\nPonta A:\n*Cód Contrato:\n*Device:\n*Interface:\n\nPonta B:",
+			"CONFIGURAR L3VPN": "Peço que seja configurado o L3VPN com base nas informações descritas.\n\n*Vlan: A Definir\n*Rede lan:",
+			"CONFIGURAR L3VPN ETICE": "Peço que seja configurado o L3VPN com base nas informações descritas.\n\n*VRF:\n*Vlan: A Definir\n*Rede lan:",
+			"IP DEDICADO DIRETO": "Peço que seja configurado circuito IP dedicado com base nas informações descritas\n\nVlan: A definir\nPeer Valido: A definir\nMáscara:",
+			"IP DEDICADO ROTEADO": "Peço que seja configurado circuito IP dedicado com base nas informações descritas\n\nVlan: A definir\nPeer Valido: A definir\nMáscara:\n\nPeer Privado: A Definir",
+			"LIBERAR PREFIXOS": "Peço que sejam liberados os prefixos descritos abaixo:\n\n*ASN:\n*PREFIX V4:\n*PREFIX V6:\n*RADB:\n\nLiberar na policy do cliente a seguir\n\n*CLIENTE:\n*ASN:\n*VLAN:",
+			"REDE DE GERENCIA": "Realizar configuração de rede de gerencia para o cliente.\n\n*VLAN: A DEFINIR",
+			"REMOVER FILTRO": "Realizar remoção de filtro\n\n*IP:\n*LOGIN:\n*PORTA A SER REMOVIDA:",
+			"REVISAO DE CONFIGURAÇÃO": "DESCRIÇÃO DO PROBLEMA:\n\n*VLAN:\n*DEVICE:\n*INTERFACE:",
+			"SITE SEM ACESSO": "Cliente reclama que não consegue acesso a sites em específico no seu LINK\n\nSITE:\n*VLAN:\n*Device\n*Interface:"
+		},
+		"TELEFONIA": {
+			"ALTERAÇÃO DE LIMITE": "Cliente solicita alteração de limite alocado em sua telefonia.\n\n*Novo valor limitante R$: ",
+			"ATIVAÇÃO DE CLIENTE": "Solicito que seja realizada a configuração do serviço do cliente de acordo com a nova solicitação do mesmo repassada em projeto.\n\n*DADOS DE CONTATO:\n\n*BREVE RESUMO DO QUE DEVE SER FEITO:\n\n*SERVIÇO:\n*LINHAS:\n*EQUIPAMENTO:",
+			"BLOQUEIO LIGAÇÕES INTERNACIONAIS": "Cliente deseja que seja realizado bloqueio de ligações internacionais em sua linha.",
+			"BLOQUEIO LIGAÇÕES PARA NUMERO ESPECIFICO": "Mediante solicitação do cliente, o mesmo não deseja mais receber ligações da seguinte linha\n\n*Número para ser bloqueado:",
+			"BLOQUEIO PARA LIGAÇÕES 0300/0500": "Cliente deseja que linha não receba ligações dos números 0300/0500.",
+			"CANCELAMENTO": "Cliente deseja que seu serviço atual seja desativado.\n\n*Motivo:",
+			"DESBLOQUEIO LIGAÇÕES INTERNACIONAIS": "Cliente deseja que seja realizado seu desbloqueio para conseguir ligar internacionalmente.",
+			"DESBLOQUEIO LIGAÇÕES PARA NUMERO ESPECIFICO": "Mediante solicitação do cliente, o mesmo deseja receber ligações da seguinte linha bloqueada\n\n*Número para ser desbloqueado:",
+			"DESBLOQUEIO PARA LIGAÇÕES 0300/0500": "Cliente deseja que linha possa receber ligações dos números 0300/0500.",
+			"EDD DOWN": "Realizar verificação do status do EDD.",
+			"FALHA DE AUTENTICAÇÃO": "Telefonia apresenta falha de autenticação.",
+			"HISTORICO DE LIGAÇÕES": "Cliente solicita histórico de ligações.\n\n*Período Solicitado:",
+			"LIMITADOR DE CONSUMO": "Cliente solicita que em sua telefonia haja bloqueio de limite\n\n*Valor limitante R$: ",
+			"LIGAÇÃO FEITA FALHANDO": "Serviço de telefonia apresenta instabilidade nas ligações realizadas.",
+			"NAO EFETUA LIGAÇÃO": "Serviço de telefonia não está efetuando ligações.\n\n*Operadoras testadas:",
+			"NAO RECEBE LIGAÇÕES": "Serviço de telefonia não recebe ligações.\n\n*Operadoras testadas:",
+			"SUPORTE INTERNO": "Realizar verificação de serviço.\n\n*Reclamação do cliente:"
+		}
+  };
+
+  // Atualiza tipos conforme o setor selecionado
+  function atualizarTipos() {
+    const setor = document.getElementById('setor').value;
+    const tipoSelect = document.getElementById('tipo');
+    tipoSelect.innerHTML = '';
+    
+    // Adiciona a opção padrão
+    const defaultOption = document.createElement('option');
+    defaultOption.value = "";
+    defaultOption.textContent = "Selecionar Opção";
+    tipoSelect.appendChild(defaultOption);
+    
+    // Se um setor foi selecionado, adiciona as opções correspondentes
+    if (setor) {
+      tipos[setor].forEach(tipo => {
+        const option = document.createElement('option');
+        option.value = tipo;
+        option.textContent = tipo;
+        tipoSelect.appendChild(option);
+      });
+    }
+  }
+
+  atualizarTipos(); // inicialização
+
+  // Gera o chamado
+  function gerarChamado() {
+    const cliente = document.getElementById('cliente').value.trim();
+    const codigo = document.getElementById('codigo').value.trim();
+    const setor = document.getElementById('setor').value;
+    const tipo = document.getElementById('tipo').value;
+    
+    if (!cliente || !codigo) {
+      mostrarAlerta('Por favor, preencha o Nome do Cliente e o Código de Contrato.');
+      return;
+    }
+    
+    if (!setor) {
+      mostrarAlerta('Por favor, selecione um Setor.');
+      return;
+    }
+    
+    if (!tipo) {
+      mostrarAlerta('Por favor, selecione um Tipo de Solicitação.');
+      return;
+    }
+
+    const titulo = `[${setor}]-${tipo} DE CLIENTE-${cliente}-${codigo}`;
+    const descricao = descricoes[setor][tipo] || "Descrição não definida para esta combinação.";
+
+    document.getElementById('titulo').textContent = titulo;
+    document.getElementById('descricao').textContent = descricao;
+
+    abrirModal();
+  }
+  
+  // Limpa o formulário
+  function limparFormulario() {
+    document.getElementById('cliente').value = '';
+    document.getElementById('codigo').value = '';
+    document.getElementById('setor').value = '';
+    document.getElementById('tipo').innerHTML = '<option value="">Selecionar Opção</option>';
+    mostrarAlerta('Formulário limpo com sucesso!');
+  }
+  
+  // Mostra alerta personalizado
+  function mostrarAlerta(mensagem) {
+    const alertPopup = document.getElementById('alertPopup');
+    alertPopup.textContent = mensagem;
+    alertPopup.style.display = 'block';
+    
+    setTimeout(() => {
+      alertPopup.style.display = 'none';
+    }, 3000);
+  }
+
+  // Modal funções
+  function abrirModal() {
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  function fecharModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+
+  // Copia para clipboard
+  function copiarTexto() {
+    const titulo = document.getElementById('titulo').textContent;
+    const descricao = document.getElementById('descricao').textContent;
+    const texto = `Título: ${titulo}\n\nDescrição:\n${descricao}`;
+
+    navigator.clipboard.writeText(texto).then(() => {
+      const notification = document.getElementById('notification');
+      notification.style.display = 'block';
+      setTimeout(() => { notification.style.display = 'none'; }, 2000);
+    });
+  }
+
+  // Fecha modal com ESC
+  document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") { fecharModal(); }
+  });
+
+  // Menu colapsável
+  function toggleMenu(element) {
+    const submenu = element.nextElementSibling;
+    const isOpen = submenu.classList.contains('active');
+    
+    // Fecha todos os outros submenus
+    document.querySelectorAll('.submenu.active').forEach(item => {
+      if (item !== submenu) {
+        item.classList.remove('active');
+        item.previousElementSibling.style.transform = 'rotate(0deg)';
+      }
+    });
+    
+    // Alterna o estado do submenu atual
+    if (isOpen) {
+      submenu.classList.remove('active');
+      element.style.transform = 'rotate(0deg)';
+    } else {
+      submenu.classList.add('active');
+      element.style.transform = 'rotate(-180deg)';
+    }
+  }
+  
+  // Alternância de tema
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', function() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    
+    if (currentTheme === 'light') {
+      html.setAttribute('data-theme', 'dark');
+      themeToggle.textContent = '☀️';
+    } else {
+      html.setAttribute('data-theme', 'light');
+      themeToggle.textContent = '🌙';
+    }
+  });
+</script>
+
+</body>
+</html>
