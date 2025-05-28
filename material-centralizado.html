@@ -2,45 +2,116 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Gerador de Descrições</title>
+  <title>Padrao Solicitação Material Centralizado</title>
+  <title>PSMC</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
-      background: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
     .container {
       background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      max-width: 600px;
-      margin: auto;
-    }
-    input, button {
-      padding: 10px;
-      margin: 5px 0;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 500px;
       width: 100%;
-      border-radius: 8px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+      color: #555;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
       border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
     }
     .material-item {
       display: flex;
       gap: 10px;
-      margin-bottom: 10px;
+      margin-top: 10px;
     }
     .material-item input {
       flex: 1;
     }
     .btn {
-      cursor: pointer;
-      background: #007bff;
+      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      background: #4CAF50;
       color: white;
       border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
       transition: background 0.3s ease;
     }
     .btn:hover {
-      background: #0056b3;
+      background: #45a049;
+    }
+    .btn-secondary {
+      background: #2196F3;
+    }
+    .btn-secondary:hover {
+      background: #1976D2;
+    }
+    .btn-link {
+      background: transparent;
+      color: #2196F3;
+      text-decoration: underline;
+      padding: 10px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(3px);
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .modal-content pre {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: left;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-top: 10px;
     }
     .notification {
       display: none;
@@ -51,7 +122,6 @@
       color: white;
       padding: 10px 20px;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
       animation: fadeInOut 2s forwards;
     }
     @keyframes fadeInOut {
@@ -60,39 +130,41 @@
       90% { opacity: 1; transform: translateY(0);}
       100% { opacity: 0; transform: translateY(-10px);}
     }
-    pre {
-      background: #eee;
-      padding: 10px;
-      border-radius: 8px;
-      white-space: pre-wrap;
-    }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h2>Gerador de Descrições</h2>
+  <h2>Padrao Solicitação Material Centralizado</h2>
 
   <label>PROJETO:</label>
-  <input type="text" id="projeto" placeholder="Digite o nome do projeto">
+  <input type="text" id="projeto" placeholder="Nome do projeto">
 
   <label>DIAGRAMA:</label>
-  <input type="text" id="diagrama" placeholder="Digite o diagrama">
+  <input type="text" id="diagrama" placeholder="Código do diagrama">
 
   <div id="materiais-container">
     <label>MATERIAIS:</label>
     <div class="material-item">
       <input type="text" placeholder="Material" class="material">
-      <input type="number" placeholder="Quantidade" class="quantidade" min="1">
+      <input type="number" placeholder="Qtd" class="quantidade" min="1">
     </div>
   </div>
 
-  <button class="btn" onclick="addMaterial()">+ Adicionar Material</button>
+  <button class="btn-secondary btn" onclick="addMaterial()">+ Adicionar Material</button>
   <button class="btn" onclick="gerarDescricao()">Gerar Descrição</button>
-  <button class="btn" onclick="copiarDescricao()">Copiar</button>
 
-  <h3>Descrição:</h3>
-  <pre id="descricao"></pre>
+  <button class="btn-link" onclick="voltarPagina()">← Voltar à Página</button>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <h3>Descrição Gerada</h3>
+    <pre id="descricao"></pre>
+    <button class="btn" onclick="copiarDescricao()">Copiar</button>
+    <button class="btn-secondary btn" onclick="fecharModal()">Voltar</button>
+  </div>
 </div>
 
 <div id="notification" class="notification">Copiado com sucesso!</div>
@@ -104,7 +176,7 @@
     div.className = 'material-item';
     div.innerHTML = `
       <input type="text" placeholder="Material" class="material">
-      <input type="number" placeholder="Quantidade" class="quantidade" min="1">
+      <input type="number" placeholder="Qtd" class="quantidade" min="1">
     `;
     container.appendChild(div);
   }
@@ -120,12 +192,21 @@
     materiais.forEach((mat, index) => {
       const nome = mat.value.trim();
       const qtd = quantidades[index].value.trim();
-      if(nome) {
+      if (nome) {
         descricao += `MATERIAIS: ${nome} / QUANTIDADE: ${qtd}\n`;
       }
     });
 
     document.getElementById('descricao').textContent = descricao;
+    abrirModal();
+  }
+
+  function abrirModal() {
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  function fecharModal() {
+    document.getElementById('modal').style.display = 'none';
   }
 
   function copiarDescricao() {
@@ -138,6 +219,18 @@
       }, 2000);
     });
   }
+
+  function voltarPagina() {
+    // Substitua pela URL desejada
+    window.location.href = "pagina-anterior.html";
+  }
+
+  // Fechar modal com tecla ESC
+  document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+      fecharModal();
+    }
+  });
 </script>
 
 </body>
