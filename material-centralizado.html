@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Descrições</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .material-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .material-item input {
+      flex: 1;
+    }
+    .btn {
+      cursor: pointer;
+      background: #007bff;
+      color: white;
+      border: none;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    .notification {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      animation: fadeInOut 2s forwards;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(-10px);}
+      10% { opacity: 1; transform: translateY(0);}
+      90% { opacity: 1; transform: translateY(0);}
+      100% { opacity: 0; transform: translateY(-10px);}
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Gerador de Descrições</h2>
+
+  <label>PROJETO:</label>
+  <input type="text" id="projeto" placeholder="Digite o nome do projeto">
+
+  <label>DIAGRAMA:</label>
+  <input type="text" id="diagrama" placeholder="Digite o diagrama">
+
+  <div id="materiais-container">
+    <label>MATERIAIS:</label>
+    <div class="material-item">
+      <input type="text" placeholder="Material" class="material">
+      <input type="number" placeholder="Quantidade" class="quantidade" min="1">
+    </div>
+  </div>
+
+  <button class="btn" onclick="addMaterial()">+ Adicionar Material</button>
+  <button class="btn" onclick="gerarDescricao()">Gerar Descrição</button>
+  <button class="btn" onclick="copiarDescricao()">Copiar</button>
+
+  <h3>Descrição:</h3>
+  <pre id="descricao"></pre>
+</div>
+
+<div id="notification" class="notification">Copiado com sucesso!</div>
+
+<script>
+  function addMaterial() {
+    const container = document.getElementById('materiais-container');
+    const div = document.createElement('div');
+    div.className = 'material-item';
+    div.innerHTML = `
+      <input type="text" placeholder="Material" class="material">
+      <input type="number" placeholder="Quantidade" class="quantidade" min="1">
+    `;
+    container.appendChild(div);
+  }
+
+  function gerarDescricao() {
+    const projeto = document.getElementById('projeto').value.trim();
+    const diagrama = document.getElementById('diagrama').value.trim();
+    const materiais = document.querySelectorAll('.material');
+    const quantidades = document.querySelectorAll('.quantidade');
+
+    let descricao = `PROJETO: ${projeto}\nDIAGRAMA: ${diagrama}\n`;
+
+    materiais.forEach((mat, index) => {
+      const nome = mat.value.trim();
+      const qtd = quantidades[index].value.trim();
+      if(nome) {
+        descricao += `MATERIAIS: ${nome} / QUANTIDADE: ${qtd}\n`;
+      }
+    });
+
+    document.getElementById('descricao').textContent = descricao;
+  }
+
+  function copiarDescricao() {
+    const descricao = document.getElementById('descricao').textContent;
+    navigator.clipboard.writeText(descricao).then(() => {
+      const notification = document.getElementById('notification');
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
