@@ -1268,6 +1268,8 @@ const servicos = {
 
 const empresas = {
   'Brisanet': 'BRIT',
+  'Agility': 'AGIL',
+  'Agility Propria': 'AGILP',
   'American Tower Company': 'AMT',
   'Brasil Tower Company': 'BTC',
 };
